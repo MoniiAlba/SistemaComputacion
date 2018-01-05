@@ -1,166 +1,158 @@
 <template>
   <v-container>
     <v-card>
+      <form>
+        <v-card-title>
+          <span class="headline">Agregar alumno</span>
+        </v-card-title>
 
-      <v-card-title>
-        <span class="headline">Agregar alumno</span>
-      </v-card-title>
+        <v-container grid-list-md>
+          <v-layout row wrap>
 
-      <v-container grid-list-md>
-        <v-layout row wrap>
+            <!--PERSONAL INFORMATION-->
+            <v-container xs12 sm12>
+              <v-layout row wrap>
 
-          <!--PERSONAL INFORMATION-->
-          <v-container xs12 sm12>
-            <v-layout row wrap>
-
-              <v-flex xs12 sm3>
-                <v-text-field 
-                  box 
-                  label="Clave Única"
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12 sm3>
-                <v-text-field
-                  box
-                  label="Nombre completo"
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12 sm3>
-                <v-text-field
-                  box
-                  label="Teléfono"
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12 sm3>
-                <v-text-field
-                  box
-                  label="E-mail"
-                ></v-text-field>
-              </v-flex>
-
-            </v-layout>
-          </v-container>
-          <!--PERSONAL INFORMATION-->
-
-          <!--ADDRESS-->
-          <v-container xs12 sm6>
-            <v-layout row wrap>
-
-              <v-flex xs12 sm3>
-                <v-text-field 
-                  box 
-                  label = "Calle"
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12 sm3>
-                <v-text-field 
-                  box 
-                  label = "Número exterior"
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12 sm3>
-                <v-text-field 
-                  box 
-                  label = "Número interior"
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12 sm3>
-                <v-text-field 
-                  box 
-                  label = "Colonia"
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12 sm3>
-                <v-select
-                v-bind:items = "states"
-                label = "Estado"
-                single-line
-                bottom
-                ></v-select>
-              </v-flex>
-
-              <v-flex xs12 sm3>
-                <v-text-field 
-                  box 
-                  label = "Delegación"
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12 sm3>
-                <v-text-field 
-                  box 
-                  label = "Código postal"
-                ></v-text-field>
-              </v-flex>
-
-            </v-layout>
-          </v-container>
-          <!--ADDRESS-->
-
-          <!--BECAS & PROGRAMA-->
-          <v-container xs6 sm6>
-            <v-layout row wrap>
-
-              <v-flex xs6 sm3>
-                <v-subheader>Beca</v-subheader>
-                <v-radio-group row>
-                  <v-radio label = "Si" value = "radio-1"></v-radio>
-                  <v-radio label = "No" value = "radio-2"></v-radio>
-                </v-radio-group>
-              </v-flex>
-
-              <v-flex xs6 sm3>
-                <v-select
-                v-bind:items = "percentage"
-                label = "Porcentaje"
-                segmented
-                single-line
-                bottom
-                ></v-select>
-              </v-flex>
-
-              <v-flex xs12 sm6>
-                <v-select
-                v-bind:items = "programs"
-                label = "Programa"
-                segmented
-                single-line
-                bottom
-                ></v-select>
+                <v-flex xs12 sm3>
+                  <v-text-field 
+                    box 
+                    label="Clave Única"
+                  ></v-text-field>
                 </v-flex>
 
-            </v-layout>
-          </v-container>
-          <!--BECAS & PROGRAMA-->
+                <v-flex xs12 sm3>
+                  <v-text-field
+                    box
+                    label="Nombre completo"
+                  ></v-text-field>
+                </v-flex>
 
-          <v-container xs12 sm12 class="text-xs-center mt-3">
-            <v-btn large color="green" dark>submit</v-btn>
-            <v-btn large color="red" dark>clear</v-btn>
-          </v-container>
+                <v-flex xs12 sm3>
+                  <v-text-field
+                    box
+                    label="Teléfono"
+                  ></v-text-field>
+                </v-flex>
 
-        </v-layout>
-      </v-container>
+                <v-flex xs12 sm3>
+                  <v-text-field
+                    box
+                    label="E-mail"
+                  ></v-text-field>
+                </v-flex>
+
+              </v-layout>
+            </v-container>
+            <!--PERSONAL INFORMATION-->
+
+            <!--ADDRESS-->
+            <v-container xs12 sm6>
+              <v-layout row wrap>
+
+                <v-flex xs12 sm3>
+                  <v-text-field 
+                    box 
+                    label = "Calle"
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm3>
+                  <v-text-field 
+                    box 
+                    label = "Número exterior"
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm3>
+                  <v-text-field 
+                    box 
+                    label = "Número interior"
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm3>
+                  <v-text-field 
+                    box 
+                    label = "Colonia"
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm3>
+                  <v-select
+                  :items = "states"
+                  label = "Estado"
+                  single-line
+                  bottom
+                  ></v-select>
+                </v-flex>
+
+                <v-flex xs12 sm3>
+                  <v-text-field 
+                    box 
+                    label = "Delegación"
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm3>
+                  <v-text-field 
+                    box 
+                    label = "Código postal"
+                  ></v-text-field>
+                </v-flex>
+
+              </v-layout>
+            </v-container>
+            <!--ADDRESS-->
+
+            <!--BECAS & PROGRAMA-->
+            <v-container xs6 sm6>
+              <v-layout row wrap>
+
+                <v-flex xs6 sm3>
+                  <v-select
+                  :items = "percentage"
+                  label = "Porcentaje de beca"
+                  segmented
+                  single-line
+                  bottom
+                  ></v-select>
+                </v-flex>
+
+                <v-flex xs12 sm6>
+                  <v-select
+                  :items = "programs"
+                  label = "Programa"
+                  segmented
+                  single-line
+                  bottom
+                  ></v-select>
+                  </v-flex>
+
+              </v-layout>
+            </v-container>
+            <!--BECAS & PROGRAMA-->
+
+            <v-container xs12 sm12 class="text-xs-center mt-3">
+              <v-btn large color="green" dark>submit</v-btn>
+              <v-btn large color="red" dark>clear</v-btn>
+            </v-container>
+
+          </v-layout>
+        </v-container>
+      </form>
     </v-card>
   </v-container>
 </template>
 
 <script>
+
 export default {
+
   data(){
     return{
 
-      methods:{
-
-      },
-
       percentage: [
+        { text: '0' , value: 0 },
         { text: '10' , value: 10 },
         { text: '20' , value: 20 },
         { text: '30' , value: 30 },

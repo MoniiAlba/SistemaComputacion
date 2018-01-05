@@ -24,7 +24,9 @@ import '../node_modules/vuetify/src/stylus/app.styl'
 
 import App from './App'
 import router from './router'
+import Vuelidate from 'vuelidate'
 
+Vue.use(Vuelidate)
 Vue.use(Vuetify, {
   components: {
     VApp,
