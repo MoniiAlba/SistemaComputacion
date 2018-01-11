@@ -4,6 +4,7 @@
         <v-layout>
           <v-flex xs4>
             <v-text-field
+            @keyup.enter="login"
             box
             label = "Usuario"
             ></v-text-field>
@@ -15,6 +16,7 @@
 
 <script>
 import { required, minLength, between } from 'vuelidate/lib/validators'
+import axios from 'axios'
 
 export default {
   data () {
@@ -26,6 +28,21 @@ export default {
     name: {
       required,
       minLength: minLength(4)
+    }
+  },
+  methods: {
+    login () {
+      axios.post('http://alumnoscomputacion.itam.mx/php/', {
+        func: 'auth',
+        usuario: 'usu',
+        password: 'psw'
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
   }
 }
