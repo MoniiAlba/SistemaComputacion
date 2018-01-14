@@ -83,7 +83,6 @@ function checkLogin () {
 TODO CHECK FOR SESSION BEFORE ROUTING
 router.beforeEach((to, from ,next) => {
   console.log('Routing');
-  let currentUser = firebase.auth().currentUser;
   //Do route requires Authentcation?
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
