@@ -70,13 +70,13 @@ export default {
     },
     checkLogin () {
       if (this.http_request.readyState == 4) {
-            if (this.http_request.status == 200) {
-                console.log(this.http_request);
-            } else {
-                console.log('Hubo problemas con la petición.');
-                console.log(this.http_request);
-            }
+        if (this.http_request.status == 200) {
+          console.log(this.http_request);
+        } else {
+          console.log('Hubo problemas con la petición.');
+          console.log(this.http_request);
         }
+      }
     },
     login () {
       this.request();
@@ -85,7 +85,7 @@ export default {
          'func':'auth',
          'usuario':'usu',
          'password':'psw'};
-         data = JSON.stringify(data);
+        data = JSON.stringify(data);
         if (!this.http_request) {
          console.log('Falla :( No es posible crear una instancia XMLHTTP');
          return false;
