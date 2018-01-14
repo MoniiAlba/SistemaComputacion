@@ -17,14 +17,16 @@ function auth(){
 	    if( $stmt->rowCount() > 0){
 
 	    	$_SESSION['login'] = 'true';
-	    	$_SESSION["rol"] = $row["rol"];
+				$_SESSION["rol"] = $row["rol"];
+				
+				$res = jsonOk("Acceso Exitoso");
 	    }
 	    else
 	    	$res = jsonErr("Credenciales incorrectas");
 	}
 
 	//echo isset($_SESSION);
-	echo jsonOk($res);
+	echo $res;
 }
 
 function logout(){
