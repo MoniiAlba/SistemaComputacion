@@ -51,6 +51,7 @@ export default {
     return {
       name: '',
       pass: '',
+      http_request: null,
     }
   },
   validations: {
@@ -67,18 +68,45 @@ export default {
     changeFocus () {
       this.$el.querySelector('#password').focus();
     },
+    checkLogin () {
+      if (this.http_request.readyState == 4) {
+            if (this.http_request.status == 200) {
+                console.log(this.http_request);
+            } else {
+                console.log('Hubo problemas con la petición.');
+                console.log(this.http_request);
+            }
+        }
+    },
     login () {
-      axios.post('http://alumnoscomputacion.itam.mx/php/', {
-        func: 'auth',
-        usuario: 'usu',
-        password: 'psw'
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      this.request();
+      if(this.http_request) {
+        let data = {
+         'func':'auth',
+         'usuario':'usu',
+         'password':'psw'};
+         data = JSON.stringify(data);
+        if (!this.http_request) {
+         console.log('Falla :( No es posible crear una instancia XMLHTTP');
+         return false;
+        }
+        this.http_request.onreadystatechange = this.checkLogin;
+        this.http_request.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
+        this.http_request.send(data);
+      }
+    },
+    request () {
+      if (window.XMLHttpRequest) { // Mozilla, Safari,...
+        this.http_request = new XMLHttpRequest();
+      } else if (window.ActiveXObject) { // IE
+        try {
+          this.http_request = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+          try {
+            this.http_request = new ActiveXObject("Microsoft.XMLHTTP");
+          } catch (e) {}
+        }
+      }
     }
   },
   mounted () {
