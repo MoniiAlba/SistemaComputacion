@@ -8,7 +8,7 @@ import Modify from '@/components/User/Modify'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/home',
@@ -38,3 +38,19 @@ export default new Router({
     }
   ]
 })
+
+/*
+TODO CHECK FOR SESSION BEFORE ROUTING
+router.beforeEach((to, from ,next) => {
+  console.log('Routing');
+  let currentUser = firebase.auth().currentUser;
+  //Do route requires Authentcation?
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if(requiresAuth && !currentUser) next('Login')
+  else if (!requiresAuth && currentUser) next('Home')
+  else next()
+})
+*/
+
+export default router
