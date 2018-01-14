@@ -71,7 +71,15 @@ export default {
     checkLogin () {
       if (this.http_request.readyState == 4) {
         if (this.http_request.status == 200) {
-          console.log(this.http_request);
+          var res = JSON.parse(this.http_request.response);
+          var key = Object.keys(res)[0];
+          var msg = res[key];
+          if(msg === 'Acceso Exitoso'){
+            this.$router.push({name: 'home-user'});
+          }else{
+            this.pass = '';
+            alert(msg);
+          }
         } else {
           console.log('Hubo problemas con la petición.');
           console.log(this.http_request);
