@@ -83,8 +83,8 @@ export default {
       if(this.http_request) {
         let data = {
          'func':'auth',
-         'usuario':'usu',
-         'password':'psw'};
+         'usuario': this.name,
+         'password': this.pass};
         data = JSON.stringify(data);
         if (!this.http_request) {
          console.log('Falla :( No es posible crear una instancia XMLHTTP');
