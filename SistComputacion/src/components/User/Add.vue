@@ -17,6 +17,8 @@
                   <v-text-field 
                     box 
                     label="Clave Única"
+                    type="number"
+                    v-model="cu"
                   ></v-text-field>
                 </v-flex>
 
@@ -24,6 +26,8 @@
                   <v-text-field
                     box
                     label="Nombre completo"
+                    type="text"
+                    v-model="nombre"
                   ></v-text-field>
                 </v-flex>
 
@@ -31,6 +35,8 @@
                   <v-text-field
                     box
                     label="Teléfono"
+                    type = "number"
+                    v-model="telefono"
                   ></v-text-field>
                 </v-flex>
 
@@ -38,6 +44,8 @@
                   <v-text-field
                     box
                     label="E-mail"
+                    type = "email"
+                    v-model="email"
                   ></v-text-field>
                 </v-flex>
 
@@ -53,6 +61,8 @@
                   <v-text-field 
                     box 
                     label = "Calle"
+                    type = "text"
+                    v-model="calle"
                   ></v-text-field>
                 </v-flex>
 
@@ -60,6 +70,8 @@
                   <v-text-field 
                     box 
                     label = "Número exterior"
+                    type = "number"
+                    v-model="numExt"
                   ></v-text-field>
                 </v-flex>
 
@@ -67,6 +79,8 @@
                   <v-text-field 
                     box 
                     label = "Número interior"
+                    type = "number"
+                    v-model="numInt"
                   ></v-text-field>
                 </v-flex>
 
@@ -74,6 +88,8 @@
                   <v-text-field 
                     box 
                     label = "Colonia"
+                    type = "text"
+                    v-model="colonia"
                   ></v-text-field>
                 </v-flex>
 
@@ -81,8 +97,7 @@
                   <v-select
                   :items = "states"
                   label = "Estado"
-                  single-line
-                  bottom
+                  v-model="estado"
                   ></v-select>
                 </v-flex>
 
@@ -90,6 +105,7 @@
                   <v-text-field 
                     box 
                     label = "Delegación"
+                    v-model="delegacion"
                   ></v-text-field>
                 </v-flex>
 
@@ -97,6 +113,7 @@
                   <v-text-field 
                     box 
                     label = "Código postal"
+                    v-model="cp"
                   ></v-text-field>
                 </v-flex>
 
@@ -112,9 +129,7 @@
                   <v-select
                   :items = "percentage"
                   label = "Porcentaje de beca"
-                  segmented
-                  single-line
-                  bottom
+                  v-model="beca"
                   ></v-select>
                 </v-flex>
 
@@ -122,15 +137,28 @@
                   <v-select
                   :items = "programs"
                   label = "Programa"
-                  segmented
-                  single-line
-                  bottom
+                  v-model="programa"
                   ></v-select>
-                  </v-flex>
+                </v-flex>
 
               </v-layout>
             </v-container>
             <!--BECAS & PROGRAMA-->
+
+            <!--COMENTARIOS-->
+            <v-container fluid>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-text-field
+                    name="comentarios"
+                    label="Comentarios"
+                    textarea
+                    v-model="comentarios"
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <!--COMENTARIOS-->
 
             <v-container xs12 sm12 class="text-xs-center mt-3">
               <v-btn large color="green" dark>submit</v-btn>
@@ -151,6 +179,23 @@ export default {
   data(){
     return{
 
+      cu:'',
+      beca:'',
+      nombre:'',
+      apellidoP:'',
+      apellidoM:'',
+      programa:'',
+      email:'',
+      telefono:'',
+      estado:'',
+      calle:'',
+      colonia:'',
+      delegacion:'',
+      cp:'',
+      numExt:'',
+      numInt:'',
+      comentarios:'',
+
       percentage: [
         { text: '0' , value: 0 },
         { text: '10' , value: 10 },
@@ -166,48 +211,48 @@ export default {
       ],
 
       programs:[
-        {text: 'Ingeniería en Computación'},
-        {text: 'Lic. en Administración e Ing. en Computación'},
-        {text: 'Ing. en Computación e Ing. Industrial'},
-        {text: 'Ing. en Computación y Lic. en Matemáticas aplicadas'},
-        {text: 'Ing. en Computación e Ing. en Mecátronica'},
-        {text: 'Ing. en Computación e Ing. en Negocios'},
-        {text: 'Ing. en Computación e Ing. en Telecomunicaciones'},
-        {text: 'Ing. en Computación e Ing. en Telemática'}
+        { text: 'Ingeniería en Computación', value: 'Ingeniería en Computación'},
+        { text: 'Lic. en Administración e Ing. en Computación', value: 'Lic. en Administración e Ing. en Computación'},
+        { text: 'Ing. en Computación e Ing. Industrial', value: 'Ing. en Computación e Ing. Industrial'},
+        { text: 'Ing. en Computación y Lic. en Matemáticas aplicadas', value: 'Ing. en Computación y Lic. en Matemáticas aplicadas'},
+        { text: 'Ing. en Computación e Ing. en Mecátronica', value: 'Ing. en Computación e Ing. en Mecátronica'},
+        { text: 'Ing. en Computación e Ing. en Negocios', value: 'Ing. en Computación e Ing. en Negocios'},
+        { text: 'Ing. en Computación e Ing. en Telecomunicaciones', value: 'Ing. en Computación e Ing. en Telecomunicaciones'},
+        { text: 'Ing. en Computación e Ing. en Telemática', value: 'Ing. en Computación e Ing. en Telemática'}
       ],
     
       states:[
-        {text: 'Aguascalientes'},
-        {text: 'Baja California'},
-        {text: 'Baja California Sur'},
-        {text: 'Campeche'},
-        {text: 'Coahuila de Zaragoza'},
-        {text: 'Colima'},
-        {text: 'Chiapas'},
-        {text: 'Chihuahua'},
-        {text: 'Durango'},
-        {text: 'Guanajuato'},
-        {text: 'Guerrero'},
-        {text: 'Hidalgo'},
-        {text: 'Jalisco'},
-        {text: 'México'},
-        {text: 'Michoacán de Ocampo '},
-        {text: 'Morelos'},
-        {text: 'Nayarit'},
-        {text: 'Nuevo León'},
-        {text: 'Oaxaca'},
-        {text: 'Puebla'},
-        {text: 'Querétaro'},
-        {text: 'Quintana Roo'},
-        {text: 'San Luis Potosí'},
-        {text: 'Sinaloa'},
-        {text: 'Sonora'},
-        {text: 'Tabasco'},
-        {text: 'Tamaulipas'},
-        {text: 'Tlaxcala'},
-        {text: 'Veracruz'},
-        {text: 'Yucatán'},
-        {text: 'Zacatecas'}
+        { text: 'Aguascalientes'},
+        { text: 'Baja California'},
+        { text: 'Baja California Sur'},
+        { text: 'Campeche'},
+        { text: 'Coahuila de Zaragoza'},
+        { text: 'Colima'},
+        { text: 'Chiapas'},
+        { text: 'Chihuahua'},
+        { text: 'Durango'},
+        { text: 'Guanajuato'},
+        { text: 'Guerrero'},
+        { text: 'Hidalgo'},
+        { text: 'Jalisco'},
+        { text: 'México'},
+        { text: 'Michoacán de Ocampo '},
+        { text: 'Morelos'},
+        { text: 'Nayarit'},
+        { text: 'Nuevo León'},
+        { text: 'Oaxaca'},
+        { text: 'Puebla'},
+        { text: 'Querétaro'},
+        { text: 'Quintana Roo'},
+        { text: 'San Luis Potosí'},
+        { text: 'Sinaloa'},
+        { text: 'Sonora'},
+        { text: 'Tabasco'},
+        { text: 'Tamaulipas'},
+        { text: 'Tlaxcala'},
+        { text: 'Veracruz'},
+        { text: 'Yucatán'},
+        { text: 'Zacatecas'}
 
       ]
     }
