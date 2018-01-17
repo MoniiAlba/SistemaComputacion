@@ -320,18 +320,17 @@ export default {
 						'numExt': this.numExt,
 						'numInt': this.numInt,
 						'comentarios': this.comentarios};
-					var json = alum.JSON.stringify(alum);
+					var json = JSON.stringify(alum);
 					var xhttp = new XMLHttpRequest();
 
 					xhttp.onreadystatechange = function(){
 						if (this.readyState == 4 && this.status == 200){
 							console.log('Alta exitosa');
+							clear();
 						}
 					}
 					xhttp.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
 					xhttp.send(json);
-					alert('From Submitted!');
-					clear();
 				}else{
 					alert('Correct them errors!');
 				}
