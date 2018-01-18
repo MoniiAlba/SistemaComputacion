@@ -43,9 +43,8 @@ export default {
 
 					xhttp.onreadystatechange = function(){
 						if (this.readyState == 4 && this.status == 200){
-              var res = JSON.parse(this.xhttp.response);
-              console.log('bien');
-              console.log(res);
+              // var res = JSON.parse(this.response);
+              console.log(this.response);
 						}
 					}
 					xhttp.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
