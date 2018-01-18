@@ -299,6 +299,7 @@ export default {
   	},
   	methods:{
 	 	submit(){
+       var vm = this;
       	this.$validator.validateAll().then((result) => {
 				if (result) {
 					let alum = {
@@ -325,8 +326,8 @@ export default {
 
 					xhttp.onreadystatechange = function(){
 						if (this.readyState == 4 && this.status == 200){
-							console.log('Alta exitosa');
-							clear();
+							alert('Alta exitosa');
+							vm.clear();
 						}
 					}
 					xhttp.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
