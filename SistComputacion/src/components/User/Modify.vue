@@ -18,6 +18,9 @@
         </v-flex>
       </v-layout>
       <v-btn color="success" @click="getStudent">Get student</v-btn>
+      <p>
+        {{ arr }}
+      </p>
     </v-container>
 
   </v-container>
@@ -27,15 +30,18 @@
 export default {
   data(){
     return{
-      cu: ''
+      cu: '',
+      arr:''  
     }
   },
   methods:{
     getStudent(){
+      var vm = this;
       this.$validator.validateAll().then((result) => {
         if (result) {
           var request = {
             'dominio': 'alumnos',
+            'func' : 'alumno_cu',
             'cu': this.cu
           };
           var json = JSON.stringify(request);
@@ -43,14 +49,14 @@ export default {
 
 					xhttp.onreadystatechange = function(){
 						if (this.readyState == 4 && this.status == 200){
-              // var res = JSON.parse(this.response);
-              console.log(this.response);
+              var res = JSON.parse(this.response);
+              vm.arr = res;
 						}
 					}
 					xhttp.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
 					xhttp.send(json);
         }else{
-          alert('Error');
+          alert('Error de validación');
         }
       });
     }
