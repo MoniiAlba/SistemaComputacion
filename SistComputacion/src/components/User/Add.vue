@@ -3,11 +3,11 @@
 	  	<p class="text-xs-center display-1">Agrega un alumno</p>
 
     	<form>
-			<v-container grid-list-md>
+			<v-container grid-list-sm>
 				<v-layout row wrap>
 					<v-flex>
 						<!--PERSONAL INFORMATION-->
-						<v-card class="mb-5">
+						<v-card class="mb-5" hover xs12 sm12 md12>
 							<v-card-title>
 								<span class="headline">Información personal</span>
 							</v-card-title>
@@ -88,7 +88,7 @@
 						<!--PERSONAL INFORMATION-->
 
 						<!--ADDRESS-->
-						<v-card class="mb-5">
+						<v-card class="mb-5" hover>
 							<v-card-title>
 								<span class="headline">Dirección</span>
 							</v-card-title>
@@ -154,13 +154,13 @@
 						<!--ADDRESS-->
 
 						<!--BECAS & PROGRAMA-->
-						<v-card>
+						<v-card class="mb-5" hover>
 							<v-card-title>
 								<span class="headline">Escolar</span>
 							</v-card-title>
-							<v-container xs6 sm6>
+							<v-container xs12 sm6>
 								<v-layout row wrap>
-									<v-flex xs6 sm3>
+									<v-flex xs6 sm6>
 										<v-select
 										:items = "percentage"
 										label = "Porcentaje de beca"
@@ -183,15 +183,76 @@
 										data-vv-name="programa"
 										></v-select>
 									</v-flex>
+
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="tipoAct"
+										v-model="tipoAct"
+										type="text"
+										label="Tipo de actividad"
+										>
+										</v-text-field>
+									</v-flex>
+
+									<v-flex xs12 sm6>
+										<v-select
+										:items = "actividadesExtras"
+										label = "Actividad extra"
+										v-model="nomAct"
+										></v-select>
+									</v-flex>
+									
 								</v-layout>
 							</v-container>
 						</v-card>
 						<!--BECAS & PROGRAMA-->
 
+						<!--SANCIONES-->
+						<v-card hover=true >
+							<v-card-title class="headline">
+								<span>Sanciones</span>
+							</v-card-title>
+							<v-container xs12 sm6>
+								<v-layout row wrap>
+
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="areaSancion"
+										v-model="areaSancion"
+										type="text"
+										label="Área de sanción"
+										>
+										</v-text-field>
+									</v-flex>
+
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="problemasReglamento"
+										v-model="problemasReg"
+										type="text"
+										label="Problemas de reglamento"
+										>
+										</v-text-field>
+									</v-flex>
+									
+									<v-flex sm12>
+										<v-text-field
+										v-model="descSancion"
+										label="Descripción de sanción"
+										textarea
+										name="descSancion"
+										>
+										</v-text-field>
+									</v-flex>
+								</v-layout>
+							</v-container>
+						</v-card>
+						<!--SANCIONES-->
+
 						<!--COMENTARIOS-->
 						<v-container fluid>
 							<v-layout row>
-							<v-flex xs12>
+							<v-flex>
 								<v-text-field
 									name="comentarios"
 									label="Comentarios"
@@ -204,7 +265,7 @@
 						<!--COMENTARIOS-->
 					</v-flex>
 
-					<v-container xs12 sm12 class="text-xs-center mt-3">
+					<v-container xs12 sm6 class="text-xs-center mt-3">
 						<v-btn large color="green" dark @click="submit">submit</v-btn>
 						<v-btn large color="red" dark @click="clear">clear</v-btn>
 					</v-container>
@@ -220,6 +281,7 @@
 export default {
   	data(){
     	return{
+			//Variables let = alum{};
 			cu:'',
 			beca:'',
 			nombre:'',
@@ -235,7 +297,29 @@ export default {
 			cp:'',
 			numExt:'',
 			numInt:'',
+			//Variables let coment = {};
 			comentarios:'',
+			//Variables let actExtra = {};
+			tipoAct:'',
+			nomAct:'',
+			//Variables let sanciones = {};
+			descSancion:'',
+			areaSancion:'',
+			problemasReg:'',
+			//Variables let estancias = {};
+			nomUni:'',
+			nomPais:'',
+
+			actividadesExtras:[
+				{text: 'Guitarra', value:'Guitarra'},
+				{text: 'Piano', value:'Piano'},
+				{text: 'Teatro', value:'Teatro'},
+				{text: 'Porras', value:'Porras'},
+				{text: 'Laboratorio de desarrollo web', value:'Laboratorio de desarrollo web'},
+				{text: 'Laboratorio de videojuegos', value:'Laboratorio de videojuegos'},
+				{text: 'Salsa con colmillo', value:'Salsa con colmillo'},
+				{text: 'Otro', value: 'Otro'}
+			],
 
 			percentage: [
 				{ text: '0' , value: 0 },
@@ -299,28 +383,55 @@ export default {
   	},
   	methods:{
 	 	submit(){
-       var vm = this;
+       	var vm = this;
       	this.$validator.validateAll().then((result) => {
 				if (result) {
 					let alum = {
 						'func':'insertaAlumno',
 						'dominio': 'alumnos',
-						'nombre': this.nombre,
-						'cu': this.cu,
-						'beca': this.beca,
-						'apellidoP': this.apellidoP,
-						'apellidoM': this.apellidoM,
-						'programa': this.programa,
-						'email': this.email,
-						'telefono': this.telefono,
-						'estado': this.estado,
-						'calle': this.calle,
-						'colonia': this.colonia,
-						'delegacion': this.delegacion,
-						'cp': this.cp,
-						'numExt': this.numExt,
-						'numInt': this.numInt,
-						'comentarios': this.comentarios};
+						'nombre': vm.nombre,
+						'cu': vm.cu,
+						'beca': vm.beca,
+						'apellidoP': vm.apellidoP,
+						'apellidoM': vm.apellidoM,
+						'programa': vm.programa,
+						'email': vm.email,
+						'telefono': vm.telefono,
+						'estado': vm.estado,
+						'calle': vm.calle,
+						'colonia': vm.colonia,
+						'delegacion': vm.delegacion,
+						'cp': vm.cp,
+						'numExt': vm.numExt,
+						'numInt': vm.numInt
+					};
+					let actExtra = {
+						'dominio': 'actExtra',
+						'func' : 'insertaActividad',
+						'cuAlum' : vm.cu,
+						'nombre': vm.nomAct,
+						'tipo': vm.tipoAct
+					};
+					let sanciones = {
+						'dominio': 'sanciones',
+						'func': 'insertaSancion',
+						'cuAlum': vm.cu,
+						'descripcion': vm.descSancion,
+						'area': vm.areaSancion,
+						'problemasReglamento': vm.problemasReg
+					};
+					let estancias = {
+						'dominio': 'estancias',
+						'func': 'registraEstanciaAlumno',
+						'nomUni': vm.nomUni,
+						'nomPais': vm.nomPais
+					};
+					let coment = {
+						'dominio': 'comentarios',
+						'func': 'insertaComentCu',
+						'comentarios': vm.comentarios
+					};
+
 					var json = JSON.stringify(alum);
 					var xhttp = new XMLHttpRequest();
 

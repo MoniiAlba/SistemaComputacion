@@ -20,9 +20,9 @@
       <v-btn color="success" @click="getStudent">Get student</v-btn>
       <p>
         <ul>
-          <li v-for="item in arr">
+          <li v-for="item in arr" :key="item">
             <ul>
-              <li v-for="(value, key) in item">
+              <li v-for="(value, key) in item" :key="key">
                 {{ key }}: {{ value }}
               </li>
             </ul>
