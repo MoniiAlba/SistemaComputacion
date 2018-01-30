@@ -14,23 +14,36 @@ let router = new Router({
       path: '/home',
       name: 'home-user',
       component: Home,
+      meta: {
+        requiresAuth: true
+      },
       children: [
         {
           path: '/home/add',
           name: 'add',
-          component: Add
+          component: Add,
+          meta: {
+            requiresAuth: true
+          }
         },
         {
           path: '/home/delete',
           name: 'delete',
-          component: Delete
+          component: Delete,
+          meta: {
+            requiresAuth: true
+          }
         },
         {
           path: '/home/modify',
           name: 'modify',
-          component: Modify
+          component: Modify,
+          meta: {
+            requiresAuth: true
+          }
         }
-      ]},
+      ]
+    },
     {
       path: '/',
       name: 'log-in',
@@ -57,9 +70,8 @@ function checkLogin () {
 
   if(http_request) {
     let data = {
-     'func':'auth',
-     'usuario':'usu',
-     'password':'psw'};
+     'func':'tengoSesion'
+    };
     data = JSON.stringify(data);
     if (!http_request) {
      console.log('Falla :( No es posible crear una instancia XMLHTTP');
@@ -79,17 +91,17 @@ function checkLogin () {
     http_request.send(data);
   }
 }
-/*
-TODO CHECK FOR SESSION BEFORE ROUTING
+
 router.beforeEach((to, from ,next) => {
   console.log('Routing');
   //Do route requires Authentcation?
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-  if(requiresAuth && !currentUser) next('Login')
-  else if (!requiresAuth && currentUser) next('Home')
-  else next()
+  checkLogin();
+  //let currentUser = 
+  next();
+  //if(requiresAuth && !currentUser) next('Login')
+  //else if (!requiresAuth && currentUser) next('Home')
+  //else next()
 })
-*/
 
 export default router
