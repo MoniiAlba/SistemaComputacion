@@ -208,7 +208,7 @@
 						<!--BECAS & PROGRAMA-->
 
 						<!--SANCIONES-->
-						<v-card hover=true >
+						<v-card hover class="mb-5">
 							<v-card-title class="headline">
 								<span>Sanciones</span>
 							</v-card-title>
@@ -248,6 +248,21 @@
 							</v-container>
 						</v-card>
 						<!--SANCIONES-->
+
+                  <!--ESTANCIAS-->
+                  <v-card class="mb-5" hover>
+                     <v-card-title>
+                        <span class="headline">Estancias</span>
+                     </v-card-title>
+                     <v-container xs12 sm6>
+                        <v-layout row wrap>
+                           <v-flex>
+                              
+                           </v-flex>
+                        </v-layout>
+                     </v-container>
+                  </v-card>
+                  <!--ESTANCIAS-->
 
 						<!--COMENTARIOS-->
 						<v-container fluid>
@@ -382,6 +397,20 @@ export default {
     	}
   	},
   	methods:{
+      sendData(json){
+         var vm = this;
+         var data = JSON.stringify(json);
+         var xhttp = new XMLHttpRequest();
+
+         xhttp.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200){
+               alert('Alta exitosa');
+               vm.clear();
+            }
+         }
+         xhttp.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
+         xhttp.send(data);
+      },
 	 	submit(){
        	var vm = this;
       	this.$validator.validateAll().then((result) => {
@@ -432,17 +461,8 @@ export default {
 						'comentarios': vm.comentarios
 					};
 
-					var json = JSON.stringify(alum);
-					var xhttp = new XMLHttpRequest();
-
-					xhttp.onreadystatechange = function(){
-						if (this.readyState == 4 && this.status == 200){
-							alert('Alta exitosa');
-							vm.clear();
-						}
-					}
-					xhttp.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
-					xhttp.send(json);
+               vm.sendData(alum);
+					
 				}else{
 					alert('Correct them errors!');
 				}
