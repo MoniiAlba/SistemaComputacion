@@ -15,7 +15,8 @@ let router = new Router({
       name: 'home-user',
       component: Home,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        name: 'home'
       },
       children: [
         {
@@ -23,7 +24,8 @@ let router = new Router({
           name: 'add',
           component: Add,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            name: 'add'
           }
         },
         {
@@ -31,7 +33,8 @@ let router = new Router({
           name: 'delete',
           component: Delete,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            name: 'del'
           }
         },
         {
@@ -39,7 +42,8 @@ let router = new Router({
           name: 'modify',
           component: Modify,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            name: 'mod'
           }
         }
       ]
@@ -47,13 +51,32 @@ let router = new Router({
     {
       path: '/',
       name: 'log-in',
-      component: Login
+      component: Login,
+      meta: {
+        requiresAuth: false,
+        name: 'log'
+      }
     }
   ]
 })
 
+function toBoolean(string) {
+  var bool;
+  bool = (function() {
+    switch (false) {
+      case string.toLowerCase() !== 'true':
+        return true;
+      case string.toLowerCase() !== 'false':
+        return false;
+    }
+  })();
+  if (typeof bool === "boolean") {
+    return bool;
+  }
+  return void 0;
+};
 
-function checkLogin () {
+function checkLogin (requiresAuth, next) {
   let http_request = null;
 
   if (window.XMLHttpRequest) { // Mozilla, Safari,...
@@ -80,7 +103,11 @@ function checkLogin () {
     http_request.onreadystatechange = function () {
       if (this.readyState == 4) {
         if (this.status == 200) {
-          console.log(this);
+          let currentUser = toBoolean(JSON.parse(this.response).sesion);
+          if(currentUser)
+            next();
+          else
+            next('/');
         } else {
           console.log('Hubo problemas con la petición.');
           console.log(this);
@@ -93,12 +120,18 @@ function checkLogin () {
 }
 
 router.beforeEach((to, from ,next) => {
-  console.log('Routing');
   //Do route requires Authentcation?
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  checkLogin();
-  //let currentUser = 
-  next();
+  let toName = to.meta.name;
+  let fromName = from.meta.name;
+  if(!fromName)
+    next();
+  else if(requiresAuth)
+    checkLogin(requiresAuth, next);
+  else if (fromName !== 'log' && fromName)
+    next('/');
+  //else
+    //next(false);
   //if(requiresAuth && !currentUser) next('Login')
   //else if (!requiresAuth && currentUser) next('Home')
   //else next()
