@@ -45,7 +45,7 @@ let router = new Router({
             requiresAuth: true,
             name: 'mod'
           }
-        }
+        }   
       ]
     },
     {

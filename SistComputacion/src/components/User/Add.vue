@@ -404,6 +404,8 @@ export default {
 			//Variables let escuelaAlterna = {};
 			nomEsc:'',
 
+			array : [],
+
 			hablaAna:[
 				{text: 'Sí', value: 'yes'},
 				{text: 'No', value: 'no'}
@@ -484,16 +486,17 @@ export default {
       sendData(json){
          var vm = this;
          var data = JSON.stringify(json);
-         var xhttp = new XMLHttpRequest();
+			var xhttp = new XMLHttpRequest();
 
          xhttp.onreadystatechange = function(){
             if (this.readyState == 4 && this.status == 200){
-               alert('Alta exitosa');
-               vm.clear();
+					var res = JSON.parse(this.response);
+					console.log(res);
+					vm.clear();
             }
          }
          xhttp.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
-         xhttp.send(data);
+			xhttp.send(data);
       },
 	 	submit(){
        	var vm = this;
@@ -626,6 +629,22 @@ export default {
 			this.numExt = '';
 			this.numInt = '';
 			this.comentarios = '';
+			//Variables let actExtra = {};
+			this.tipoAct = '';
+			this.nomAct = '';
+			//Variables let sanciones = {};
+			this.descSancion = '',
+			this.areaSancion = '',
+			this.problemasReg = '',
+			//Variables let estancias = {};
+			this.nomUni = '',
+			this.nomPais = '',
+			//Variables let prepa = {};
+			this.nomPrepa = '',
+			this.promPrepa = '',
+			this.habloConAna = '',
+			//Variables let escuelaAlterna = {};
+			this.nomEsc = ''
 	 	}
   	}
 }

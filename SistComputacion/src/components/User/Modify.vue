@@ -67,11 +67,13 @@ export default {
           alert('Error de validación');
         }
       });
-    }
+    },
   }
 }
 </script>
 
 <style scoped>
+li{
 
+}
 </style>
