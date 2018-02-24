@@ -3,7 +3,6 @@
 function auth(){
 	global $msql;
 	$conn = $msql->conn;
-	$res='ok';
 
 	if(isset($_POST['usuario']) and isset($_POST['password'])){
 		$usu = $_POST['usuario'];
@@ -24,6 +23,8 @@ function auth(){
 	    else
 	    	$res = jsonErr("Credenciales incorrectas");
 	}
+	else
+		$res = jsonErr("Credenciales incompletas");
 
 	//echo isset($_SESSION);
 	echo $res;
@@ -72,6 +73,14 @@ function nuevoUsuario(){
 	}
 
 	echo $res;
+}
+
+function tengoSesion(){
+	$res = "false";
+	if(isset($_SESSION['login']))
+		$res = "true";
+
+	echo json(array("sesion" => $res));
 }
 
 

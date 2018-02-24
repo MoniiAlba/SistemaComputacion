@@ -153,6 +153,43 @@
 						</v-card>
 						<!--ADDRESS-->
 
+						<!--ESCUELA ALTERNA-->
+                  <v-card class="mb-5" hover>
+                     <v-card-title>
+                        <span class="headline">Preparatoria</span>
+                     </v-card-title>
+                     <v-container xs12 sm6>
+                        <v-layout row wrap>
+                           <v-flex xs12 sm6>
+										<v-text-field
+										name="prepa"
+										v-model="nomPrepa"
+										type="text"
+										label="Nombre de la preparatoria"
+										>
+										</v-text-field>
+									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="promedio"
+										v-model="promPrepa"
+										type="number"
+										label="Promedio de la prepa"
+										>
+										</v-text-field>
+									</v-flex>
+									<v-flex xs12 sm3>
+										<v-select
+										:items = 'hablaAna'
+										label = "Habló con Ana"
+										v-model="habloConAna"
+										></v-select>
+									</v-flex>
+                        </v-layout>
+                     </v-container>
+                  </v-card>
+                  <!--ESCUELA ALTERNA-->
+
 						<!--BECAS & PROGRAMA-->
 						<v-card class="mb-5" hover>
 							<v-card-title>
@@ -256,13 +293,49 @@
                      </v-card-title>
                      <v-container xs12 sm6>
                         <v-layout row wrap>
-                           <v-flex>
-                              
-                           </v-flex>
+                           <v-flex xs12 sm6>
+										<v-text-field
+										name="nomUni"
+										v-model="nomUni"
+										type="text"
+										label="Nombre de universidad"
+										>
+										</v-text-field>
+									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="nomPais"
+										v-model="nomPais"
+										type="text"
+										label="Nombre del país"
+										>
+										</v-text-field>
+									</v-flex>
                         </v-layout>
                      </v-container>
                   </v-card>
                   <!--ESTANCIAS-->
+
+						<!--ESCUELA ALTERNA-->
+                  <v-card class="mb-5" hover>
+                     <v-card-title>
+                        <span class="headline">Escuela alterna</span>
+                     </v-card-title>
+                     <v-container xs12 sm6>
+                        <v-layout row wrap>
+                           <v-flex xs12 sm6>
+										<v-text-field
+										name="nomEsc"
+										v-model="nomEsc"
+										type="text"
+										label="Nombre de la escuela"
+										>
+										</v-text-field>
+									</v-flex>
+                        </v-layout>
+                     </v-container>
+                  </v-card>
+                  <!--ESCUELA ALTERNA-->
 
 						<!--COMENTARIOS-->
 						<v-container fluid>
@@ -312,8 +385,6 @@ export default {
 			cp:'',
 			numExt:'',
 			numInt:'',
-			//Variables let coment = {};
-			comentarios:'',
 			//Variables let actExtra = {};
 			tipoAct:'',
 			nomAct:'',
@@ -324,6 +395,19 @@ export default {
 			//Variables let estancias = {};
 			nomUni:'',
 			nomPais:'',
+			//Variables let coment = {};
+			comentarios:'',
+			//Variables let prepa = {};
+			nomPrepa:'',
+			promPrepa:'',
+			habloConAna:'',
+			//Variables let escuelaAlterna = {};
+			nomEsc:'',
+
+			hablaAna:[
+				{text: 'Sí', value: 'yes'},
+				{text: 'No', value: 'no'}
+			],
 
 			actividadesExtras:[
 				{text: 'Guitarra', value:'Guitarra'},
@@ -449,19 +533,76 @@ export default {
 						'area': vm.areaSancion,
 						'problemasReglamento': vm.problemasReg
 					};
-					let estancias = {
+					let universidad = {
 						'dominio': 'estancias',
-						'func': 'registraEstanciaAlumno',
+						'func': 'insertaUniversidad',
 						'nomUni': vm.nomUni,
 						'nomPais': vm.nomPais
 					};
+					//necesito el id de la universidad
+					/*let registraEstAlum = {
+						'dominio': 'estancias',
+						'func': 'registraEstanciaAlumno',
+						'cuAlum' : vm.cu,
+						'idEst' : id,
+						'anio' : anio,
+						'semestre' : semestre
+					}*/
 					let coment = {
 						'dominio': 'comentarios',
 						'func': 'insertaComentCu',
-						'comentarios': vm.comentarios
+						'comentarios': vm.comentarios,
+						'cuAlum' : vm.cu
 					};
+					//not yet
+					/*let materias = {
+						'dominio' : 'materias',
+						'func' : 'insertaMateria',
+						'cMateria' : vm.cMateria,
+						'folio' : vm.folioMat,
+						'numCreditos' : vm.numCreds,
+						'nombre' : vm.nomMat,
+						'semestre' : vm.semestre
+					};
+					let registraMatAlum = {
+						'dominio' : 'materias',
+						'func' : 'registraMatAlum',
+						'cuAlum' : vm.cu,
+						'cMateria' : vm.cMat,
+						'estatusFin' : vm.etatusFin,
+						'calificacion' : vm.calif
+					};*/
+					let prepa = {
+						'dominio' : 'preparatorias',
+						'func' : 'insertaPrepAlum_cu',
+						'cuAlum' : vm.cu,
+						'nombrePrep' : vm.nomPrepa,
+						'promedio' : vm.promPrepa,
+						'habloConAna' : vm.habloConAna
+					};
+					/*let empresa = {
 
-               vm.sendData(alum);
+					};*/
+					let escuelaAlterna = {
+						'dominio' : 'escuelasAlt',
+						'func' : 'insertaEscuelaAlt',
+						'nombre' : vm.nomEsc
+					};
+					//necesito id de escuela
+					/*let insertaEscuela = {
+						'dominio' : 'escuelasAlt',
+						'func' : 'registraAlumEscAlt',
+						'cuAlum' : vm.cu,
+						''
+					};*/
+
+					vm.sendData(alum);
+					vm.sendData(actExtra);
+					vm.sendData(sanciones);
+					vm.sendData(universidad);
+					vm.sendData(coment);
+					vm.sendData(prepa);
+					vm.sendData(escuelaAlterna);
 					
 				}else{
 					alert('Correct them errors!');
