@@ -55,7 +55,7 @@ function insertaAlumno(){
 	$conn = $msql->conn;
 	$params = array("cu", "beca", "nombre", "apellidoP", "apellidoM", "programa",
 				"email", "estado", "calle", "colonia", "delegacion", 
-				"cp", "numExt", "numInt");
+				"cp", "numExt", "numInt","pais","ciudad");
 	
 	try{
 		if( issetArrPost( $params ) ){
@@ -66,10 +66,10 @@ function insertaAlumno(){
 
 			if($stmt->rowCount() == 0){
 				$stmt = $conn->prepare("INSERT INTO alumnos (cu, beca, nombre, apellidoP, apellidoM, programa,
-								email, estado, calle, colonia, delegacion, cp, numExt, numInt)
+								email, estado, calle, colonia, delegacion, cp, numExt, numInt,pais, ciudad)
 								VALUES (:cu, :beca, :nombre, :apellidoP, :apellidoM, :programa,
 								:email, :estado, :calle, :colonia, :delegacion, :cp,
-								:numExt, :numInt)");
+								:numExt, :numInt, :pais, :ciudad)");
 
 				foreach ($params as $param )
 					$stmt->bindParam(":".$param, $_POST[$param]);
