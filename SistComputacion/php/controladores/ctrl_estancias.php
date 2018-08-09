@@ -36,13 +36,13 @@ function insertaUniversidad(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
 function universidades(){
 	global $msql;
 	$res = $msql->cons("select * from estancias");
-	echo json($res);
+	return json($res);
 }
 
 function estancias(){
@@ -50,7 +50,7 @@ function estancias(){
 	$res = $msql->cons("select cu, anio, semestre, universidad from 
 		alumnos a, alumnos_estancias b, estancias e where a.idAlum = b.idAlum
 		and b.idEst = e.idEst");
-	echo json($res);
+	return json($res);
 }
 
 
@@ -82,7 +82,7 @@ function materiasDeAlum_cu(){
 		$res = jsonErr($e->getMessage());
 	}
 
-	echo $res;
+	return $res;
 }
 
 
@@ -132,7 +132,7 @@ function registraEstanciaAlumno(){
 		$res = jsonErr($e);
 	}
 
-	echo $res;
+	return $res;
 }
 
 //func = registraMateriaRev_cu; params = cuAlum, universidad, anio(int), semestre(string), materiaRev, 
@@ -185,7 +185,7 @@ function registraMateriaRev_cu(){
 		$res = jsonErr($e->getMessage());
 	}
 
-	echo $res;
+	return $res;
 }
 
 

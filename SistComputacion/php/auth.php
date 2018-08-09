@@ -27,12 +27,12 @@ function auth(){
 		$res = jsonErr("Credenciales incompletas");
 
 	//echo isset($_SESSION);
-	echo $res;
+	return $res;
 }
 
 function logout(){
 	session_destroy();
-	echo 'logout';
+	return jsonOk("Sesion cerrada");
 }
 
 function nuevoUsuario(){
@@ -72,7 +72,7 @@ function nuevoUsuario(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
 function tengoSesion(){
@@ -80,7 +80,7 @@ function tengoSesion(){
 	if(isset($_SESSION['login']))
 		$res = "true";
 
-	echo json(array("sesion" => $res));
+	return json(array("sesion" => $res));
 }
 
 

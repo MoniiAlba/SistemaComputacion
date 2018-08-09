@@ -36,14 +36,14 @@ function insertaComentCu(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
 
 function comentarios(){
 	global $msql;
 	$res = $msql->cons("select * from comentarios");
-	echo json($res);
+	return json($res);
 }
 
 //func = comentarios_cu ; params = cuAlum
@@ -83,7 +83,7 @@ function comentarios_cu(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
 

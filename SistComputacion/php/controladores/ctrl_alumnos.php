@@ -6,7 +6,7 @@
 function alumnos(){
 	global $msql;
 	$res = $msql->cons('select * from alumnos');
-	echo json($res);
+	return json($res);
 }
 
 function alumno_id(){
@@ -25,7 +25,7 @@ function alumno_id(){
 	else
 		$res = jsonErr("Error en parametros");
 
-	echo $res;
+	return $res;
 
 }
 
@@ -45,7 +45,7 @@ function alumno_cu(){
 	else
 		$res = jsonErr("Error en parametros");
 
-	echo $res;
+	return $res;
 	//echo 'hola cu';
 
 }
@@ -54,7 +54,7 @@ function insertaAlumno(){
 	global $msql;
 	$conn = $msql->conn;
 	$params = array("cu", "beca", "nombre", "apellidoP", "apellidoM", "programa",
-				"email", "telefono", "estado", "calle", "colonia", "delegacion", 
+				"email", "estado", "calle", "colonia", "delegacion", 
 				"cp", "numExt", "numInt");
 	
 	try{
@@ -66,16 +66,17 @@ function insertaAlumno(){
 
 			if($stmt->rowCount() == 0){
 				$stmt = $conn->prepare("INSERT INTO alumnos (cu, beca, nombre, apellidoP, apellidoM, programa,
-								email, telefono, estado, calle, colonia, delegacion, cp, numExt, numInt)
+								email, estado, calle, colonia, delegacion, cp, numExt, numInt)
 								VALUES (:cu, :beca, :nombre, :apellidoP, :apellidoM, :programa,
-								:email, :telefono, :estado, :calle, :colonia, :delegacion, :cp,
+								:email, :estado, :calle, :colonia, :delegacion, :cp,
 								:numExt, :numInt)");
 
 				foreach ($params as $param )
 					$stmt->bindParam(":".$param, $_POST[$param]);
 
 				$stmt->execute();
-				$res = jsonOk("exito");
+				$idAlum = $conn->lastInsertId();
+				$res = json(array("idAlum" => $idAlum));
 			}
 			else
 				$res = jsonErr("alumno ya existente");
@@ -85,10 +86,11 @@ function insertaAlumno(){
 	}
 	catch(PDOException $e){
 		//$res = jsonErr($e->getMessage());
-		$res = $e;
+		//$res = $e;
+		$res = jsonErr($e->getMessage());
 	}
 
-	echo $res;
+	return $res;
 	//echo var_dump(issetArrPost($params));
 }
 
@@ -136,7 +138,37 @@ function updateAlum_cu(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
+}
+
+//func = eliminaAlumno; param: cuAlum; // elimina alumno
+function eliminaAlumno(){
+
+
+	global $msql;
+	$conn = $msql->conn;
+	$params = array("cuAlum");
+	try{
+		if( issetArrPost( $params ) ){
+
+            $stmt = $msql->sqlPrepPost("DELETE FROM alumnos where cu = :cuAlum", 
+									array("cuAlum"));
+			$stmt->execute();
+
+			$res = jsonOk("Operación realizada");
+
+		}
+		else 
+			$res = jsonErr("Error en parametros");
+	}
+	catch(PDOException $e){
+		$res = jsonErr($e);
+		//$res = $e;
+	}
+
+	return $res;
+
+
 }
 
 

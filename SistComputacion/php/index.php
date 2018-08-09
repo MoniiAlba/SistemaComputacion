@@ -14,7 +14,7 @@ $_POST = json_decode($json, true);
 if(isset($_POST['func'])){
 	if(in_array( $_POST['func'] , $funcionesRegistradas["authPublico"])){
 		require_once("auth.php");
-		$_POST['func']();
+		echo $_POST['func']();
 	}
 	elseif(isset($_SESSION['login'])){
 
@@ -23,7 +23,7 @@ if(isset($_POST['func'])){
 			if( array_key_exists($_POST["dominio"], $funcionesRegistradas) and 
 				in_array( $_POST["func"], $funcionesRegistradas[$_POST["dominio"]] ) ){
 				require_once($rutasRegistradas[$_POST["dominio"]]);
-				$_POST["func"]();
+				echo $_POST["func"]();
 			}
 			else
 				echo jsonErr("funcion o dominio no existente");

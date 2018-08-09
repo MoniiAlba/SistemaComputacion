@@ -48,13 +48,13 @@ function insertaPrepAlum_cu(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
 function preparatorias(){
 	global $msql;
 	$res = $msql->cons('select * from preparatorias');
-	echo json($res);
+	return json($res);
 }
 
 //func = preparatoria_cu ; params = cuAlum; //tupla asociada al alumno de la cu
@@ -93,7 +93,7 @@ function preparatoria_cu(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
 
