@@ -189,3 +189,7 @@ ALTER TABLE alumnos ADD pais VARCHAR(30);
 ALTER TABLE alumnos ADD ciudad VARCHAR(30);
 ALTER TABLE alumnos MODIFY numExt VARCHAR(30);
 ALTER TABLE alumnos MODIFY numInt VARCHAR(30);
+ALTER TABLE preparatorias DROP COLUMN habloConAna;
+
+/* No se han agregado al servidor */
+ALTER TABLE preparatorias ADD tomoTutoria INT;

@@ -115,11 +115,13 @@ Preparatorias
 
 dominio = preparatorias;
 
-func = insertaPrepAlum_cu; params = cuAlum, nombrePrep,promedio, habloConAna(int)
+func = insertaPrepAlum_cu; params = cuAlum, nombrePrep,promedio, comoConocioItam,tomoTutoria
 
 func = preparatorias; // regresa todas las tuplas en preparatorias
 
 func = preparatoria_cu ; params = cuAlum; //tupla asociada al alumno de la cu
+
+func=borraPreparatoria; params=cuAlum,nombrePrep
 
 ===============================================================
 Empresas

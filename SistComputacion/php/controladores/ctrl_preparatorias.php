@@ -1,11 +1,11 @@
 <?php 
 
 
-//func = insertaPrepAlum_cu; params = cuAlum, nombrePrep,promedio, habloConAna(int)
+//func = insertaPrepAlum_cu; params = cuAlum, nombrePrep,promedio, comoConocioItam,tomoTutoria
 function insertaPrepAlum_cu(){
 	global $msql;
 	$conn = $msql->conn;
-	$params = array("cuAlum","nombrePrep", "promedio", "habloConAna");
+	$params = array("cuAlum","nombrePrep", "promedio", "comoConocioItam","tomoTutoria");
 	try{
 		if( issetArrPost( $params ) ){
 
@@ -23,10 +23,10 @@ function insertaPrepAlum_cu(){
 				$stmt->execute();
 				if($stmt->rowCount() == 0){
 
-					$params = array("idAlum", "nombrePrep", "promedio", "habloConAna");
+					$params = array("idAlum", "nombrePrep", "promedio", "comoConocioItam","tomoTutoria");
 					$stmt = $msql->sqlPrepPost("INSERT INTO preparatorias(idAlum, nombrePrep, 
-								promedio, habloConAna)
-							VALUES (:idAlum, :nombrePrep,:promedio, :habloConAna)", $params);
+								promedio, comoConocioItam, tomoTutoria)
+							VALUES (:idAlum, :nombrePrep,:promedio, :comoConocioItam,:tomoTutoria)", $params);
 
 					$stmt->execute();
 					$res = jsonOK("Insercion exitosa");
@@ -95,6 +95,46 @@ function preparatoria_cu(){
 
 	return $res;
 }
+//func=borraPreparatoria; params=cuAlum,nombrePrep
+function borraPreparatoria(){
 
+
+	global $msql;
+	$conn = $msql->conn;
+	$params = array("cuAlum", "nombrePrep");
+	try{
+		if( issetArrPost( $params ) ){
+
+            $stmt = $msql->sqlPrepPost("SELECT * from alumnos where cu = :cuAlum", 
+									array("cuAlum"));
+			$stmt->execute();
+
+			if($stmt->rowCount() > 0){
+				$alum = $stmt->fetch(PDO::FETCH_ASSOC);
+				$_POST["idAlum"] = $alum["idAlum"];
+				$params = array( "nombrePrep", "idAlum");
+                $stmt = $msql->sqlPrepPost("DELETE FROM preparatorias 
+                                            where idAlum =:idAlum and nombrePrep =:nombrePrep", $params);
+
+				$stmt->execute();
+				$res = jsonOk("Operacion exitosa");
+
+			}
+			else
+				$res = jsonErr("Alumno no existente");
+
+		}
+		else 
+			$res = jsonErr("Error en parametros");
+	}
+	catch(PDOException $e){
+		$res = jsonErr($e);
+		//$res = $e;
+	}
+
+	return $res;
+
+
+}
 
  ?>
