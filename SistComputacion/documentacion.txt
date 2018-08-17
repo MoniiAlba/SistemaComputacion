@@ -68,7 +68,7 @@ Estancias
 
 dominio = estancias
 
-func  = insertaUniversidad ; params = nomUni, nomPais;
+func  = insertaUniversidad ; params = nomUni, nomPais, nomCiudad;
 
 func = universidades; // regresa todas las universidades;
 
@@ -82,14 +82,18 @@ nombre de la materia en la universidad extranjera), materiaItam (nombre de la ma
 func = materiasDeAlum_cu; params = cuAlum; //Regresa materias revalidadas en todos los intercambios
 del alumno;
 
+func = borraUniversidad; params = nomUni
+
 ===============================================================
 Comentarios
 ===============================================================
 
 dominio = comentarios
 
-func = insertaComentCu; params = cuAlum, comentario // inserta comentario
+func = insertaComentCu; params = cuAlum, comentario,asunto // inserta comentario
 al alumno especificado;
+
+func = borraComentario; params = idComentario
 
 func = comentarios; // todas las tuplas
 

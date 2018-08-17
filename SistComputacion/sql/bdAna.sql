@@ -193,3 +193,7 @@ ALTER TABLE preparatorias DROP COLUMN habloConAna;
 
 /* No se han agregado al servidor */
 ALTER TABLE preparatorias ADD tomoTutoria INT;
+ALTER TABLE alumnos MODIFY beca VARCHAR(40);
+ALTER TABLE estancias ADD ciudad VARCHAR(30);
+ALTER TABLE comentarios ADD asunto VARCHAR(30);
+

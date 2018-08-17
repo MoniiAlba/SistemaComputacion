@@ -1,11 +1,11 @@
 <?php 
 
 
-//func  = insertaUniversidad ; params = nomUni, nomPais;
+//func  = insertaUniversidad ; params = nomUni, nomPais, nomCiudad;
 function insertaUniversidad(){
 	global $msql;
 	$conn = $msql->conn;
-	$params = array("nomUni", "nomPais");
+	$params = array("nomUni", "nomPais","nomCiudad");
 	try{
 		if( issetArrPost( $params ) ){
 
@@ -16,8 +16,8 @@ function insertaUniversidad(){
 
 			if($stmt->rowCount() == 0){
 
-				$stmt = $msql->sqlPrepPost("INSERT INTO estancias(universidad, pais)
-						VALUES (:nomUni, :nomPais)", $params);
+				$stmt = $msql->sqlPrepPost("INSERT INTO estancias(universidad, pais,ciudad)
+						VALUES (:nomUni, :nomPais,:nomCiudad)", $params);
 
 				$stmt->execute();
 				$idUni = $conn->lastInsertId();
@@ -186,6 +186,38 @@ function registraMateriaRev_cu(){
 	}
 
 	return $res;
+
+	
+}
+
+// borraUniversidad; params = nomUni
+function borraUniversidad(){
+
+
+	global $msql;
+	$conn = $msql->conn;
+	$params = array("nomUni");
+	try{
+		if( issetArrPost( $params ) ){
+
+				$stmt = $msql->sqlPrepPost("DELETE FROM estancias 
+											where universidad=:nomUni", $params);
+
+				$stmt->execute();
+				$res = jsonOk("Operacion exitosa");
+
+		}
+		else 
+			$res = jsonErr("Error en parametros");
+	}
+	catch(PDOException $e){
+		$res = jsonErr($e);
+		//$res = $e;
+	}
+
+	return $res;
+
+
 }
 
 
