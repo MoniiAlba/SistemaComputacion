@@ -6,7 +6,7 @@
 function alumnos(){
 	global $msql;
 	$res = $msql->cons('select * from alumnos');
-	return json($res);
+	return jsonArr($res);
 }
 
 function alumno_id(){
@@ -169,6 +169,39 @@ function eliminaAlumno(){
 	return $res;
 
 
+}
+//func = bajaAlumno; param = cu;
+function bajaAlumno(){
+	global $msql;
+	$conn = $msql->conn;
+	$params = array("cu");
+	
+	try{
+		if( issetArrPost( $params ) ){
+
+			$stmt = $msql->sqlPrepPost("SELECT * from alumnos where cu = :cu", 
+									array("cu"));
+			$stmt->execute();
+
+			if($stmt->rowCount() > 0){
+				$stmt = $msql->sqlPrepPost("UPDATE alumnos  SET dadoDeBaja = 1
+				 WHERE cu = :cu",$params);
+
+				$stmt->execute();
+				$res = jsonOk("exito");
+			}
+			else
+				$res = jsonErr("alumno no existente");
+		}
+		else
+			$res = jsonErr("parametros insuficientes");
+	}
+	catch(PDOException $e){
+		$res = jsonErr($e->getMessage());
+		//$res = $e;
+	}
+
+	return $res;
 }
 
 
