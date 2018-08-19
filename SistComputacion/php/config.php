@@ -38,8 +38,6 @@ $rutasRegistradas = array("alumnos" => "controladores/ctrl_alumnos.php",
 $bdConfig = array( "servername" => "localhost",
 					"username" => "root",
 					"password" => "",
-					/* "username" => "alumnoscompu",
-					"password" => "N7kLGKisTdgI4NJq", */
 					"dbName" =>"alumnoscompu");
 
 
