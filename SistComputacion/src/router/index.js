@@ -5,7 +5,7 @@ import Login from '@/components/Login/Login'
 import Add from '@/components/User/Add'
 import Delete from '@/components/User/Delete'
 import Modify from '@/components/User/Modify'
-
+var api = 'http://localhost/SistemaComputacion/SistComputacion/php/'
 Vue.use(Router)
 
 let router = new Router({
@@ -114,7 +114,8 @@ function checkLogin (requiresAuth, next) {
         }
       }
     };
-    http_request.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
+    http_request.open('POST', api, true);
+    http_request.withCredentials = true
     http_request.send(data);
   }
 }

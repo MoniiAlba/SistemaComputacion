@@ -153,7 +153,7 @@
 						</v-card>
 						<!--ADDRESS-->
 
-						<!--ESCUELA ALTERNA-->
+						<!--Preparatorias-->
                   <v-card class="mb-5" hover>
                      <v-card-title>
                         <span class="headline">Preparatoria</span>
@@ -168,6 +168,12 @@
 										label="Nombre de la preparatoria"
 										>
 										</v-text-field>
+									</v-flex>
+									<v-flex xs12 sm3>
+										<v-select
+										:items = 'preparatorias'
+										label = "Preparatoria"
+										></v-select>
 									</v-flex>
 									<v-flex xs12 sm6>
 										<v-text-field
@@ -369,6 +375,7 @@
 export default {
   	data(){
     	return{
+			api: 'http://localhost/SistemaComputacion/SistComputacion/php/',
 			//Variables let = alum{};
 			cu:'',
 			beca:'',
@@ -403,6 +410,7 @@ export default {
 			habloConAna:'',
 			//Variables let escuelaAlterna = {};
 			nomEsc:'',
+			preparatorias: [],
 
 			array : [],
 
@@ -483,6 +491,31 @@ export default {
     	}
   	},
   	methods:{
+
+		getPreparatorias(){
+			var vm = this;
+			var data = JSON.stringify({
+				dominio:'preparatorias',
+				func:'preparatorias'
+				});
+				var xhttp = new XMLHttpRequest();
+
+			xhttp.onreadystatechange = function(){
+				if (this.readyState == 4 && this.status == 200){
+						var res = JSON.parse(this.response);
+						console.log("Prepa req enviado")
+						console.log(res)
+						for(var i = 0; i<res.length ;i++)
+						vm.preparatorias.push(res[i].nombrePrep) 
+						vm.preparatorias.push('Preparatoria de vue')
+
+						console.log(vm.preparatorias)
+				}
+			}
+			xhttp.open('POST', this.api, true);
+			xhttp.withCredentials = true;
+			xhttp.send(data);
+		},
       sendData(json){
          var vm = this;
          var data = JSON.stringify(json);
@@ -646,7 +679,10 @@ export default {
 			//Variables let escuelaAlterna = {};
 			this.nomEsc = ''
 	 	}
-  	}
+	  },
+	  mounted () {
+    this.getPreparatorias()
+  }
 }
 </script>
 

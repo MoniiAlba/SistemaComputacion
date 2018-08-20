@@ -54,7 +54,7 @@ function insertaPrepAlum_cu(){
 function preparatorias(){
 	global $msql;
 	$res = $msql->cons('select * from preparatorias');
-	return json($res);
+	return jsonArr($res);
 }
 
 //func = preparatoria_cu ; params = cuAlum; //tupla asociada al alumno de la cu

@@ -52,6 +52,7 @@ export default {
       name: '',
       pass: '',
       http_request: null,
+      api:'http://localhost/SistemaComputacion/SistComputacion/php/'
     }
   },
   validations: {
@@ -99,7 +100,8 @@ export default {
          return false;
         }
         this.http_request.onreadystatechange = this.checkLogin;
-        this.http_request.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
+        this.http_request.open('POST', this.api, true);
+        this.http_request.withCredentials = true;
         this.http_request.send(data);
       }
     },
