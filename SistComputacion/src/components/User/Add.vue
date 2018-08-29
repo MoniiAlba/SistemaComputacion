@@ -249,21 +249,38 @@
 
 									<v-flex xs12 sm6>
 										<v-text-field
-										name="tipoAct"
-										v-model="actExtra.tipo"
+										name="Actividad"
+										v-model="actExtra.nombre"
 										type="text"
-										label="Tipo de actividad"
+										label="Actividad extra"
 										>
 										</v-text-field>
 									</v-flex>
 
-									<v-flex xs12 sm6>
+									<v-flex xs12 sm6 v-if="!otroActExtra">
 										<v-select
 										:items = "actividadesExtras"
-										label = "Actividad extra"
-										v-model="actExtra.nombre"
+										label = "Tipo"
+										v-model="actExtra.tipo"
 										></v-select>
 									</v-flex>
+									<v-flex xs12 sm6 v-else>
+										<v-text-field
+										name="Otro-tipo"
+										v-model="actExtra.tipo"
+										type="text"
+										label="Escribe el tipo de actividad"
+										>
+										</v-text-field>
+									</v-flex>
+									<v-flex>
+									<v-checkbox
+									label="Otro tipo de actividad"
+									v-model="otroActExtra">
+									</v-checkbox>
+									</v-flex>
+
+									
 									
 								</v-layout>
 							</v-container>
@@ -273,7 +290,7 @@
 						<!--SANCIONES-->
 						<v-card hover class="mb-5">
 							<v-card-title class="headline">
-								<span>Sanciones</span>
+								<span>Problemas de reglamento</span>
 							</v-card-title>
 							<v-container xs12 sm6>
 								<v-layout row wrap>
@@ -315,7 +332,7 @@
                   <!--ESTANCIAS-->
                   <v-card class="mb-5" hover>
                      <v-card-title>
-                        <span class="headline">Estancias</span>
+                        <span class="headline">Intercambio académico</span>
                      </v-card-title>
                      <v-container xs12 sm6>
                         <v-layout row wrap>
@@ -328,12 +345,37 @@
 										>
 										</v-text-field>
 									</v-flex>
+									<v-flex xs12 sm3>
+										<v-select
+										:items = "resBusquedaUni"
+										label = "Resultados busqueda"
+										v-model="universidad.nomUni"
+										></v-select>
+									</v-flex>
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="nomPais"
 										v-model="universidad.nomPais"
 										type="text"
 										label="Nombre del país"
+										>
+										</v-text-field>
+									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="nomCiudad"
+										v-model="universidad.ciudad"
+										type="text"
+										label="Nombre de la ciudad"
+										>
+										</v-text-field>
+									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="nomPais"
+										v-model="universidad.anio"
+										type="text"
+										label="Año de intercambio"
 										>
 										</v-text-field>
 									</v-flex>
@@ -358,6 +400,15 @@
 										>
 										</v-text-field>
 									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="NombreCarrera"
+										v-model="escuelaAlterna.nombreCarrera"
+										type="text"
+										label="Nombre de la carrera"
+										>
+										</v-text-field>
+									</v-flex>
                         </v-layout>
                      </v-container>
                   </v-card>
@@ -365,7 +416,18 @@
 
 						<!--COMENTARIOS-->
 						<v-container fluid>
+							<span class="headline">Comentarios</span>
+							<v-flex xs12 sm6>
+										<v-text-field
+										name="Asunto"
+										v-model="coment.asunto"
+										type="text"
+										label="Asunto"
+										>
+										</v-text-field>
+									</v-flex>
 							<v-layout row>
+								
 							<v-flex>
 								<v-text-field
 									name="comentarios"
@@ -399,6 +461,7 @@ export default {
   	data(){
     	return{
 			//Falta actualizar vista
+			otroActExtra :false,
 			alumno:{
 					cu:'666',
 					beca:'Sin',
@@ -436,7 +499,7 @@ export default {
 						func : 'insertaActividad',
 						cuAlum :'' ,
 						nombre: 'ActVue',
-						tipo: 'Vue'
+						tipo: 'Guitarra'
 					},
 			//Falta actualizar vista
 			sanciones : {
@@ -453,7 +516,9 @@ export default {
 						dominio: 'estancias',
 						func: 'insertaUniversidad',
 						nomUni: '',
-						nomPais: ''
+						nomPais: '',
+						ciudad:'',
+						anio:''
 					},
 			//Falta actualizar vista
 			coment : {
@@ -468,9 +533,11 @@ export default {
 			 escuelaAlterna : {
 						dominio : 'escuelasAlt',
 						func : 'insertaEscuelaAlt',
-						nombre : ''
+						nombre : '',
+						nombreCarrera:''
 					},
 			array : [],
+			resBusquedaUni:[],
 
 			actividadesExtras:[
 				{text: 'Guitarra', value:'Guitarra'},
@@ -494,7 +561,10 @@ export default {
 				{ text: '70' , value: 70  },
 				{ text: '80' , value: 80  },
 				{ text: '90' , value: 90  },
-				{ text: 'Bailléres' , value: 100 }
+				{ text: 'Bailléres' , value: 100 },
+				{ text: '50% por beca de ingenierías' , value: '50% por beca de ingenierías' },
+				{ text: '75% por beca de ingenierías' , value: '75% por beca de ingenierías' },
+				{ text: 'Beca de buró de crédito' , value: 'Beca de buró de crédito' }
 			],
 
 			programs:[
