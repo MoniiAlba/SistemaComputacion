@@ -529,7 +529,6 @@ export default {
 						nombreCarrera:''
 					},
 			array : [],
-			todasUniversidades:[],
 
 			actividadesExtras:[
 				{text: 'Guitarra', value:'Guitarra'},
@@ -615,6 +614,11 @@ export default {
 					  value: element.nombrePrep})
 			  });
 			return aux
+		  },
+		  todasUniversidades(){
+			  //console.log('Desde computed')
+			  //console.log(this.$store.getters.universidadesDropDown)
+			  return this.$store.getters.universidadesDropDown
 		  }
 
 	  },
@@ -775,14 +779,6 @@ export default {
 		  	var vm = this
 			  this.$store.dispatch('fetchPreparatorias')
 			  this.$store.dispatch('fetchUniversidades')
-			  .then(function(response){
-				  var aux = []
-				  response.data.forEach(function(e){
-					  aux.push({text:e.universidad,value:e.idEst})
-				  })
-				  //console.log(response.data)
-				  vm.todasUniversidades =aux
-			  })
 			  
 	  }
 	 

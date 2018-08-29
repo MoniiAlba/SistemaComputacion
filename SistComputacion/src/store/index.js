@@ -34,6 +34,18 @@ export default new Vuex.Store({
     getters:{//computed properties
         tengoSesion(){
             return true;
+        },
+
+        universidadesDropDown(state){
+            var aux = []
+            if(state.universidades != null){
+                state.universidades.forEach(element => {
+                    aux.push({text: element.universidad,
+                    value: element.idEst})
+                });
+            }
+
+            return aux
         }
     },
 
