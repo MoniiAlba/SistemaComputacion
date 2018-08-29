@@ -18,7 +18,7 @@
 									<v-text-field
 										label="Clave Única"
 										type="number"
-										v-model="cu"
+										v-model="alumno.cu"
 										prepend-icon=""
 										required
 										:counter="6"
@@ -32,7 +32,7 @@
 									<v-text-field
 										label="Nombre"
 										type="text"
-										v-model="nombre"
+										v-model="alumno.nombre"
 										required
 										:counter="30"
 										:error-messages="errors.collect('Nombre')"
@@ -45,7 +45,7 @@
 									<v-text-field
 										label="Apellido Paterno"
 										type="text"
-										v-model="apellidoP"
+										v-model="alumno.apellidoP"
 										required
 										:counter="30"
 										:error-messages="errors.collect('apellidoP')"
@@ -58,7 +58,7 @@
 									<v-text-field
 										label="Apellido Materno"
 										type="text"
-										v-model="apellidoM"
+										v-model="alumno.apellidoM"
 									></v-text-field>
 								</v-flex>
 
@@ -66,7 +66,7 @@
 									<v-text-field
 										label="Teléfono"
 										type = "number"
-										v-model="telefono"
+										v-model="alumno.telefono"
 									></v-text-field>
 								</v-flex>
 
@@ -74,7 +74,7 @@
 									<v-text-field
 										label="E-mail"
 										type = "email"
-										v-model="email"
+										v-model="alumno.email"
 										required
 										:error-messages="errors.collect('mail')"
 										v-validate="'required|email'"
@@ -98,7 +98,7 @@
 										<v-text-field 
 											label = "Calle"
 											type = "text"
-											v-model="calle"
+											v-model="alumno.calle"
 										></v-text-field>
 									</v-flex>
 
@@ -106,7 +106,7 @@
 										<v-text-field 
 											label = "Número exterior"
 											type = "number"
-											v-model="numExt"
+											v-model="alumno.numExt"
 										></v-text-field>
 									</v-flex>
 
@@ -114,7 +114,7 @@
 										<v-text-field 
 											label = "Número interior"
 											type = "number"
-											v-model="numInt"
+											v-model="alumno.numInt"
 										></v-text-field>
 									</v-flex>
 
@@ -122,21 +122,21 @@
 										<v-text-field 
 											label = "Colonia"
 											type = "text"
-											v-model="colonia"
+											v-model="alumno.colonia"
 										></v-text-field>
 									</v-flex>
 
 									<v-flex xs12 sm3>
 										<v-text-field 
 											label = "Delegación"
-											v-model="delegacion"
+											v-model="alumno.delegacion"
 										></v-text-field>
 									</v-flex>
 
 									<v-flex xs12 sm3>
 										<v-text-field 
 											label = "Código postal"
-											v-model="cp"
+											v-model="alumno.cp"
 											type="number"
 										></v-text-field>
 									</v-flex>
@@ -145,7 +145,7 @@
 										<v-select
 										:items = "states"
 										label = "Estado"
-										v-model="estado"
+										v-model="alumno.estado"
 										></v-select>
 									</v-flex>
 								</v-layout>
@@ -163,7 +163,6 @@
                            <v-flex xs12 sm6>
 										<v-text-field
 										name="prepa"
-										v-model="nomPrepa"
 										type="text"
 										label="Nombre de la preparatoria"
 										>
@@ -173,12 +172,13 @@
 										<v-select
 										:items = 'preparatorias'
 										label = "Preparatoria"
+										v-model="prepa.nombrePrep"
 										></v-select>
 									</v-flex>
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="promedio"
-										v-model="promPrepa"
+										v-model="prepa.promedio"
 										type="number"
 										label="Promedio de la prepa"
 										>
@@ -188,13 +188,13 @@
 										<v-select
 										:items = 'hablaAna'
 										label = "Habló con Ana"
-										v-model="habloConAna"
+										v-model="prepa.habloConAna"
 										></v-select>
 									</v-flex>
                         </v-layout>
                      </v-container>
                   </v-card>
-                  <!--ESCUELA ALTERNA-->
+                  <!--Prepa-->
 
 						<!--BECAS & PROGRAMA-->
 						<v-card class="mb-5" hover>
@@ -207,7 +207,7 @@
 										<v-select
 										:items = "percentage"
 										label = "Porcentaje de beca"
-										v-model="beca"
+										v-model="alumno.beca"
 										required
 										:error-messages="errors.collect('beca')"
 										v-validate="'required'"
@@ -219,7 +219,7 @@
 										<v-select
 										:items = "programs"
 										label = "Programa"
-										v-model="programa"
+										v-model="alumno.programa"
 										required
 										:error-messages="errors.collect('programa')"
 										v-validate="'required'"
@@ -230,7 +230,7 @@
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="tipoAct"
-										v-model="tipoAct"
+										v-model="actExtra.tipo"
 										type="text"
 										label="Tipo de actividad"
 										>
@@ -241,7 +241,7 @@
 										<v-select
 										:items = "actividadesExtras"
 										label = "Actividad extra"
-										v-model="nomAct"
+										v-model="actExtra.nombre"
 										></v-select>
 									</v-flex>
 									
@@ -261,7 +261,7 @@
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="areaSancion"
-										v-model="areaSancion"
+										v-model="sanciones.area"
 										type="text"
 										label="Área de sanción"
 										>
@@ -271,7 +271,7 @@
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="problemasReglamento"
-										v-model="problemasReg"
+										v-model="sanciones.problemasReglamento"
 										type="text"
 										label="Problemas de reglamento"
 										>
@@ -280,7 +280,7 @@
 									
 									<v-flex sm12>
 										<v-text-field
-										v-model="descSancion"
+										v-model="sanciones.descripcion"
 										label="Descripción de sanción"
 										textarea
 										name="descSancion"
@@ -302,7 +302,7 @@
                            <v-flex xs12 sm6>
 										<v-text-field
 										name="nomUni"
-										v-model="nomUni"
+										v-model="universidad.nomUni"
 										type="text"
 										label="Nombre de universidad"
 										>
@@ -311,7 +311,7 @@
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="nomPais"
-										v-model="nomPais"
+										v-model="universidad.nomPais"
 										type="text"
 										label="Nombre del país"
 										>
@@ -332,7 +332,7 @@
                            <v-flex xs12 sm6>
 										<v-text-field
 										name="nomEsc"
-										v-model="nomEsc"
+										v-model="escuelaAlterna.nombre"
 										type="text"
 										label="Nombre de la escuela"
 										>
@@ -351,7 +351,7 @@
 									name="comentarios"
 									label="Comentarios"
 									textarea
-									v-model="comentarios"
+									v-model="coment.comentarios"
 								></v-text-field>
 							</v-flex>
 							</v-layout>
@@ -372,46 +372,74 @@
 
 <script>
 
+import store from '@/store/index'
+import axios from 'axios'
+
 export default {
   	data(){
     	return{
-			api: 'http://localhost/SistemaComputacion/SistComputacion/php/',
-			//Variables let = alum{};
-			cu:'',
-			beca:'',
-			nombre:'',
-			apellidoP:'',
-			apellidoM:'',
-			programa:'',
-			email:'',
-			telefono:'',
-			estado:'',
-			calle:'',
-			colonia:'',
-			delegacion:'',
-			cp:'',
-			numExt:'',
-			numInt:'',
-			//Variables let actExtra = {};
-			tipoAct:'',
-			nomAct:'',
-			//Variables let sanciones = {};
-			descSancion:'',
-			areaSancion:'',
-			problemasReg:'',
-			//Variables let estancias = {};
-			nomUni:'',
-			nomPais:'',
-			//Variables let coment = {};
-			comentarios:'',
-			//Variables let prepa = {};
-			nomPrepa:'',
-			promPrepa:'',
-			habloConAna:'',
-			//Variables let escuelaAlterna = {};
-			nomEsc:'',
-			preparatorias: [],
-
+			alumno:{
+					cu:'666',
+					beca:'Sin',
+					nombre:'Prueba Vue',
+					apellidoP:'',
+					apellidoM:'',
+					programa:'',
+					email:'',
+					telefono:'',
+					estado:'',
+					calle:'',
+					colonia:'',
+					delegacion:'',
+					cp:'',
+					numExt:'',
+					numInt:'',
+					pais: 'México',
+					ciudad:'PRUEBA',
+					func : 'insertaAlumno',
+					dominio : 'alumnos'},
+			prepa : {
+						dominio : 'preparatorias',
+						func : 'insertaPrepAlum_cu',
+						cuAlum : '',
+						nombrePrep : 'Prepa vue',
+						promedio : '',
+						habloConAna : '',
+						comoConocioItam: 'En vue',
+						tomoTutoria: '1'
+					},
+			actExtra : {
+						dominio: 'actExtra',
+						func : 'insertaActividad',
+						cuAlum :'' ,
+						nombre: 'ActVue',
+						tipo: 'Vue'
+					},
+			sanciones : {
+						dominio: 'sanciones',
+						func: 'insertaSancion',
+						cuAlum: '',
+						descripcion: '',
+						area: '',
+						problemasReglamento: ''
+					},
+			universidad : {
+						dominio: 'estancias',
+						func: 'insertaUniversidad',
+						nomUni: '',
+						nomPais: ''
+					},
+			coment : {
+						dominio: 'comentarios',
+						func: 'insertaComentCu',
+						comentarios: '',
+						cuAlum : ''
+					},
+			 escuelaAlterna : {
+						dominio : 'escuelasAlt',
+						func : 'insertaEscuelaAlt',
+						nombre : ''
+					},
 			array : [],
 
 			hablaAna:[
@@ -489,92 +517,43 @@ export default {
 				{ text: 'Zacatecas', value: 'Zacatecas'}
 			]
     	}
-  	},
+	  },
+	  computed:{
+		  preparatorias(){
+			  var aux = []
+			  if(this.$store.state.preparatorias != null)
+			  this.$store.state.preparatorias.forEach(element => {
+				  aux.push({
+					  text: element.nombrePrep,
+					  value: element.nombrePrep})
+			  });
+			return aux
+		  }
+
+	  },
   	methods:{
 
-		getPreparatorias(){
-			var vm = this;
-			var data = JSON.stringify({
-				dominio:'preparatorias',
-				func:'preparatorias'
-				});
-				var xhttp = new XMLHttpRequest();
-
-			xhttp.onreadystatechange = function(){
-				if (this.readyState == 4 && this.status == 200){
-						var res = JSON.parse(this.response);
-						console.log("Prepa req enviado")
-						console.log(res)
-						for(var i = 0; i<res.length ;i++)
-						vm.preparatorias.push(res[i].nombrePrep) 
-						vm.preparatorias.push('Preparatoria de vue')
-
-						console.log(vm.preparatorias)
-				}
-			}
-			xhttp.open('POST', this.api, true);
-			xhttp.withCredentials = true;
-			xhttp.send(data);
+		enviaJson(api,json){
+			//console.log('Enviando: ')
+			//console.log(json)
+			return axios.post(api, 
+						json,
+						{ withCredentials:true })
+			.then(function(response){
+				return new Promise(function(resolve,reject)
+				{
+					if(response.data.hasOwnProperty('error'))
+						reject(response)
+					else
+						resolve(response)
+				})
+			})
 		},
-      sendData(json){
-         var vm = this;
-         var data = JSON.stringify(json);
-			var xhttp = new XMLHttpRequest();
-
-         xhttp.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200){
-					var res = JSON.parse(this.response);
-					console.log(res);
-					vm.clear();
-            }
-         }
-         xhttp.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
-			xhttp.send(data);
-      },
+		  
 	 	submit(){
        	var vm = this;
       	this.$validator.validateAll().then((result) => {
-				if (result) {
-					let alum = {
-						'func':'insertaAlumno',
-						'dominio': 'alumnos',
-						'nombre': vm.nombre,
-						'cu': vm.cu,
-						'beca': vm.beca,
-						'apellidoP': vm.apellidoP,
-						'apellidoM': vm.apellidoM,
-						'programa': vm.programa,
-						'email': vm.email,
-						'telefono': vm.telefono,
-						'estado': vm.estado,
-						'calle': vm.calle,
-						'colonia': vm.colonia,
-						'delegacion': vm.delegacion,
-						'cp': vm.cp,
-						'numExt': vm.numExt,
-						'numInt': vm.numInt
-					};
-					let actExtra = {
-						'dominio': 'actExtra',
-						'func' : 'insertaActividad',
-						'cuAlum' : vm.cu,
-						'nombre': vm.nomAct,
-						'tipo': vm.tipoAct
-					};
-					let sanciones = {
-						'dominio': 'sanciones',
-						'func': 'insertaSancion',
-						'cuAlum': vm.cu,
-						'descripcion': vm.descSancion,
-						'area': vm.areaSancion,
-						'problemasReglamento': vm.problemasReg
-					};
-					let universidad = {
-						'dominio': 'estancias',
-						'func': 'insertaUniversidad',
-						'nomUni': vm.nomUni,
-						'nomPais': vm.nomPais
-					};
+				if (result||!result) {
 					//necesito el id de la universidad
 					/*let registraEstAlum = {
 						'dominio': 'estancias',
@@ -584,12 +563,6 @@ export default {
 						'anio' : anio,
 						'semestre' : semestre
 					}*/
-					let coment = {
-						'dominio': 'comentarios',
-						'func': 'insertaComentCu',
-						'comentarios': vm.comentarios,
-						'cuAlum' : vm.cu
-					};
 					//not yet
 					/*let materias = {
 						'dominio' : 'materias',
@@ -608,22 +581,9 @@ export default {
 						'estatusFin' : vm.etatusFin,
 						'calificacion' : vm.calif
 					};*/
-					let prepa = {
-						'dominio' : 'preparatorias',
-						'func' : 'insertaPrepAlum_cu',
-						'cuAlum' : vm.cu,
-						'nombrePrep' : vm.nomPrepa,
-						'promedio' : vm.promPrepa,
-						'habloConAna' : vm.habloConAna
-					};
 					/*let empresa = {
 
 					};*/
-					let escuelaAlterna = {
-						'dominio' : 'escuelasAlt',
-						'func' : 'insertaEscuelaAlt',
-						'nombre' : vm.nomEsc
-					};
 					//necesito id de escuela
 					/*let insertaEscuela = {
 						'dominio' : 'escuelasAlt',
@@ -632,13 +592,31 @@ export default {
 						''
 					};*/
 
-					vm.sendData(alum);
-					vm.sendData(actExtra);
-					vm.sendData(sanciones);
-					vm.sendData(universidad);
-					vm.sendData(coment);
-					vm.sendData(prepa);
-					vm.sendData(escuelaAlterna);
+					//vm.sendData(alum);
+					vm.alumno.dominio='alumnos'
+					vm.alumno.func = 'insertaAlumno'
+					vm.enviaJson(vm.$store.state.api, vm.alumno)
+					.then(function (response) {
+						vm.alumno.id = response.data.idAlum
+						vm.prepa.idAlum = vm.alumno.id
+						vm.prepa.dominio = 'preparatorias'
+						vm.prepa.func = 'insertaPrepAlum_cu'
+						vm.prepa.cuAlum = vm.alumno.cu
+						vm.actExtra.dominio = 'actExtra'
+						vm.actExtra.func = 'insertaActividad'
+						vm.actExtra.cuAlum = vm.alumno.cu
+						var req = [vm.prepa,vm.actExtra]
+						
+						
+						return Promise.all(req.map(function(json){
+							return vm.enviaJson(vm.$store.state.api, json)
+						}))
+
+					})
+					.catch(function (error) {
+						console.log('Desde catch de promises')
+						console.log(error);
+					});
 					
 				}else{
 					alert('Correct them errors!');
@@ -646,43 +624,29 @@ export default {
       	});
 	 	},
 	 	clear(){
-			this.cu = '';
-			this.nombre = '';
-			this.beca = '';
-			this.apellidoP = '';
-			this.apellidoM = '';
-			this.programa = '';
-			this.email = '';
-			this.telefono = '';
-			this.estado = '';
-			this.calle = '';
-			this.colonia = '';
-			this.delegacion = '';
-			this.cp = '';
-			this.numExt = '';
-			this.numInt = '';
-			this.comentarios = '';
-			//Variables let actExtra = {};
-			this.tipoAct = '';
-			this.nomAct = '';
-			//Variables let sanciones = {};
-			this.descSancion = '',
-			this.areaSancion = '',
-			this.problemasReg = '',
-			//Variables let estancias = {};
-			this.nomUni = '',
-			this.nomPais = '',
-			//Variables let prepa = {};
-			this.nomPrepa = '',
-			this.promPrepa = '',
-			this.habloConAna = '',
-			//Variables let escuelaAlterna = {};
-			this.nomEsc = ''
+			 for(var it in this.alumno)
+				this.alumno[it] = ''
+				
+			for(var it in this.prepa)
+				this.prepa[it] = ''
+			
+			for(var it in this.actExtra)
+				this.actExtra[it] = ''
+			for(var it in this.sanciones)
+				this.sanciones[it] = ''
+			for(var it in this.universidad)
+				this.universidad[it] = ''
+			for(var it in this.coment)
+				this.coment[it] = ''
+			for(var it in this.escuelaAlterna)
+				this.escuelaAlterna[it] = ''
 	 	}
 	  },
-	  mounted () {
-    this.getPreparatorias()
-  }
+	  created(){
+			  this.$store.dispatch('fetchPreparatorias')
+			  
+	  }
+	 
 }
 </script>
 
