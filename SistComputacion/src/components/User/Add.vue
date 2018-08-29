@@ -351,7 +351,7 @@
 									name="comentarios"
 									label="Comentarios"
 									textarea
-									v-model="coment.comentarios"
+									v-model="coment.comentario"
 								></v-text-field>
 							</v-flex>
 							</v-layout>
@@ -378,6 +378,7 @@ import axios from 'axios'
 export default {
   	data(){
     	return{
+			//Falta actualizar vista
 			alumno:{
 					cu:'666',
 					beca:'Sin',
@@ -398,6 +399,8 @@ export default {
 					ciudad:'PRUEBA',
 					func : 'insertaAlumno',
 					dominio : 'alumnos'},
+
+			//Falta actualizar vista
 			prepa : {
 						dominio : 'preparatorias',
 						func : 'insertaPrepAlum_cu',
@@ -415,26 +418,33 @@ export default {
 						nombre: 'ActVue',
 						tipo: 'Vue'
 					},
+			//Falta actualizar vista
 			sanciones : {
 						dominio: 'sanciones',
 						func: 'insertaSancion',
 						cuAlum: '',
-						descripcion: '',
+						descripcion: 'Aprender vue',
 						area: '',
-						problemasReglamento: ''
+						problemasReglamento: 'Vue'
 					},
+
+			//Debe ir en modal
 			universidad : {
 						dominio: 'estancias',
 						func: 'insertaUniversidad',
 						nomUni: '',
 						nomPais: ''
 					},
+			//Falta actualizar vista
 			coment : {
 						dominio: 'comentarios',
 						func: 'insertaComentCu',
-						comentarios: '',
+						comentario: 'Coment vue',
+						asunto: 'ESTE DEBE DESPLEGARSE',
 						cuAlum : ''
 					},
+
+			//Debe ir en modal
 			 escuelaAlterna : {
 						dominio : 'escuelasAlt',
 						func : 'insertaEscuelaAlt',
@@ -534,16 +544,18 @@ export default {
   	methods:{
 
 		enviaJson(api,json){
-			//console.log('Enviando: ')
-			//console.log(json)
+			console.log('Enviando: ')
+			console.log(json)
 			return axios.post(api, 
 						json,
 						{ withCredentials:true })
 			.then(function(response){
 				return new Promise(function(resolve,reject)
 				{
-					if(response.data.hasOwnProperty('error'))
+					if(response.data.hasOwnProperty('error')){
+						response.jsonFallido = json
 						reject(response)
+					}	
 					else
 						resolve(response)
 				})
@@ -598,14 +610,33 @@ export default {
 					vm.enviaJson(vm.$store.state.api, vm.alumno)
 					.then(function (response) {
 						vm.alumno.id = response.data.idAlum
+						var req = []
+						//console.log('Porque no escribe')
+						//PREPAS
 						vm.prepa.idAlum = vm.alumno.id
 						vm.prepa.dominio = 'preparatorias'
 						vm.prepa.func = 'insertaPrepAlum_cu'
 						vm.prepa.cuAlum = vm.alumno.cu
+						req.push(vm.prepa)
+
+						//Act extras
 						vm.actExtra.dominio = 'actExtra'
 						vm.actExtra.func = 'insertaActividad'
 						vm.actExtra.cuAlum = vm.alumno.cu
-						var req = [vm.prepa,vm.actExtra]
+						req.push(vm.actExtra)
+
+						//Sanciones
+						vm.sanciones.dominio = 'sanciones'
+						vm.sanciones.func = 'insertaSancion'
+						vm.sanciones.cuAlum = vm.alumno.cu
+						req.push(vm.sanciones)
+
+						//Comentarios
+						vm.coment.dominio = 'comentarios'
+						vm.coment.func = 'insertaComentCu'
+						vm.coment.cuAlum = vm.alumno.cu
+						req.push(vm.coment)
+
 						
 						
 						return Promise.all(req.map(function(json){
