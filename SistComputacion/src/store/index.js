@@ -28,6 +28,7 @@ export default new Vuex.Store({
         api :'http://localhost/SistemaComputacion/SistComputacion/php/',
 
         preparatorias: null,
+        universidades:null
     },
 
     getters:{//computed properties
@@ -60,12 +61,39 @@ export default new Vuex.Store({
                 console.log(error);
               });
 
+        },
+
+        fetchUniversidades(context){
+            return axios.post(context.state.api, {
+                dominio:'estancias',
+				func:'universidades'
+              },
+                {
+                    withCredentials:true
+
+            })
+              .then(function (response) {
+                //console.log('Desde vuex')
+                //console.log(response);
+                //console.log(response.data)
+                context.commit('setUniversidades', response.data)
+                return response
+                
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
         }
     },
 
     mutations:{
         setPreparatorias(state, preparatorias){
             state.preparatorias = preparatorias
+        },
+        setUniversidades(state, universidades){
+            state.universidades = universidades
         }
     }
 })

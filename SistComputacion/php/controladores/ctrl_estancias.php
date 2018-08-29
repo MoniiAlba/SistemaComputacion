@@ -42,7 +42,7 @@ function insertaUniversidad(){
 function universidades(){
 	global $msql;
 	$res = $msql->cons("select * from estancias");
-	return json($res);
+	return jsonArr($res);
 }
 
 function estancias(){

@@ -339,9 +339,10 @@
                            <v-flex xs12 sm6>
 										<v-text-field
 										name="nomUni"
-										v-model="universidad.nomUni"
+										v-model="nomUniBusqueda"
 										type="text"
-										label="Nombre de universidad"
+										label="Busca universidad por nombre"
+										@keyup="busca"
 										>
 										</v-text-field>
 									</v-flex>
@@ -462,6 +463,7 @@ export default {
     	return{
 			//Falta actualizar vista
 			otroActExtra :false,
+			nomUniBusqueda:'',
 			alumno:{
 					cu:'666',
 					beca:'Sin',
@@ -538,6 +540,7 @@ export default {
 					},
 			array : [],
 			resBusquedaUni:[],
+			todasUniversidades:[],
 
 			actividadesExtras:[
 				{text: 'Guitarra', value:'Guitarra'},
@@ -645,6 +648,33 @@ export default {
 						resolve(response)
 				})
 			})
+		},
+
+		busca(){
+			let universidades = this.todasUniversidades
+			/* let universidades = [{universidad:'A'},
+			 {universidad:'Andres'}, {universidad:'B'}, 
+			 {universidad:'Beto'}] */
+			 //console.log(universidades)
+			 if(universidades != null){
+				let aux = []
+
+				if(this.nomUniBusqueda === ''){
+					this.resBusquedaUni = universidades
+				}
+				else{
+
+				for(var i = 0; i < universidades.length; i++)
+					if(universidades[i].text.toLowerCase().includes(this.nomUniBusqueda.toLowerCase())){
+						console.log(universidades[i].text)
+						aux.push(universidades[i].text)
+					}
+
+
+				this.resBusquedaUni = aux
+				}
+			 }
+
 		},
 		  
 	 	submit(){
@@ -780,7 +810,18 @@ export default {
 	 	}
 	  },
 	  created(){
+		  	var vm = this
 			  this.$store.dispatch('fetchPreparatorias')
+			  this.$store.dispatch('fetchUniversidades')
+			  .then(function(response){
+				  var aux = []
+				  response.data.forEach(function(e){
+					  aux.push({text:e.universidad,value:e.idEst})
+				  })
+				  //console.log(response.data)
+				  vm.resBusquedaUni = aux
+				  vm.todasUniversidades =aux
+			  })
 			  
 	  }
 	 
