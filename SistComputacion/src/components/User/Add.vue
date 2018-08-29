@@ -69,6 +69,13 @@
 										v-model="alumno.telefono"
 									></v-text-field>
 								</v-flex>
+								<v-flex xs12 sm3>
+									<v-text-field
+										label= "Celular"
+										type = "number"
+										v-model="alumno.celular"
+									></v-text-field>
+								</v-flex>
 
 								<v-flex xs12 sm3>
 									<v-text-field
@@ -105,7 +112,7 @@
 									<v-flex xs12 sm3>
 										<v-text-field 
 											label = "Número exterior"
-											type = "number"
+											type = "text"
 											v-model="alumno.numExt"
 										></v-text-field>
 									</v-flex>
@@ -113,7 +120,7 @@
 									<v-flex xs12 sm3>
 										<v-text-field 
 											label = "Número interior"
-											type = "number"
+											type = "text"
 											v-model="alumno.numInt"
 										></v-text-field>
 									</v-flex>
@@ -148,6 +155,20 @@
 										v-model="alumno.estado"
 										></v-select>
 									</v-flex>
+									<v-flex xs12 sm3>
+										<v-text-field 
+											label = "Pais"
+											type = "text"
+											v-model="alumno.pais"
+										></v-text-field>
+									</v-flex>
+									<v-flex xs12 sm3>
+										<v-text-field 
+											label = "Ciudad"
+											type = "text"
+											v-model="alumno.ciudad"
+										></v-text-field>
+									</v-flex>
 								</v-layout>
 							</v-container>
 						</v-card>
@@ -160,14 +181,6 @@
                      </v-card-title>
                      <v-container xs12 sm6>
                         <v-layout row wrap>
-                           <v-flex xs12 sm6>
-										<v-text-field
-										name="prepa"
-										type="text"
-										label="Nombre de la preparatoria"
-										>
-										</v-text-field>
-									</v-flex>
 									<v-flex xs12 sm3>
 										<v-select
 										:items = 'preparatorias'
@@ -185,12 +198,19 @@
 										</v-text-field>
 									</v-flex>
 									<v-flex xs12 sm3>
-										<v-select
-										:items = 'hablaAna'
-										label = "Habló con Ana"
-										v-model="prepa.habloConAna"
-										></v-select>
+										<v-text-field 
+											label = "Como se entero del Itam"
+											type = "text"
+											v-model="prepa.comoConocioItam"
+										></v-text-field>
 									</v-flex>
+									<v-flex>
+									<v-checkbox
+									label="Tomó tutoría primer semestre"
+									v-model="prepa.tomoTutoria">
+									</v-checkbox>
+									</v-flex>
+									
                         </v-layout>
                      </v-container>
                   </v-card>
@@ -388,6 +408,7 @@ export default {
 					programa:'',
 					email:'',
 					telefono:'',
+					celular: '',
 					estado:'',
 					calle:'',
 					colonia:'',
@@ -396,7 +417,7 @@ export default {
 					numExt:'',
 					numInt:'',
 					pais: 'México',
-					ciudad:'PRUEBA',
+					ciudad:'CDMX',
 					func : 'insertaAlumno',
 					dominio : 'alumnos'},
 
@@ -407,9 +428,8 @@ export default {
 						cuAlum : '',
 						nombrePrep : 'Prepa vue',
 						promedio : '',
-						habloConAna : '',
 						comoConocioItam: 'En vue',
-						tomoTutoria: '1'
+						tomoTutoria: false
 					},
 			actExtra : {
 						dominio: 'actExtra',
@@ -451,11 +471,6 @@ export default {
 						nombre : ''
 					},
 			array : [],
-
-			hablaAna:[
-				{text: 'Sí', value: 'yes'},
-				{text: 'No', value: 'no'}
-			],
 
 			actividadesExtras:[
 				{text: 'Guitarra', value:'Guitarra'},
@@ -618,6 +633,27 @@ export default {
 						vm.prepa.func = 'insertaPrepAlum_cu'
 						vm.prepa.cuAlum = vm.alumno.cu
 						req.push(vm.prepa)
+
+						if(vm.alumno.telefono!== ''){
+							var telJson = {
+								dominio :'telefonos',
+								func: 'insertaTelefono',
+								cuAlum: vm.alumno.cu,
+								descripcion: 'Telefono',
+								telefono: vm.alumno.telefono
+							}
+							req.push(telJson)
+						}
+						if(vm.alumno.celular!== ''){
+							var celJson = {
+								dominio :'telefonos',
+								func: 'insertaTelefono',
+								cuAlum: vm.alumno.cu,
+								descripcion: 'Celular',
+								telefono: vm.alumno.celular
+							}
+							req.push(celJson)
+						}
 
 						//Act extras
 						vm.actExtra.dominio = 'actExtra'

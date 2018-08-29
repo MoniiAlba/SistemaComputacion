@@ -19,7 +19,8 @@ import {
   VCard,
   VRadioGroup,
   VSelect,
-  VSubHeader
+  VSubHeader,
+  VCheckbox
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -72,7 +73,8 @@ Vue.use(Vuetify, {
     VCard,
     VRadioGroup,
     VSelect,
-    VSubHeader
+    VSubHeader,
+    VCheckbox
   }
 })
 
