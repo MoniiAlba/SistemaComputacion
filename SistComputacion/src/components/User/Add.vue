@@ -336,21 +336,12 @@
                      </v-card-title>
                      <v-container xs12 sm6>
                         <v-layout row wrap>
-                           <v-flex xs12 sm6>
-										<v-text-field
-										name="nomUni"
-										v-model="nomUniBusqueda"
-										type="text"
-										label="Busca universidad por nombre"
-										@keyup="busca"
-										>
-										</v-text-field>
-									</v-flex>
 									<v-flex xs12 sm3>
 										<v-select
-										:items = "resBusquedaUni"
-										label = "Resultados busqueda"
+										:items = "todasUniversidades"
+										label = "Universidad"
 										v-model="universidad.nomUni"
+										autocomplete
 										></v-select>
 									</v-flex>
 									<v-flex xs12 sm6>
@@ -463,7 +454,6 @@ export default {
     	return{
 			//Falta actualizar vista
 			otroActExtra :false,
-			nomUniBusqueda:'',
 			alumno:{
 					cu:'666',
 					beca:'Sin',
@@ -539,7 +529,6 @@ export default {
 						nombreCarrera:''
 					},
 			array : [],
-			resBusquedaUni:[],
 			todasUniversidades:[],
 
 			actividadesExtras:[
@@ -648,33 +637,6 @@ export default {
 						resolve(response)
 				})
 			})
-		},
-
-		busca(){
-			let universidades = this.todasUniversidades
-			/* let universidades = [{universidad:'A'},
-			 {universidad:'Andres'}, {universidad:'B'}, 
-			 {universidad:'Beto'}] */
-			 //console.log(universidades)
-			 if(universidades != null){
-				let aux = []
-
-				if(this.nomUniBusqueda === ''){
-					this.resBusquedaUni = universidades
-				}
-				else{
-
-				for(var i = 0; i < universidades.length; i++)
-					if(universidades[i].text.toLowerCase().includes(this.nomUniBusqueda.toLowerCase())){
-						console.log(universidades[i].text)
-						aux.push(universidades[i].text)
-					}
-
-
-				this.resBusquedaUni = aux
-				}
-			 }
-
 		},
 		  
 	 	submit(){
@@ -819,7 +781,6 @@ export default {
 					  aux.push({text:e.universidad,value:e.idEst})
 				  })
 				  //console.log(response.data)
-				  vm.resBusquedaUni = aux
 				  vm.todasUniversidades =aux
 			  })
 			  
