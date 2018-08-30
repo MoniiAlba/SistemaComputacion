@@ -40,7 +40,7 @@ function insertaEscuelaAlt(){
  function escuelasAlt(){
 	global $msql;
 	$res = $msql->cons("select * from escuelasAlternas");
-	return json($res);
+	return jsonArr($res);
 }
 
 //func = registraAlumEscAlt; params = cuAlum, idEsc, carrera;

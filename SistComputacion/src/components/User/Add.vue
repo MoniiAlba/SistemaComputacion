@@ -340,27 +340,9 @@
 										<v-select
 										:items = "todasUniversidades"
 										label = "Universidad"
-										v-model="universidad.nomUni"
+										v-model="universidad.idEst"
 										autocomplete
 										></v-select>
-									</v-flex>
-									<v-flex xs12 sm6>
-										<v-text-field
-										name="nomPais"
-										v-model="universidad.nomPais"
-										type="text"
-										label="Nombre del país"
-										>
-										</v-text-field>
-									</v-flex>
-									<v-flex xs12 sm6>
-										<v-text-field
-										name="nomCiudad"
-										v-model="universidad.ciudad"
-										type="text"
-										label="Nombre de la ciudad"
-										>
-										</v-text-field>
 									</v-flex>
 									<v-flex xs12 sm6>
 										<v-text-field
@@ -372,6 +354,7 @@
 										</v-text-field>
 									</v-flex>
                         </v-layout>
+						<modal-estancias></modal-estancias>
                      </v-container>
                   </v-card>
                   <!--ESTANCIAS-->
@@ -382,26 +365,29 @@
                         <span class="headline">Escuela alterna</span>
                      </v-card-title>
                      <v-container xs12 sm6>
+						
                         <v-layout row wrap>
                            <v-flex xs12 sm6>
-										<v-text-field
+										<v-select
 										name="nomEsc"
-										v-model="escuelaAlterna.nombre"
-										type="text"
+										v-model="escuelaAlterna.idEsc"
 										label="Nombre de la escuela"
+										:items = "escuelasAltDropDown"
+										autocomplete
 										>
-										</v-text-field>
+										</v-select>
 									</v-flex>
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="NombreCarrera"
-										v-model="escuelaAlterna.nombreCarrera"
+										v-model="escuelaAlterna.carrera"
 										type="text"
 										label="Nombre de la carrera"
 										>
 										</v-text-field>
 									</v-flex>
                         </v-layout>
+						 <modal-escuelas></modal-escuelas>
                      </v-container>
                   </v-card>
                   <!--ESCUELA ALTERNA-->
@@ -448,8 +434,14 @@
 
 import store from '@/store/index'
 import axios from 'axios'
+import ModalEstancias from './ModalEstancias.vue'
+import ModalEscuelas from './ModalEscuelas.vue'
 
 export default {
+	components:{
+		ModalEstancias,
+		ModalEscuelas
+	},
   	data(){
     	return{
 			//Falta actualizar vista
@@ -506,10 +498,9 @@ export default {
 			//Debe ir en modal
 			universidad : {
 						dominio: 'estancias',
-						func: 'insertaUniversidad',
-						nomUni: '',
-						nomPais: '',
-						ciudad:'',
+						func: 'registraEstanciaAlumno',
+						idEst: '',
+						semestre:'sem',
 						anio:''
 					},
 			//Falta actualizar vista
@@ -524,9 +515,9 @@ export default {
 			//Debe ir en modal
 			 escuelaAlterna : {
 						dominio : 'escuelasAlt',
-						func : 'insertaEscuelaAlt',
-						nombre : '',
-						nombreCarrera:''
+						func : 'registraAlumEscAlt',
+						idEsc : '',
+						carrera:''
 					},
 			array : [],
 
@@ -619,6 +610,12 @@ export default {
 			  //console.log('Desde computed')
 			  //console.log(this.$store.getters.universidadesDropDown)
 			  return this.$store.getters.universidadesDropDown
+		  },
+
+		  escuelasAltDropDown(){
+			  //console.log('Desde computed')
+			  //console.log(this.$store.getters.universidadesDropDown)
+			  return this.$store.getters.escuelasDropDown
 		  }
 
 	  },
@@ -647,15 +644,6 @@ export default {
        	var vm = this;
       	this.$validator.validateAll().then((result) => {
 				if (result||!result) {
-					//necesito el id de la universidad
-					/*let registraEstAlum = {
-						'dominio': 'estancias',
-						'func': 'registraEstanciaAlumno',
-						'cuAlum' : vm.cu,
-						'idEst' : id,
-						'anio' : anio,
-						'semestre' : semestre
-					}*/
 					//not yet
 					/*let materias = {
 						'dominio' : 'materias',
@@ -673,16 +661,6 @@ export default {
 						'cMateria' : vm.cMat,
 						'estatusFin' : vm.etatusFin,
 						'calificacion' : vm.calif
-					};*/
-					/*let empresa = {
-
-					};*/
-					//necesito id de escuela
-					/*let insertaEscuela = {
-						'dominio' : 'escuelasAlt',
-						'func' : 'registraAlumEscAlt',
-						'cuAlum' : vm.cu,
-						''
 					};*/
 
 					//vm.sendData(alum);
@@ -739,6 +717,18 @@ export default {
 						vm.coment.cuAlum = vm.alumno.cu
 						req.push(vm.coment)
 
+						//Estancia
+						vm.universidad.dominio = 'estancias'
+						vm.universidad.func = 'registraEstanciaAlumno'
+						vm.universidad.cuAlum = vm.alumno.cu
+						req.push(vm.universidad)
+
+						//Escuelas
+						vm.escuelaAlterna.dominio = 'escuelasAlt'
+						vm.escuelaAlterna.func = 'registraAlumEscAlt'
+						vm.escuelaAlterna.cuAlum = vm.alumno.cu
+						req.push(vm.escuelaAlterna)
+
 						
 						
 						return Promise.all(req.map(function(json){
@@ -779,6 +769,7 @@ export default {
 		  	var vm = this
 			  this.$store.dispatch('fetchPreparatorias')
 			  this.$store.dispatch('fetchUniversidades')
+			  this.$store.dispatch('fetchEscuelasAlt')
 			  
 	  }
 	 

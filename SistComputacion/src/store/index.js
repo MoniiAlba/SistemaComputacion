@@ -28,7 +28,8 @@ export default new Vuex.Store({
         api :'http://localhost/SistemaComputacion/SistComputacion/php/',
 
         preparatorias: null,
-        universidades:null
+        universidades:null,
+        escuelasAlt:[]
     },
 
     getters:{//computed properties
@@ -44,6 +45,17 @@ export default new Vuex.Store({
                     value: element.idEst})
                 });
             }
+
+            return aux
+        },
+        escuelasDropDown(state){
+            var aux = []
+            
+                state.escuelasAlt.forEach(element => {
+                    aux.push({text: element.nombre,
+                    value: element.idEsc})
+                });
+            
 
             return aux
         }
@@ -97,6 +109,30 @@ export default new Vuex.Store({
                 console.log(error);
               });
 
+        },
+        fetchEscuelasAlt(context){
+            return axios.post(context.state.api, {
+                dominio:'escuelasAlt',
+				func:'escuelasAlt'
+              },
+                {
+                    withCredentials:true
+
+            })
+              .then(function (response) {
+                //console.log('Desde vuex')
+                //console.log(response);
+                //console.log(response.data)
+                //console.log(response.data)
+                context.commit('setEscuelas', response.data)
+                return response
+                
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
         }
     },
 
@@ -106,6 +142,9 @@ export default new Vuex.Store({
         },
         setUniversidades(state, universidades){
             state.universidades = universidades
+        },
+        setEscuelas(state, escuelas){
+            state.escuelasAlt = escuelas
         }
     }
 })

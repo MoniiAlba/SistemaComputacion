@@ -20,7 +20,8 @@ import {
   VRadioGroup,
   VSelect,
   VSubHeader,
-  VCheckbox
+  VCheckbox,
+  VDialog
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -74,7 +75,8 @@ Vue.use(Vuetify, {
     VRadioGroup,
     VSelect,
     VSubHeader,
-    VCheckbox
+    VCheckbox,
+    VDialog
   }
 })
 
