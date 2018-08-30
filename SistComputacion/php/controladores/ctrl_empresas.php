@@ -46,7 +46,7 @@ function insertaEmpresa(){
 function empresas(){
 	global $msql;
 	$res = $msql->cons("select * from empresas");
-	return json($res);
+	return jsonArr($res);
 }
 
 //func = registraAlumEmpresa_cu; params = cuAlum, rfc, puesto, fechaIni;

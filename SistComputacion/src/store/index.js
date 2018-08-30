@@ -29,7 +29,8 @@ export default new Vuex.Store({
 
         preparatorias: null,
         universidades:null,
-        escuelasAlt:[]
+        escuelasAlt:[],
+        empresas:[]
     },
 
     getters:{//computed properties
@@ -58,7 +59,19 @@ export default new Vuex.Store({
             
 
             return aux
+        },
+        empresasDropDown(state){
+            var aux = []
+            
+                state.empresas.forEach(element => {
+                    aux.push({text: element.nombre,
+                    value: element.rfc})
+                });
+            
+
+            return aux
         }
+
     },
 
     actions: {//methods
@@ -133,6 +146,30 @@ export default new Vuex.Store({
                 console.log(error);
               });
 
+        },
+        fetchEmpresas(context){
+            return axios.post(context.state.api, {
+                dominio:'empresas',
+				func:'empresas'
+              },
+                {
+                    withCredentials:true
+
+            })
+              .then(function (response) {
+                //console.log('Desde vuex')
+                //console.log(response);
+                //console.log(response.data)
+                //console.log(response.data)
+                context.commit('setEmpresas', response.data)
+                return response
+                
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
         }
     },
 
@@ -145,6 +182,9 @@ export default new Vuex.Store({
         },
         setEscuelas(state, escuelas){
             state.escuelasAlt = escuelas
+        },
+        setEmpresas(state, empresas){
+            state.empresas = empresas
         }
     }
 })

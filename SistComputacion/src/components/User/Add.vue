@@ -392,6 +392,48 @@
                   </v-card>
                   <!--ESCUELA ALTERNA-->
 
+				<!--Empresas-->
+                  <v-card class="mb-5" hover>
+                     <v-card-title>
+                        <span class="headline">Empresas</span>
+                     </v-card-title>
+                     <v-container xs12 sm6>
+						
+                        <v-layout row wrap>
+                           <v-flex xs12 sm6>
+										<v-select
+										name="empresaNombre"
+										v-model="empresa.rfc"
+										label="Empresa"
+										:items = "empresasDropDown"
+										autocomplete
+										>
+										</v-select>
+									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="empresaPuesto"
+										v-model="empresa.puesto"
+										type="text"
+										label="Puesto"
+										>
+										</v-text-field>
+									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field 
+										name="empresaFechaIni"
+										v-model="empresa.fechaIni"
+										type="date"
+										label="Fecha"
+										>
+										</v-text-field>
+									</v-flex>
+                        </v-layout>
+						 <modal-empresas></modal-empresas>
+                     </v-container>
+                  </v-card>
+                  <!--Empresas-->
+
 						<!--COMENTARIOS-->
 						<v-container fluid>
 							<span class="headline">Comentarios</span>
@@ -436,11 +478,13 @@ import store from '@/store/index'
 import axios from 'axios'
 import ModalEstancias from './ModalEstancias.vue'
 import ModalEscuelas from './ModalEscuelas.vue'
+import ModalEmpresas from './ModalEmpresas.vue'
 
 export default {
 	components:{
 		ModalEstancias,
-		ModalEscuelas
+		ModalEscuelas,
+		ModalEmpresas
 	},
   	data(){
     	return{
@@ -519,6 +563,12 @@ export default {
 						idEsc : '',
 						carrera:''
 					},
+			empresa:{
+				rfc:'',
+				puesto:'',
+				fechaIni:''
+
+			},
 			array : [],
 
 			actividadesExtras:[
@@ -616,6 +666,11 @@ export default {
 			  //console.log('Desde computed')
 			  //console.log(this.$store.getters.universidadesDropDown)
 			  return this.$store.getters.escuelasDropDown
+		  },
+		  empresasDropDown(){
+			  //console.log('Desde computed')
+			  //console.log(this.$store.getters.universidadesDropDown)
+			  return this.$store.getters.empresasDropDown
 		  }
 
 	  },
@@ -729,6 +784,12 @@ export default {
 						vm.escuelaAlterna.cuAlum = vm.alumno.cu
 						req.push(vm.escuelaAlterna)
 
+						//Registra alumno empresa
+						vm.empresa.dominio = 'empresas'
+						vm.empresa.func = 'registraAlumEmpresa_cu'
+						vm.empresa.cuAlum = vm.alumno.cu
+						req.push(vm.empresa)
+
 						
 						
 						return Promise.all(req.map(function(json){
@@ -770,6 +831,7 @@ export default {
 			  this.$store.dispatch('fetchPreparatorias')
 			  this.$store.dispatch('fetchUniversidades')
 			  this.$store.dispatch('fetchEscuelasAlt')
+			  this.$store.dispatch('fetchEmpresas')
 			  
 	  }
 	 
