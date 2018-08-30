@@ -342,6 +342,7 @@
 										label = "Universidad"
 										v-model="universidad.idEst"
 										autocomplete
+										required
 										></v-select>
 									</v-flex>
 									<v-flex xs12 sm6>
