@@ -1,0 +1,201 @@
+<template>
+    <v-layout column>
+        <v-card  dark>
+        <v-card-title primary class="title">Busqueda</v-card-title>
+            <v-container fluid>
+                <v-layout column>
+                    <v-flex >
+                        <v-select
+                        :items = 'criterios'
+                        label = "Criterios"
+                        v-model="criterio"
+                        ></v-select>
+                    </v-flex>
+                    <template v-if="criterio==1">   
+                        <v-flex >
+                            <v-text-field
+                            name="nombre"
+                            v-model="nombre.nombre"
+                            type="text"
+                            label="Nombre"
+                            >
+                            </v-text-field>
+                        </v-flex>
+                        <v-flex >
+                            <v-text-field
+                            name="apellP"
+                            v-model="nombre.apellP"
+                            type="text"
+                            label="Apellido paterno"
+                            >
+                            </v-text-field>
+                        </v-flex>
+                        <v-flex >
+                            <v-text-field
+                            name="apellM"
+                            v-model="nombre.apellM"
+                            type="text"
+                            label="Apellido materno"
+                            >
+                            </v-text-field>
+                        </v-flex>
+                    </template>
+                    <template v-if="criterio==2">
+                        <v-flex >
+                            <v-text-field
+                            name="cu"
+                            v-model="cu"
+                            type="text"
+                            label="cu"
+                            >
+                            </v-text-field>
+                        </v-flex>
+                    </template>
+                    <template v-if="criterio==3">
+                        <v-flex >
+                            <v-select
+                            :items = 'estados'
+                            label = "estado"
+                            v-model="estado"
+                            ></v-select>
+                        </v-flex>
+                    </template>
+                    <v-flex >
+                        <v-btn large color="blue" dark >Buscar</v-btn>
+                    </v-flex> 
+                </v-layout>
+            </v-container>
+        </v-card>
+        <v-card >
+            <v-card-title primary class="title">Alumnos</v-card-title>
+            <v-data-table
+            :headers="headers"
+            :items="alumnos"
+            hide-actions
+            class="elevation-1 tabla"
+            >
+                <template slot="items" slot-scope="props">
+                <td>{{ props.item.cu}}</td>
+                <td class="text-xs-right">{{ props.item.nombre }}</td>
+                </template>
+            </v-data-table>
+        </v-card>
+    </v-layout>
+</template>
+
+<script>
+export default {
+    data(){
+        return{
+            headers: [
+        {
+          text: 'CU',
+          align: 'left',
+          sortable: true,
+          value: 'cu'
+        },
+        { text: 'Nombre', 
+          value: 'nombre' }
+      ],
+        alumnos: [
+        {
+          value: false,
+          nombre: 'Andres Cruz y Vera',
+          cu:'155899'
+        },
+        {
+          value: false,
+          nombre: 'Andres Cruz y Vera',
+          cu:'155899'
+        },
+        {
+          value: false,
+          nombre: 'Andres Cruz y Vera',
+          cu:'155899'
+        },
+        {
+          value: false,
+          nombre: 'Andres Cruz y Vera',
+          cu:'155899'
+        },
+        {
+          value: false,
+          nombre: 'Andres Cruz y Vera',
+          cu:'155899'
+        },
+        {
+          value: false,
+          nombre: 'Andres Cruz y Vera',
+          cu:'155899'
+        },
+        {
+          value: false,
+          nombre: 'Andres Cruz y Vera',
+          cu:'155899'
+        },
+        {
+          value: false,
+          nombre: 'Andres Cruz y Vera',
+          cu:'155899'
+        }
+      ],
+            criterios:[
+                {text:'Nombre',value:1},
+                {text:'Clave única',value:2},
+                {text:'Estado',value:3}
+            ],
+            criterio : '',
+            nombre:{
+                nombre:'',
+                apellP:'',
+                apellM:''
+            },
+            estado:'',
+            cu:'',
+            estados:[
+				{ text: 'Aguascalientes', value: 'Aguascalientes'},
+				{ text: 'Baja California', value: 'Baja California'},
+				{ text: 'Baja California Sur', value: 'Baja California Sur'},
+				{ text: 'Campeche', value: 'Campeche'},
+				{ text: 'Coahuila de Zaragoza', value: 'Coahuila de Zaragoza'},
+				{ text: 'Colima', value: 'Colima'},
+				{ text: 'Chiapas', value: 'Chiapas'},
+				{ text: 'Chihuahua', value: 'Chihuahua'},
+				{ text: 'Durango', value: 'Durango'},
+				{ text: 'Guanajuato', value: 'Guanajuato'},
+				{ text: 'Guerrero', value: 'Guerrero'},
+				{ text: 'Hidalgo', value: 'Hidalgo'},
+				{ text: 'Jalisco', value: 'Jalisco'},
+				{ text: 'México', value: 'México'},
+				{ text: 'Michoacán de Ocampo', value: 'Michoacán de Ocampo'},
+				{ text: 'Morelos', value: 'Morelos'},
+				{ text: 'Nayarit', value: 'Nayarit'},
+				{ text: 'Nuevo León', value: 'Nuevo León'},
+				{ text: 'Oaxaca', value: 'Oaxaca'},
+				{ text: 'Puebla', value: 'Puebla'},
+				{ text: 'Santiago de Querétaro', value: 'Santiago de Querétaro'},
+				{ text: 'Quintana Roo', value: 'Quintana Roo'},
+				{ text: 'San Luis Potosí', value: 'San Luis Potosí'},
+				{ text: 'Sinaloa', value: 'Sinaloa'},
+				{ text: 'Sonora', value: 'Sonora'},
+				{ text: 'Tabasco', value: 'Tabasco'},
+				{ text: 'Tamaulipas', value: 'Tamaulipas'},
+				{ text: 'Tlaxcala', value: 'Tlaxcala'},
+				{ text: 'Veracruz', value: 'Veracruz'},
+				{ text: 'Yucatán', value: 'Yucatán'},
+				{ text: 'Zacatecas', value: 'Zacatecas'}
+			]
+
+        }
+
+    }
+
+}
+</script>
+
+<style scoped>
+.tabla{
+    max-height: 300px;
+    overflow:scroll
+}
+</style>

@@ -1,11 +1,15 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import axios from 'axios'
-
+import consulta from './modules/consulta.js'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+
+    modules:{
+        consulta
+    },
 
     state: { //data
         alumno:{

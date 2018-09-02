@@ -42,6 +42,7 @@ func = updateAlum_cu; params = "cu", "beca", "nombre", "apellidoP",
 func = eliminaAlumno; param: cuAlum; // elimina alumno
 
 func = bajaAlumno; param = cu;
+func= alumnos_nombreCompleto; param = nommbre || apellidoP || apellidoM
 
 ===============================================================
 Actividades extra

@@ -203,6 +203,41 @@ function bajaAlumno(){
 
 	return $res;
 }
+//func= alumnos_nombreCompleto; param = nommbre, apellidoP, apellidoM;**
+function alumnos_nombreCompleto(){
+    global $msql;
+	$conn = $msql->conn;
+	$posibles = array("nombre","apellidoP", "apellidoM");
+	$params = array();
+	foreach($posibles as $pos)
+		if(isset($_POST[$pos]))
+		$params[] = $pos;
+	try{
+		if( count($params) > 0){
+			$aux = "";
+			$tam = count($params);
+			for($i = 0; $i < $tam ; $i++){
+				$aux = $aux.$params[$i]." = :".$params[$i]." ";
+				if($i != ($tam - 1))
+					$aux = $aux . " and ";
+			}
+			$stmt = $msql->sqlPrepPost("SELECT * from alumnos 
+			where ".$aux, $params);
+			$stmt->execute();
+			$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$res = jsonArr($res);
+
+		}
+		else 
+			$res = jsonErr("Error en parametros");
+	}
+	catch(PDOException $e){
+		//$res = jsonErr($e->getMessage());
+		$res = $e;
+	}
+
+	return $res;
+}
 
 
 
