@@ -3,7 +3,8 @@
 
 $funcionesRegistradas = array(
 					"alumnos" => array("alumnos", "alumno_id", "alumno_cu", "insertaAlumno",
-					"updateAlum_cu", "eliminaAlumno","bajaAlumno", "alumnos_nombreCompleto"),
+					"updateAlum_cu", "eliminaAlumno","bajaAlumno", "alumnos_nombreCompleto",
+					"alumnos_estado"),
 					"auth" => array("logout", "nuevoUsuario"),
 					"authPublico" => array("auth","tengoSesion"),
 					"actExtra" => array("insertaActividad", "actividadesExtra"),

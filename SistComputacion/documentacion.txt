@@ -43,6 +43,7 @@ func = eliminaAlumno; param: cuAlum; // elimina alumno
 
 func = bajaAlumno; param = cu;
 func= alumnos_nombreCompleto; param = nommbre || apellidoP || apellidoM
+func = alumnos_estado; param = estado
 
 ===============================================================
 Actividades extra

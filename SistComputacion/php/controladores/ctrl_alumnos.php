@@ -238,7 +238,31 @@ function alumnos_nombreCompleto(){
 
 	return $res;
 }
+//func = alumnos_estado; param = estado
+function alumnos_estado(){
+    global $msql;
+	$conn = $msql->conn;
+	$params = array("estado");
+	try{
+		if( issetArrPost( $params ) ){
 
+			$stmt = $msql->sqlPrepPost("SELECT * from alumnos where estado = :estado", 
+									array("estado"));
+			$stmt->execute();
+			$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$res = jsonArr($row);
+
+		}
+		else 
+			$res = jsonErr("Error en parametros");
+	}
+	catch(PDOException $e){
+		$res = jsonErr($e->getMessage());
+		//$res = $e;
+	}
+
+	return $res;
+}
 
 
  ?>
