@@ -5,10 +5,7 @@
        <busqueda> </busqueda>  
       </v-flex>
       <v-flex d-flex xs12 sm6 md9 >
-        <v-card color="indigo" dark>
-          <v-card-title primary class="title">Lorem</v-card-title>
-          <v-card-text>{{ lorem }}</v-card-text>
-        </v-card>
+        <resultados></resultados>
       </v-flex>
 
 
@@ -20,9 +17,11 @@
 
 <script>
 import Busqueda from './Consulta/Busqueda.vue'
+import Resultados from './Consulta/Resultados.vue'
 export default {
   components:{
-    Busqueda
+    Busqueda,
+    Resultados
   },
   data(){
     return{

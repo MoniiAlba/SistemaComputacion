@@ -2,7 +2,8 @@ import axios from 'axios'
 
 export default{
     state:{
-        tabla:[]
+        tabla:[],
+        seleccion:0
     },
 
     getters:{
@@ -16,6 +17,9 @@ export default{
                 })
             })
             return aux
+        },
+        alumnoSeleccionado(state){
+            return state.tabla[state.seleccion]
         }
 
     },
@@ -49,6 +53,9 @@ export default{
     mutations:{
         setTabla(state, alumnos){
             state.tabla = alumnos
+        },
+        setSeleccion(state, indice){
+            state.seleccion=indice
         }
 
     }
