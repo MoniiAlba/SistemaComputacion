@@ -263,6 +263,31 @@ function alumnos_estado(){
 
 	return $res;
 }
+//func = alumnoInfo_cu; param = cu
+function alumnoInfo_cu(){
+    global $msql;
+	$conn = $msql->conn;
+	$params = array("cu");
+	try{
+		if( issetArrPost( $params ) ){
+
+			$stmt = $msql->sqlPrepPost("SELECT * from alumnos  where estado = :estado", 
+									array("estado"));
+			$stmt->execute();
+			$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$res = jsonArr($row);
+
+		}
+		else 
+			$res = jsonErr("Error en parametros");
+	}
+	catch(PDOException $e){
+		$res = jsonErr($e->getMessage());
+		//$res = $e;
+	}
+
+	return $res;
+}
 
 
  ?>

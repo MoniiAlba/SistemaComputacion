@@ -19,7 +19,9 @@ export default{
             return aux
         },
         alumnoSeleccionado(state){
-            return state.tabla[state.seleccion]
+            return state.tabla.find(function(e){
+                return e.cu ===state.seleccion
+            })
         }
 
     },
@@ -46,6 +48,9 @@ export default{
                 console.log(error);
               });
 
+        },
+        fetchInfoAlumnoSeleccionado(context){
+            
         }
 
     },

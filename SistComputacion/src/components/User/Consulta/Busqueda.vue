@@ -78,8 +78,10 @@
             class="elevation-1 tabla"
             >
                 <template slot="items" slot-scope="props">
+                <tr @click="setSeleccion(props.item.cu)">
                 <td>{{ props.item.cu}}</td>
                 <td class="text-xs-right">{{ props.item.nombre }}</td>
+                </tr>
                 </template>
             </v-data-table>
         </v-flex>
@@ -90,6 +92,7 @@
 export default {
     data(){
         return{
+            cuSeleccionado:'',
             headers: [
         {
           text: 'CU',
@@ -170,6 +173,10 @@ export default {
     },
 
     methods:{
+        setSeleccion(cu){
+            //console.log(cu)
+            this.$store.commit('setSeleccion', cu)
+        },
         getAlumnos(){
             var req = {dominio:'alumnos'}
             if(this.criterio == 1){//por nombre
