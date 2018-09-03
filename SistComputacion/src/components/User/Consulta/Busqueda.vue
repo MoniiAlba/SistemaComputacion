@@ -1,8 +1,10 @@
 <template>
-    <v-layout column>
-        <v-card  dark>
-        <v-card-title primary class="title">Busqueda</v-card-title>
-            <v-container fluid>
+    <v-layout column style="height:100%">
+    <v-flex style="height:400px;max-height:400px">
+        <v-card  dark  p-0 class="sec" style="height:100%;max-height:100%">
+        <v-card-title primary class="title" pb-0>Busqueda</v-card-title>
+        <v-card-text style="padding-top:0">
+            <v-container fluid pt-0>
                 <v-layout column>
                     <v-flex >
                         <v-select
@@ -24,7 +26,7 @@
                         <v-flex >
                             <v-text-field
                             name="apellP"
-                            v-model="nombre.apellP"
+                            v-model="nombre.apellidoP"
                             type="text"
                             label="Apellido paterno"
                             >
@@ -33,7 +35,7 @@
                         <v-flex >
                             <v-text-field
                             name="apellM"
-                            v-model="nombre.apellM"
+                            v-model="nombre.apellidoM"
                             type="text"
                             label="Apellido materno"
                             >
@@ -61,16 +63,17 @@
                         </v-flex>
                     </template>
                     <v-flex >
-                        <v-btn large color="blue" dark >Buscar</v-btn>
+                        <v-btn large color="blue" @click="getAlumnos()" class="boton" dark >Buscar</v-btn>
                     </v-flex> 
                 </v-layout>
             </v-container>
+            </v-card-text>
         </v-card>
-        <v-card >
-            <v-card-title primary class="title">Alumnos</v-card-title>
+        </v-flex>
+        <v-flex style="height:200px;">
             <v-data-table
             :headers="headers"
-            :items="alumnos"
+            :items="itemsTabla"
             hide-actions
             class="elevation-1 tabla"
             >
@@ -79,7 +82,7 @@
                 <td class="text-xs-right">{{ props.item.nombre }}</td>
                 </template>
             </v-data-table>
-        </v-card>
+        </v-flex>
     </v-layout>
 </template>
 
@@ -107,36 +110,6 @@ export default {
           value: false,
           nombre: 'Andres Cruz y Vera',
           cu:'155899'
-        },
-        {
-          value: false,
-          nombre: 'Andres Cruz y Vera',
-          cu:'155899'
-        },
-        {
-          value: false,
-          nombre: 'Andres Cruz y Vera',
-          cu:'155899'
-        },
-        {
-          value: false,
-          nombre: 'Andres Cruz y Vera',
-          cu:'155899'
-        },
-        {
-          value: false,
-          nombre: 'Andres Cruz y Vera',
-          cu:'155899'
-        },
-        {
-          value: false,
-          nombre: 'Andres Cruz y Vera',
-          cu:'155899'
-        },
-        {
-          value: false,
-          nombre: 'Andres Cruz y Vera',
-          cu:'155899'
         }
       ],
             criterios:[
@@ -147,8 +120,8 @@ export default {
             criterio : '',
             nombre:{
                 nombre:'',
-                apellP:'',
-                apellM:''
+                apellidoP:'',
+                apellidoM:''
             },
             estado:'',
             cu:'',
@@ -188,6 +161,37 @@ export default {
 
         }
 
+    },
+    computed:{
+        itemsTabla(){
+            return this.$store.getters.itemsTabla
+        }
+
+    },
+
+    methods:{
+        getAlumnos(){
+            var req = {dominio:'alumnos'}
+            if(this.criterio == 1){//por nombre
+                req.func = 'alumnos_nombreCompleto'
+                var key
+                for(key in this.nombre){
+                    if(this.nombre[key].trim() !== '')
+                        req[key] = this.nombre[key]
+                }
+            }
+            else
+                if(this.criterio == 2){
+                    req.func = 'alumno_cu'
+                    req.cu = this.cu
+                }
+                else{
+                    req.func = 'alumnos_estado'
+                    req.estado = this.estado
+                }
+
+            this.$store.dispatch('fetchAlumnos', req)
+        }
     }
 
 }
@@ -195,7 +199,13 @@ export default {
 
 <style scoped>
 .tabla{
-    max-height: 300px;
-    overflow:scroll
+    overflow:scroll;
+    height: 218px;
+    max-height: 218px;
+}
+.sec{
+}
+.boton{
+    height: 30px;
 }
 </style>

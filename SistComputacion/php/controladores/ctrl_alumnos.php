@@ -39,7 +39,7 @@ function alumno_cu(){
 		$stmt->bindParam(':cu',$cu);
 		$stmt->execute();
 		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		$res = json($res);
+		$res = jsonArr($res);
 
 	}
 	else

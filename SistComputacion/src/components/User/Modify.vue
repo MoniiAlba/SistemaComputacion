@@ -1,10 +1,10 @@
 <template>
-  <v-container fluid grid-list>
-    <v-layout row wrap>
+  <v-container fluid grid-list class="contenedor" >
+    <v-layout row wrap style="height:100%;max-height:100%">
       <v-flex d-flex xs12 sm6 md3>
        <busqueda> </busqueda>  
       </v-flex>
-      <v-flex d-flex xs12 sm6 md9>
+      <v-flex d-flex xs12 sm6 md9 >
         <v-card color="indigo" dark>
           <v-card-title primary class="title">Lorem</v-card-title>
           <v-card-text>{{ lorem }}</v-card-text>
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style scoped>
-li{
-
+.contenedor{
+  height: 650px;
 }
 </style>
