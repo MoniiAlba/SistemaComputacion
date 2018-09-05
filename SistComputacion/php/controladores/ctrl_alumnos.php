@@ -270,13 +270,107 @@ function alumnoInfo_cu(){
 	$params = array("cu");
 	try{
 		if( issetArrPost( $params ) ){
+			$res = array();
+			//Act extra
+			$stmt = $msql->sqlPrepPost("select ae.nombre as Actividad, ae.tipo as Tipo
+			from actividadesExtra ae, alumnos a 
+			where a.idAlum = ae.idAlum and a.cu = :cu", 
+									array("cu"));
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$res[] = $row;
 
-			$stmt = $msql->sqlPrepPost("SELECT * from alumnos  where estado = :estado", 
-									array("estado"));
+			//Empresa
+			$stmt = $msql->sqlPrepPost("select ae.puesto as Puesto,
+			ae.fechaIni as FechaDeInicio,
+			e.rfc as Rfc,
+			e.telefono as Telefono,
+			e.estado as Estado,
+			e.nombre as Nombre,
+			e.calle as Calle,
+			e.colonia as Colonia,
+			e.delegacion as Delegacion,
+			e.cp as Cp,
+			e.numExt as NumeroExterior,
+			e.numInt as NumeroInterior,
+			e.giro as Giro
+			from empresas e, alumnos_empresas ae, alumnos a
+			where a.idAlum = ae.idAlum and ae.idEmp = e.idEmp
+			and a.cu = :cu", 
+									array("cu"));
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$res[] = $row;
+
+			//Escuelas alternas
+			$stmt = $msql->sqlPrepPost("select ae.carrera as Carrera, e.nombre as Universidad
+			from alumnos_escuelas ae, escuelasAlternas e, alumnos a
+			where ae.idEsc = e.idEsc and ae.idAlum = a.idAlum 
+			and a.cu =:cu",array("cu"));
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$res[] = $row;
+
+			//Estancias
+			$stmt = $msql->sqlPrepPost("select ae.anio as Fecha, e.universidad as Universidad,
+			e.pais as Pais, e.ciudad as Ciudad
+			from alumnos_estancias ae, estancias e, alumnos a
+			where ae.idAlum = a.idAlum and ae.idEst = e.idEst
+			and a.cu = :cu",array("cu"));
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$res[] = $row;
+
+			//Comentarios
+			$stmt = $msql->sqlPrepPost("select c.comentario as Comentario, c.asunto as Asunto
+			from comentarios c, alumnos a
+			where c.idAlum = a.idAlum and a.cu = :cu",array("cu"));
 			$stmt->execute();
 			$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			$res = jsonArr($row);
+			$res[] = $row;
 
+			//Preparatoria
+			$stmt = $msql->sqlPrepPost("select 
+			p.nombrePrep as Preparatoria,
+			p.promedio as Promedio,
+			p.comoConocioItam as ComoConocioItam,
+			p.tomoTutoria as TomoTutoria
+			from preparatorias p , alumnos a
+			where p.idAlum = a.idAlum and a.cu=:cu",array("cu"));
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$res[] = $row;
+
+			//Sanciones
+			$stmt = $msql->sqlPrepPost("select 
+			s.descripcion as Descripcion,
+			s.area as Area,
+			s.problemasReglamento as Reglamento
+			from sanciones s, alumnos a
+			where s.idAlum = a.idAlum and
+			a.cu=:cu",array("cu"));
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$res[] = $row;
+
+			//Telefonos
+			$stmt = $msql->sqlPrepPost("SELECT
+			t.descripcion as Descripcion,
+			t.telefono as Telefono
+			FROM telefonosAlumnos t, alumnos a
+			where t.idAlum = a.idAlum and
+			a.cu = :cu",array("cu"));
+			$stmt->execute();
+			$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$res[] = $row;
+
+			
+			 
+
+
+
+			
+			$res = jsonArr($res);
 		}
 		else 
 			$res = jsonErr("Error en parametros");
