@@ -109,13 +109,15 @@ function checkLogin (requiresAuth, next) {
           else
             next('/');
         } else {
+          console.log('hola')
           console.log('Hubo problemas con la petición.');
-          console.log(this);
-          console.log('Esto si cambio y la api es:')
-          console.log(store.state.api)
+          console.log(this)
+          //console.log('Esto si cambio y la api es:')
+          //console.log(store.state.api)
         }
       }
     };
+    //console.log('Enviando post')
     http_request.open('POST', store.state.api, true);
     http_request.withCredentials = true
     http_request.send(data);
@@ -127,12 +129,13 @@ router.beforeEach((to, from ,next) => {
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   let toName = to.meta.name;
   let fromName = from.meta.name;
+  //console.log('cambia algo')
   if(!fromName)
     next();
   else if(requiresAuth)
     checkLogin(requiresAuth, next);
   else if (fromName !== 'log' && fromName)
-    next('/');
+    next();
   //else
     //next(false);
   //if(requiresAuth && !currentUser) next('Login')

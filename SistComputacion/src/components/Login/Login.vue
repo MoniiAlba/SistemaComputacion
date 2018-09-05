@@ -52,7 +52,7 @@ export default {
       name: '',
       pass: '',
       http_request: null,
-      api:'http://localhost/SistemaComputacion/SistComputacion/php/'
+      api:this.$store.state.api
     }
   },
   validations: {

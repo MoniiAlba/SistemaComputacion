@@ -174,7 +174,31 @@ export default new Vuex.Store({
                 console.log(error);
               });
 
+        },
+        cerrarSesion(context){
+            return axios.post(context.state.api, {
+                dominio:'auth',
+				func:'logout'
+              },
+                {
+                    withCredentials:true
+
+            })
+              .then(function (response) {
+                //console.log('Desde vuex')
+                //console.log(response);
+                //console.log(response.data)
+                //console.log(response.data)
+                return response
+                
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
         }
+
     },
 
     mutations:{
