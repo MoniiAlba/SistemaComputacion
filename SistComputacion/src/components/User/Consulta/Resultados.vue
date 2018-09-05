@@ -75,7 +75,7 @@
                     <!-- Estancia-->
                     <v-flex xs3 sm3
                         v-for="(val, k) in infoAlumno.estancia"
-                        :key="k"
+                        :key="k+'Uni'"
                         px-2
                         v-if="consulta==4||consulta==8">
                         <v-text-field
@@ -127,7 +127,7 @@
                     <!-- Telefonos-->
                     <v-flex xs3 sm3
                         v-for="t in infoAlumno.telefonos"
-                        :key="t.Telefono"
+                        :key="t.Descripcion+t.Telefono"
                         px-2
                         v-if="consulta==0||consulta==8">
                         <v-text-field

@@ -4,7 +4,65 @@ export default{
     state:{
         tabla:[],
         seleccion:0,
-        infoAlumno:null
+        infoAlumno:{
+                    actExtra:{
+                        Actividad: "",
+                        Tipo: ""
+                    },
+                    comentarios:[
+                        {
+                            Comentario: "",
+                            Asunto: ""
+                        }
+                    ],
+                    empresa:{
+                        Puesto: "",
+                        FechaDeInicio: "",
+                        Rfc: "",
+                        Telefono: "",
+                        Estado: "",
+                        Nombre: "",
+                        Calle: "",
+                        Colonia: "",
+                        Delegacion: "",
+                        Cp: "",
+                        NumeroExterior: "",
+                        NumeroInterior: "",
+                        Giro: ""
+                    },
+                    escuelaAlt:{
+                        Carrera: "",
+                        Universidad: ""
+                    },
+                    estancia:{
+                        Fecha: "",
+                        Universidad: "",
+                        Pais: "",
+                        Ciudad: ""
+                    },
+                    preparatoria:{
+                        Preparatoria: "",
+                        Promedio: "",
+                        ComoConocioItam: "",
+                        TomoTutoria: ""
+                    },
+                    sancion:{
+                        Descripcion: "",
+                        Area: "",
+                        Reglamento: ""
+                    },
+                    telefonos:[
+                        {
+                            Descripcion: "Telefono",
+                            Telefono: ""
+                        },
+                        {
+                            Descripcion: "Celular",
+                            Telefono: ""
+                        }
+                    ]
+        }
+        
     },
 
     getters:{
@@ -25,11 +83,8 @@ export default{
             })
         },
         infoAlumno(state){
-            var res = {}
-            if(state.infoAlumno != null)
-                res = state.infoAlumno
 
-            return res
+            return state.infoAlumno
         }
 
     },

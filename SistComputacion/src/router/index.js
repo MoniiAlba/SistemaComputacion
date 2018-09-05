@@ -5,7 +5,7 @@ import Login from '@/components/Login/Login'
 import Add from '@/components/User/Add'
 import Delete from '@/components/User/Delete'
 import Modify from '@/components/User/Modify'
-var api = 'http://localhost/SistemaComputacion/SistComputacion/php/'
+import store from '@/store/index'
 Vue.use(Router)
 
 let router = new Router({
@@ -111,10 +111,12 @@ function checkLogin (requiresAuth, next) {
         } else {
           console.log('Hubo problemas con la petición.');
           console.log(this);
+          console.log('Esto si cambio y la api es:')
+          console.log(store.state.api)
         }
       }
     };
-    http_request.open('POST', api, true);
+    http_request.open('POST', store.state.api, true);
     http_request.withCredentials = true
     http_request.send(data);
   }

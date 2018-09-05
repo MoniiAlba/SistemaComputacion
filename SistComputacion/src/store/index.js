@@ -29,7 +29,7 @@ export default new Vuex.Store({
 			numExt:'',
 			numInt:''
         },
-        api :'http://localhost/SistemaComputacion/SistComputacion/php/',
+        api :'http://alumnoscomputacion.itam.mx/php/',
 
         preparatorias: null,
         universidades:null,
