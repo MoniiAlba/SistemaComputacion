@@ -3,7 +3,8 @@ import axios from 'axios'
 export default{
     state:{
         tabla:[],
-        seleccion:0
+        seleccion:0,
+        infoAlumno:null
     },
 
     getters:{
@@ -22,6 +23,13 @@ export default{
             return state.tabla.find(function(e){
                 return e.cu ===state.seleccion
             })
+        },
+        infoAlumno(state){
+            var res = {}
+            if(state.infoAlumno != null)
+                res = state.infoAlumno
+
+            return res
         }
 
     },
@@ -49,8 +57,47 @@ export default{
               });
 
         },
-        fetchInfoAlumnoSeleccionado(context){
-            
+        actualizaSeleccion(context, cu){
+            context.commit('setSeleccion', cu)
+            context.dispatch('fetchInfoAlumnoSeleccionado', cu)
+        },
+        fetchInfoAlumnoSeleccionado(context, cuAlum){
+
+            var reqBody = {
+                dominio:'alumnos',
+                func:'alumnoInfo_cu',
+                cu:cuAlum}
+            return axios.post(context.rootState.api, reqBody,{ withCredentials:true})
+              .then(function (response) {
+                //console.log('Desde vuex')
+                //console.log(response);
+                //console.log(response.data)
+                //console.log(response.data)
+                if(!response.data.hasOwnProperty('error')){
+                    console.log('InfoAlumno:')
+                    console.log(response.data)
+                    var infoAlum={
+                        actExtra:response.data[0],
+                        empresa:response.data[1],
+                        escuelaAlt:response.data[2],
+                        estancia:response.data[3],
+                        comentarios:response.data[4],
+                        preparatoria:response.data[5],
+                        sancion:response.data[6],
+                        telefonos:response.data[7]
+                    }
+                    console.log(infoAlum)
+                    context.commit('setInfoAlumno', infoAlum)
+                    return response
+                }
+                else
+                return Promise.reject(response)
+                
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
         }
 
     },
@@ -59,8 +106,11 @@ export default{
         setTabla(state, alumnos){
             state.tabla = alumnos
         },
-        setSeleccion(state, indice){
-            state.seleccion=indice
+        setSeleccion(state, cu){
+            state.seleccion=cu
+        },
+        setInfoAlumno(state,infoAlumno){
+            state.infoAlumno = infoAlumno;
         }
 
     }

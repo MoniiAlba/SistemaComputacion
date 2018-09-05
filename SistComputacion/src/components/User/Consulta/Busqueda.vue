@@ -175,7 +175,7 @@ export default {
     methods:{
         setSeleccion(cu){
             //console.log(cu)
-            this.$store.commit('setSeleccion', cu)
+            this.$store.dispatch('actualizaSeleccion', cu)
         },
         getAlumnos(){
             var req = {dominio:'alumnos'}

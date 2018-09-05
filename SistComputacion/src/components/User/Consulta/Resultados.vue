@@ -1,5 +1,5 @@
 <template>
-    <v-card color="blue-grey lighten-4" >
+    <v-card color="blue-grey lighten-4"  class="contenedor">
           <v-card-title primary class="title">
               <v-container>
             <v-layout row wrap>
@@ -23,6 +23,7 @@
                       <v-flex xs3 sm3
                         v-for="(val, k) in alumno"
                         :key="k"
+                        v-if="consulta==0||consulta==8"
                         px-2>
                         <v-text-field
                             :label="k"
@@ -31,6 +32,111 @@
                             disabled
                         ></v-text-field>
                     </v-flex>
+                    <!--te amo-->  
+                    <!-- Act extra-->
+                    <v-flex xs3 sm3
+                        v-for="(val, k) in infoAlumno.actExtra"
+                        :key="k"
+                        px-2
+                        v-if="consulta==2||consulta==8">
+                        <v-text-field
+                            :label="k"
+                            :value="val"
+                            
+                            disabled
+                        ></v-text-field>
+                    </v-flex>
+                    <!-- Empresa-->
+                    <v-flex xs3 sm3
+                        v-for="(val, k) in infoAlumno.empresa"
+                        :key="k"
+                        px-2
+                        v-if="consulta==6||consulta==8">
+                        <v-text-field
+                            :label="k"
+                            :value="val"
+                            
+                            disabled
+                        ></v-text-field>
+                    </v-flex>
+                    <!-- EscuelasAlt-->
+                    <v-flex xs3 sm3
+                        v-for="(val, k) in infoAlumno.escuelaAlt"
+                        :key="k"
+                        px-2
+                        v-if="consulta==5||consulta==8">
+                        <v-text-field
+                            :label="k"
+                            :value="val"
+                            
+                            disabled
+                        ></v-text-field>
+                    </v-flex>
+                    <!-- Estancia-->
+                    <v-flex xs3 sm3
+                        v-for="(val, k) in infoAlumno.estancia"
+                        :key="k"
+                        px-2
+                        v-if="consulta==4||consulta==8">
+                        <v-text-field
+                            :label="k"
+                            :value="val"
+                            
+                            disabled
+                        ></v-text-field>
+                    </v-flex>
+                    <!-- Comentario-->
+                    <v-flex xs3 sm3
+                        v-for="(val, k) in infoAlumno.comentarios[0]"
+                        :key="k"
+                        px-2
+                        v-if="consulta==7||consulta==8">
+                        <v-text-field
+                            :label="k"
+                            :value="val"
+                            
+                            disabled
+                        ></v-text-field>
+                    </v-flex>
+                    <!-- Preparatoria-->
+                    <v-flex xs3 sm3
+                        v-for="(val, k) in infoAlumno.preparatoria"
+                        :key="k"
+                        px-2
+                        v-if="consulta==1||consulta==8">
+                        <v-text-field
+                            :label="k"
+                            :value="val"
+                            
+                            disabled
+                        ></v-text-field>
+                    </v-flex>
+                    <!-- Sancion-->
+                    <v-flex xs3 sm3
+                        v-for="(val, k) in infoAlumno.sancion"
+                        :key="k"
+                        px-2
+                        v-if="consulta==3||consulta==8">
+                        <v-text-field
+                            :label="k"
+                            :value="val"
+                            
+                            disabled
+                        ></v-text-field>
+                    </v-flex>
+                    <!-- Telefonos-->
+                    <v-flex xs3 sm3
+                        v-for="t in infoAlumno.telefonos"
+                        :key="t.Telefono"
+                        px-2
+                        v-if="consulta==0||consulta==8">
+                        <v-text-field
+                            :label="t.Descripcion"
+                            :value="t.Telefono"
+                            disabled
+                        ></v-text-field>
+                    </v-flex>
+                    
                     
                   </v-layout>
               </v-container>
@@ -53,6 +159,7 @@ export default {
                 {text:"Escuela alterna", value:5},
                 {text:"Empresa", value:6},
                 {text:"Comentarios", value:7},
+                {text:"Todo", value:8}
             ]
         }
     },
@@ -61,6 +168,9 @@ export default {
             //console.log('en computed ')
             //console.log(this.$store.getters.alumnoSeleccionado)
             return this.$store.getters.alumnoSeleccionado
+        },
+        infoAlumno(){
+            return this.$store.getters.infoAlumno
         }
     }
 
@@ -68,5 +178,8 @@ export default {
 </script>
 
 <style>
+.contenedor{
+    overflow:scroll;
+}
 
 </style>
