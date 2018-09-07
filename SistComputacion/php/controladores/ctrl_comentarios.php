@@ -1,10 +1,10 @@
 <?php 
 
-//func = insertaComentCu; params = cuAlum, comentario
+//func = insertaComentCu; params = cuAlum, comentario,asunto
 function insertaComentCu(){
 	global $msql;
 	$conn = $msql->conn;
-	$params = array("cuAlum","comentario");
+	$params = array("cuAlum","comentario","asunto");
 	try{
 		if( issetArrPost( $params ) ){
 
@@ -15,9 +15,9 @@ function insertaComentCu(){
 			if($stmt->rowCount() > 0){
 				$alum = $stmt->fetch(PDO::FETCH_ASSOC);
 				$_POST["idAlum"] = $alum["idAlum"];
-				$params = array("comentario", "idAlum");
-				$stmt = $msql->sqlPrepPost("INSERT INTO comentarios(idAlum, comentario)
-						VALUES (:idAlum, :comentario)", $params);
+				$params = array("comentario", "idAlum","asunto");
+				$stmt = $msql->sqlPrepPost("INSERT INTO comentarios(idAlum, comentario,asunto)
+						VALUES (:idAlum, :comentario, :asunto)", $params);
 
 				$stmt->execute();
 				$idComm = $conn->lastInsertId();
@@ -32,18 +32,49 @@ function insertaComentCu(){
 			$res = jsonErr("Error en parametros");
 	}
 	catch(PDOException $e){
-		//$res = jsonErr($e->getMessage());
-		$res = $e;
+		$res = jsonErr($e->getMessage());
+		//$res = $e;
 	}
 
-	echo $res;
+	return $res;
+}
+
+//func = borraComentario; params = idComentario
+function borraComentario(){
+
+
+	global $msql;
+	$conn = $msql->conn;
+	$params = array("idComentario");
+	try{
+		if( issetArrPost( $params ) ){
+
+            
+			$stmt = $msql->sqlPrepPost("DELETE FROM comentarios
+												where idComentario = :idComentario", $params);
+
+			$stmt->execute();
+			$res = jsonOk("Operacion exitosa");
+
+		}
+		else 
+			$res = jsonErr("Error en parametros");
+	}
+	catch(PDOException $e){
+		$res = jsonErr($e);
+		//$res = $e;
+	}
+
+	return $res;
+
+
 }
 
 
 function comentarios(){
 	global $msql;
 	$res = $msql->cons("select * from comentarios");
-	echo json($res);
+	return json($res);
 }
 
 //func = comentarios_cu ; params = cuAlum
@@ -83,7 +114,7 @@ function comentarios_cu(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
 

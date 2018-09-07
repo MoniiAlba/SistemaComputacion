@@ -39,14 +39,14 @@ function insertaEmpresa(){
 		$res = jsonErr($e->getMessage());
 	}
 
-	echo $res;
+	return $res;
 
 }
 
 function empresas(){
 	global $msql;
 	$res = $msql->cons("select * from empresas");
-	echo json($res);
+	return jsonArr($res);
 }
 
 //func = registraAlumEmpresa_cu; params = cuAlum, rfc, puesto, fechaIni;

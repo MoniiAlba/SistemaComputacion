@@ -16,11 +16,15 @@
               :key="item.title"
               router
               :to="item.link"
+              
               >
             <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>{{ item.title }}</v-list-tile-content>
+            <v-list-tile-content
+            @click="clickBoton(item.title)">
+            {{ item.title }}
+            </v-list-tile-content>
             </v-list-tile>
         </v-list>
       </v-navigation-drawer>
@@ -68,9 +72,19 @@
           { icon: 'add_circle', title: 'Agrega', link: '/home/add'},
           { icon: 'live_help', title: 'Consulta', link: '/home/modify'},
           { icon: 'delete', title: 'Elimina', link: '/home/delete'},
-          { icon: 'exit_to_app', title: 'Cerrar sesión', link: '/home/delete'}
+          { icon: 'exit_to_app', title: 'Cerrar sesión', link: '/'}
           
         ]
+      }
+    },
+    methods:{
+      clickBoton(boton){
+        //console.log(boton)
+        if(boton === 'Cerrar sesión'){
+          
+          //this.$router.push('/')
+          this.$store.dispatch('cerrarSesion')
+        }
       }
     }
   }
@@ -82,3 +96,4 @@
   }
   
 </style>
+

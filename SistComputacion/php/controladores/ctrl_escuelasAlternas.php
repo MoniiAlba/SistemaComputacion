@@ -34,13 +34,13 @@ function insertaEscuelaAlt(){
 		$res = jsonErr($e->getMessage());
 	}
 
-	echo $res;
+	return $res;
  }
 
  function escuelasAlt(){
 	global $msql;
 	$res = $msql->cons("select * from escuelasAlternas");
-	echo json($res);
+	return jsonArr($res);
 }
 
 //func = registraAlumEscAlt; params = cuAlum, idEsc, carrera;
@@ -90,7 +90,7 @@ function registraAlumEscAlt(){
 		$res = jsonErr($e->getMessage());
 	}
 
-	echo $res;
+	return $res;
 	}
 
 //func = escuelaDeAlum_cu; params = cuAlum;
@@ -130,7 +130,7 @@ function escuelaDeAlum_cu(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
  ?>

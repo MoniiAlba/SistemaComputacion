@@ -18,7 +18,7 @@
 									<v-text-field
 										label="Clave Única"
 										type="number"
-										v-model="cu"
+										v-model="alumno.cu"
 										prepend-icon=""
 										required
 										:counter="6"
@@ -32,7 +32,7 @@
 									<v-text-field
 										label="Nombre"
 										type="text"
-										v-model="nombre"
+										v-model="alumno.nombre"
 										required
 										:counter="30"
 										:error-messages="errors.collect('Nombre')"
@@ -45,7 +45,7 @@
 									<v-text-field
 										label="Apellido Paterno"
 										type="text"
-										v-model="apellidoP"
+										v-model="alumno.apellidoP"
 										required
 										:counter="30"
 										:error-messages="errors.collect('apellidoP')"
@@ -58,7 +58,7 @@
 									<v-text-field
 										label="Apellido Materno"
 										type="text"
-										v-model="apellidoM"
+										v-model="alumno.apellidoM"
 									></v-text-field>
 								</v-flex>
 
@@ -66,7 +66,14 @@
 									<v-text-field
 										label="Teléfono"
 										type = "number"
-										v-model="telefono"
+										v-model="alumno.telefono"
+									></v-text-field>
+								</v-flex>
+								<v-flex xs12 sm3>
+									<v-text-field
+										label= "Celular"
+										type = "number"
+										v-model="alumno.celular"
 									></v-text-field>
 								</v-flex>
 
@@ -74,7 +81,7 @@
 									<v-text-field
 										label="E-mail"
 										type = "email"
-										v-model="email"
+										v-model="alumno.email"
 										required
 										:error-messages="errors.collect('mail')"
 										v-validate="'required|email'"
@@ -98,23 +105,23 @@
 										<v-text-field 
 											label = "Calle"
 											type = "text"
-											v-model="calle"
+											v-model="alumno.calle"
 										></v-text-field>
 									</v-flex>
 
 									<v-flex xs12 sm3>
 										<v-text-field 
 											label = "Número exterior"
-											type = "number"
-											v-model="numExt"
+											type = "text"
+											v-model="alumno.numExt"
 										></v-text-field>
 									</v-flex>
 
 									<v-flex xs12 sm3>
 										<v-text-field 
 											label = "Número interior"
-											type = "number"
-											v-model="numInt"
+											type = "text"
+											v-model="alumno.numInt"
 										></v-text-field>
 									</v-flex>
 
@@ -122,21 +129,21 @@
 										<v-text-field 
 											label = "Colonia"
 											type = "text"
-											v-model="colonia"
+											v-model="alumno.colonia"
 										></v-text-field>
 									</v-flex>
 
 									<v-flex xs12 sm3>
 										<v-text-field 
 											label = "Delegación"
-											v-model="delegacion"
+											v-model="alumno.delegacion"
 										></v-text-field>
 									</v-flex>
 
 									<v-flex xs12 sm3>
 										<v-text-field 
 											label = "Código postal"
-											v-model="cp"
+											v-model="alumno.cp"
 											type="number"
 										></v-text-field>
 									</v-flex>
@@ -145,50 +152,69 @@
 										<v-select
 										:items = "states"
 										label = "Estado"
-										v-model="estado"
+										v-model="alumno.estado"
 										></v-select>
+									</v-flex>
+									<v-flex xs12 sm3>
+										<v-text-field 
+											label = "Pais"
+											type = "text"
+											v-model="alumno.pais"
+										></v-text-field>
+									</v-flex>
+									<v-flex xs12 sm3>
+										<v-text-field 
+											label = "Ciudad"
+											type = "text"
+											v-model="alumno.ciudad"
+										></v-text-field>
 									</v-flex>
 								</v-layout>
 							</v-container>
 						</v-card>
 						<!--ADDRESS-->
 
-						<!--ESCUELA ALTERNA-->
+						<!--Preparatorias-->
                   <v-card class="mb-5" hover>
                      <v-card-title>
                         <span class="headline">Preparatoria</span>
                      </v-card-title>
                      <v-container xs12 sm6>
                         <v-layout row wrap>
-                           <v-flex xs12 sm6>
-										<v-text-field
-										name="prepa"
-										v-model="nomPrepa"
-										type="text"
-										label="Nombre de la preparatoria"
-										>
-										</v-text-field>
+									<v-flex xs12 sm3>
+										<v-select
+										:items = 'preparatorias'
+										label = "Preparatoria"
+										v-model="prepa.nombrePrep"
+										></v-select>
 									</v-flex>
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="promedio"
-										v-model="promPrepa"
+										v-model="prepa.promedio"
 										type="number"
 										label="Promedio de la prepa"
 										>
 										</v-text-field>
 									</v-flex>
 									<v-flex xs12 sm3>
-										<v-select
-										:items = 'hablaAna'
-										label = "Habló con Ana"
-										v-model="habloConAna"
-										></v-select>
+										<v-text-field 
+											label = "Como se entero del Itam"
+											type = "text"
+											v-model="prepa.comoConocioItam"
+										></v-text-field>
 									</v-flex>
+									<v-flex>
+									<v-checkbox
+									label="Tomó tutoría primer semestre"
+									v-model="prepa.tomoTutoria">
+									</v-checkbox>
+									</v-flex>
+									
                         </v-layout>
                      </v-container>
                   </v-card>
-                  <!--ESCUELA ALTERNA-->
+                  <!--Prepa-->
 
 						<!--BECAS & PROGRAMA-->
 						<v-card class="mb-5" hover>
@@ -201,7 +227,7 @@
 										<v-select
 										:items = "percentage"
 										label = "Porcentaje de beca"
-										v-model="beca"
+										v-model="alumno.beca"
 										required
 										:error-messages="errors.collect('beca')"
 										v-validate="'required'"
@@ -213,7 +239,7 @@
 										<v-select
 										:items = "programs"
 										label = "Programa"
-										v-model="programa"
+										v-model="alumno.programa"
 										required
 										:error-messages="errors.collect('programa')"
 										v-validate="'required'"
@@ -223,21 +249,38 @@
 
 									<v-flex xs12 sm6>
 										<v-text-field
-										name="tipoAct"
-										v-model="tipoAct"
+										name="Actividad"
+										v-model="actExtra.nombre"
 										type="text"
-										label="Tipo de actividad"
+										label="Actividad extra"
 										>
 										</v-text-field>
 									</v-flex>
 
-									<v-flex xs12 sm6>
+									<v-flex xs12 sm6 v-if="!otroActExtra">
 										<v-select
 										:items = "actividadesExtras"
-										label = "Actividad extra"
-										v-model="nomAct"
+										label = "Tipo"
+										v-model="actExtra.tipo"
 										></v-select>
 									</v-flex>
+									<v-flex xs12 sm6 v-else>
+										<v-text-field
+										name="Otro-tipo"
+										v-model="actExtra.tipo"
+										type="text"
+										label="Escribe el tipo de actividad"
+										>
+										</v-text-field>
+									</v-flex>
+									<v-flex>
+									<v-checkbox
+									label="Otro tipo de actividad"
+									v-model="otroActExtra">
+									</v-checkbox>
+									</v-flex>
+
+									
 									
 								</v-layout>
 							</v-container>
@@ -247,7 +290,7 @@
 						<!--SANCIONES-->
 						<v-card hover class="mb-5">
 							<v-card-title class="headline">
-								<span>Sanciones</span>
+								<span>Problemas de reglamento</span>
 							</v-card-title>
 							<v-container xs12 sm6>
 								<v-layout row wrap>
@@ -255,7 +298,7 @@
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="areaSancion"
-										v-model="areaSancion"
+										v-model="sanciones.area"
 										type="text"
 										label="Área de sanción"
 										>
@@ -265,7 +308,7 @@
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="problemasReglamento"
-										v-model="problemasReg"
+										v-model="sanciones.problemasReglamento"
 										type="text"
 										label="Problemas de reglamento"
 										>
@@ -274,7 +317,7 @@
 									
 									<v-flex sm12>
 										<v-text-field
-										v-model="descSancion"
+										v-model="sanciones.descripcion"
 										label="Descripción de sanción"
 										textarea
 										name="descSancion"
@@ -289,29 +332,30 @@
                   <!--ESTANCIAS-->
                   <v-card class="mb-5" hover>
                      <v-card-title>
-                        <span class="headline">Estancias</span>
+                        <span class="headline">Intercambio académico</span>
                      </v-card-title>
                      <v-container xs12 sm6>
                         <v-layout row wrap>
-                           <v-flex xs12 sm6>
-										<v-text-field
-										name="nomUni"
-										v-model="nomUni"
-										type="text"
-										label="Nombre de universidad"
-										>
-										</v-text-field>
+									<v-flex xs12 sm3>
+										<v-select
+										:items = "todasUniversidades"
+										label = "Universidad"
+										v-model="universidad.idEst"
+										autocomplete
+										required
+										></v-select>
 									</v-flex>
 									<v-flex xs12 sm6>
 										<v-text-field
 										name="nomPais"
-										v-model="nomPais"
+										v-model="universidad.anio"
 										type="text"
-										label="Nombre del país"
+										label="Año de intercambio"
 										>
 										</v-text-field>
 									</v-flex>
                         </v-layout>
+						<modal-estancias></modal-estancias>
                      </v-container>
                   </v-card>
                   <!--ESTANCIAS-->
@@ -322,30 +366,95 @@
                         <span class="headline">Escuela alterna</span>
                      </v-card-title>
                      <v-container xs12 sm6>
+						
                         <v-layout row wrap>
                            <v-flex xs12 sm6>
-										<v-text-field
+										<v-select
 										name="nomEsc"
-										v-model="nomEsc"
-										type="text"
+										v-model="escuelaAlterna.idEsc"
 										label="Nombre de la escuela"
+										:items = "escuelasAltDropDown"
+										autocomplete
+										>
+										</v-select>
+									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="NombreCarrera"
+										v-model="escuelaAlterna.carrera"
+										type="text"
+										label="Nombre de la carrera"
 										>
 										</v-text-field>
 									</v-flex>
                         </v-layout>
+						 <modal-escuelas></modal-escuelas>
                      </v-container>
                   </v-card>
                   <!--ESCUELA ALTERNA-->
 
+				<!--Empresas-->
+                  <v-card class="mb-5" hover>
+                     <v-card-title>
+                        <span class="headline">Empresas</span>
+                     </v-card-title>
+                     <v-container xs12 sm6>
+						
+                        <v-layout row wrap>
+                           <v-flex xs12 sm6>
+										<v-select
+										name="empresaNombre"
+										v-model="empresa.rfc"
+										label="Empresa"
+										:items = "empresasDropDown"
+										autocomplete
+										>
+										</v-select>
+									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field
+										name="empresaPuesto"
+										v-model="empresa.puesto"
+										type="text"
+										label="Puesto"
+										>
+										</v-text-field>
+									</v-flex>
+									<v-flex xs12 sm6>
+										<v-text-field 
+										name="empresaFechaIni"
+										v-model="empresa.fechaIni"
+										type="date"
+										label="Fecha"
+										>
+										</v-text-field>
+									</v-flex>
+                        </v-layout>
+						 <modal-empresas></modal-empresas>
+                     </v-container>
+                  </v-card>
+                  <!--Empresas-->
+
 						<!--COMENTARIOS-->
 						<v-container fluid>
+							<span class="headline">Comentarios</span>
+							<v-flex xs12 sm6>
+										<v-text-field
+										name="Asunto"
+										v-model="coment.asunto"
+										type="text"
+										label="Asunto"
+										>
+										</v-text-field>
+									</v-flex>
 							<v-layout row>
+								
 							<v-flex>
 								<v-text-field
 									name="comentarios"
 									label="Comentarios"
 									textarea
-									v-model="comentarios"
+									v-model="coment.comentario"
 								></v-text-field>
 							</v-flex>
 							</v-layout>
@@ -366,50 +475,102 @@
 
 <script>
 
+import store from '@/store/index'
+import axios from 'axios'
+import ModalEstancias from './ModalEstancias.vue'
+import ModalEscuelas from './ModalEscuelas.vue'
+import ModalEmpresas from './ModalEmpresas.vue'
+
 export default {
+	components:{
+		ModalEstancias,
+		ModalEscuelas,
+		ModalEmpresas
+	},
   	data(){
     	return{
-			//Variables let = alum{};
-			cu:'',
-			beca:'',
-			nombre:'',
-			apellidoP:'',
-			apellidoM:'',
-			programa:'',
-			email:'',
-			telefono:'',
-			estado:'',
-			calle:'',
-			colonia:'',
-			delegacion:'',
-			cp:'',
-			numExt:'',
-			numInt:'',
-			//Variables let actExtra = {};
-			tipoAct:'',
-			nomAct:'',
-			//Variables let sanciones = {};
-			descSancion:'',
-			areaSancion:'',
-			problemasReg:'',
-			//Variables let estancias = {};
-			nomUni:'',
-			nomPais:'',
-			//Variables let coment = {};
-			comentarios:'',
-			//Variables let prepa = {};
-			nomPrepa:'',
-			promPrepa:'',
-			habloConAna:'',
-			//Variables let escuelaAlterna = {};
-			nomEsc:'',
+			//Falta actualizar vista
+			otroActExtra :false,
+			alumno:{
+					cu:'666',
+					beca:'Sin',
+					nombre:'Prueba Vue',
+					apellidoP:'',
+					apellidoM:'',
+					programa:'',
+					email:'',
+					telefono:'',
+					celular: '',
+					estado:'',
+					calle:'',
+					colonia:'',
+					delegacion:'',
+					cp:'',
+					numExt:'',
+					numInt:'',
+					pais: 'México',
+					ciudad:'CDMX',
+					func : 'insertaAlumno',
+					dominio : 'alumnos'},
 
+			//Falta actualizar vista
+			prepa : {
+						dominio : 'preparatorias',
+						func : 'insertaPrepAlum_cu',
+						cuAlum : '',
+						nombrePrep : 'Prepa vue',
+						promedio : '',
+						comoConocioItam: 'En vue',
+						tomoTutoria: false
+					},
+			actExtra : {
+						dominio: 'actExtra',
+						func : 'insertaActividad',
+						cuAlum :'' ,
+						nombre: 'ActVue',
+						tipo: 'Guitarra'
+					},
+			//Falta actualizar vista
+			sanciones : {
+						dominio: 'sanciones',
+						func: 'insertaSancion',
+						cuAlum: '',
+						descripcion: 'Aprender vue',
+						area: '',
+						problemasReglamento: 'Vue'
+					},
+
+			//Debe ir en modal
+			universidad : {
+						dominio: 'estancias',
+						func: 'registraEstanciaAlumno',
+						idEst: '',
+						semestre:'sem',
+						anio:''
+					},
+			//Falta actualizar vista
+			coment : {
+						dominio: 'comentarios',
+						func: 'insertaComentCu',
+						comentario: 'Coment vue',
+						asunto: 'ESTE DEBE DESPLEGARSE',
+						cuAlum : ''
+					},
+
+			//Debe ir en modal
+			 escuelaAlterna : {
+						dominio : 'escuelasAlt',
+						func : 'registraAlumEscAlt',
+						idEsc : '',
+						carrera:''
+					},
+			empresa:{
+				rfc:'',
+				puesto:'',
+				fechaIni:''
+
+			},
 			array : [],
-
-			hablaAna:[
-				{text: 'Sí', value: 'yes'},
-				{text: 'No', value: 'no'}
-			],
 
 			actividadesExtras:[
 				{text: 'Guitarra', value:'Guitarra'},
@@ -433,7 +594,10 @@ export default {
 				{ text: '70' , value: 70  },
 				{ text: '80' , value: 80  },
 				{ text: '90' , value: 90  },
-				{ text: 'Bailléres' , value: 100 }
+				{ text: 'Bailléres' , value: 100 },
+				{ text: '50% por beca de ingenierías' , value: '50% por beca de ingenierías' },
+				{ text: '75% por beca de ingenierías' , value: '75% por beca de ingenierías' },
+				{ text: 'Beca de buró de crédito' , value: 'Beca de buró de crédito' }
 			],
 
 			programs:[
@@ -481,82 +645,61 @@ export default {
 				{ text: 'Zacatecas', value: 'Zacatecas'}
 			]
     	}
-  	},
-  	methods:{
-      sendData(json){
-         var vm = this;
-         var data = JSON.stringify(json);
-			var xhttp = new XMLHttpRequest();
+	  },
+	  computed:{
+		  preparatorias(){
+			  var aux = []
+			  if(this.$store.state.preparatorias != null)
+			  this.$store.state.preparatorias.forEach(element => {
+				  aux.push({
+					  text: element.nombrePrep,
+					  value: element.nombrePrep})
+			  });
+			return aux
+		  },
+		  todasUniversidades(){
+			  //console.log('Desde computed')
+			  //console.log(this.$store.getters.universidadesDropDown)
+			  return this.$store.getters.universidadesDropDown
+		  },
 
-         xhttp.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200){
-					var res = JSON.parse(this.response);
-					console.log(res);
-					vm.clear();
-            }
-         }
-         xhttp.open('POST', 'http://alumnoscomputacion.itam.mx/php/', true);
-			xhttp.send(data);
-      },
+		  escuelasAltDropDown(){
+			  //console.log('Desde computed')
+			  //console.log(this.$store.getters.universidadesDropDown)
+			  return this.$store.getters.escuelasDropDown
+		  },
+		  empresasDropDown(){
+			  //console.log('Desde computed')
+			  //console.log(this.$store.getters.universidadesDropDown)
+			  return this.$store.getters.empresasDropDown
+		  }
+
+	  },
+  	methods:{
+
+		enviaJson(api,json){
+			console.log('Enviando: ')
+			console.log(json)
+			return axios.post(api, 
+						json,
+						{ withCredentials:true })
+			.then(function(response){
+				return new Promise(function(resolve,reject)
+				{
+					if(response.data.hasOwnProperty('error')){
+						response.jsonFallido = json
+						reject(response)
+					}	
+					else
+						resolve(response)
+				})
+			})
+		},
+		  
 	 	submit(){
        	var vm = this;
       	this.$validator.validateAll().then((result) => {
-				if (result) {
-					let alum = {
-						'func':'insertaAlumno',
-						'dominio': 'alumnos',
-						'nombre': vm.nombre,
-						'cu': vm.cu,
-						'beca': vm.beca,
-						'apellidoP': vm.apellidoP,
-						'apellidoM': vm.apellidoM,
-						'programa': vm.programa,
-						'email': vm.email,
-						'telefono': vm.telefono,
-						'estado': vm.estado,
-						'calle': vm.calle,
-						'colonia': vm.colonia,
-						'delegacion': vm.delegacion,
-						'cp': vm.cp,
-						'numExt': vm.numExt,
-						'numInt': vm.numInt
-					};
-					let actExtra = {
-						'dominio': 'actExtra',
-						'func' : 'insertaActividad',
-						'cuAlum' : vm.cu,
-						'nombre': vm.nomAct,
-						'tipo': vm.tipoAct
-					};
-					let sanciones = {
-						'dominio': 'sanciones',
-						'func': 'insertaSancion',
-						'cuAlum': vm.cu,
-						'descripcion': vm.descSancion,
-						'area': vm.areaSancion,
-						'problemasReglamento': vm.problemasReg
-					};
-					let universidad = {
-						'dominio': 'estancias',
-						'func': 'insertaUniversidad',
-						'nomUni': vm.nomUni,
-						'nomPais': vm.nomPais
-					};
-					//necesito el id de la universidad
-					/*let registraEstAlum = {
-						'dominio': 'estancias',
-						'func': 'registraEstanciaAlumno',
-						'cuAlum' : vm.cu,
-						'idEst' : id,
-						'anio' : anio,
-						'semestre' : semestre
-					}*/
-					let coment = {
-						'dominio': 'comentarios',
-						'func': 'insertaComentCu',
-						'comentarios': vm.comentarios,
-						'cuAlum' : vm.cu
-					};
+				if (result||!result) {
 					//not yet
 					/*let materias = {
 						'dominio' : 'materias',
@@ -575,37 +718,90 @@ export default {
 						'estatusFin' : vm.etatusFin,
 						'calificacion' : vm.calif
 					};*/
-					let prepa = {
-						'dominio' : 'preparatorias',
-						'func' : 'insertaPrepAlum_cu',
-						'cuAlum' : vm.cu,
-						'nombrePrep' : vm.nomPrepa,
-						'promedio' : vm.promPrepa,
-						'habloConAna' : vm.habloConAna
-					};
-					/*let empresa = {
 
-					};*/
-					let escuelaAlterna = {
-						'dominio' : 'escuelasAlt',
-						'func' : 'insertaEscuelaAlt',
-						'nombre' : vm.nomEsc
-					};
-					//necesito id de escuela
-					/*let insertaEscuela = {
-						'dominio' : 'escuelasAlt',
-						'func' : 'registraAlumEscAlt',
-						'cuAlum' : vm.cu,
-						''
-					};*/
+					//vm.sendData(alum);
+					vm.alumno.dominio='alumnos'
+					vm.alumno.func = 'insertaAlumno'
+					vm.enviaJson(vm.$store.state.api, vm.alumno)
+					.then(function (response) {
+						vm.alumno.id = response.data.idAlum
+						var req = []
+						//console.log('Porque no escribe')
+						//PREPAS
+						vm.prepa.idAlum = vm.alumno.id
+						vm.prepa.dominio = 'preparatorias'
+						vm.prepa.func = 'insertaPrepAlum_cu'
+						vm.prepa.cuAlum = vm.alumno.cu
+						req.push(vm.prepa)
 
-					vm.sendData(alum);
-					vm.sendData(actExtra);
-					vm.sendData(sanciones);
-					vm.sendData(universidad);
-					vm.sendData(coment);
-					vm.sendData(prepa);
-					vm.sendData(escuelaAlterna);
+						if(vm.alumno.telefono!== ''){
+							var telJson = {
+								dominio :'telefonos',
+								func: 'insertaTelefono',
+								cuAlum: vm.alumno.cu,
+								descripcion: 'Telefono',
+								telefono: vm.alumno.telefono
+							}
+							req.push(telJson)
+						}
+						if(vm.alumno.celular!== ''){
+							var celJson = {
+								dominio :'telefonos',
+								func: 'insertaTelefono',
+								cuAlum: vm.alumno.cu,
+								descripcion: 'Celular',
+								telefono: vm.alumno.celular
+							}
+							req.push(celJson)
+						}
+
+						//Act extras
+						vm.actExtra.dominio = 'actExtra'
+						vm.actExtra.func = 'insertaActividad'
+						vm.actExtra.cuAlum = vm.alumno.cu
+						req.push(vm.actExtra)
+
+						//Sanciones
+						vm.sanciones.dominio = 'sanciones'
+						vm.sanciones.func = 'insertaSancion'
+						vm.sanciones.cuAlum = vm.alumno.cu
+						req.push(vm.sanciones)
+
+						//Comentarios
+						vm.coment.dominio = 'comentarios'
+						vm.coment.func = 'insertaComentCu'
+						vm.coment.cuAlum = vm.alumno.cu
+						req.push(vm.coment)
+
+						//Estancia
+						vm.universidad.dominio = 'estancias'
+						vm.universidad.func = 'registraEstanciaAlumno'
+						vm.universidad.cuAlum = vm.alumno.cu
+						req.push(vm.universidad)
+
+						//Escuelas
+						vm.escuelaAlterna.dominio = 'escuelasAlt'
+						vm.escuelaAlterna.func = 'registraAlumEscAlt'
+						vm.escuelaAlterna.cuAlum = vm.alumno.cu
+						req.push(vm.escuelaAlterna)
+
+						//Registra alumno empresa
+						vm.empresa.dominio = 'empresas'
+						vm.empresa.func = 'registraAlumEmpresa_cu'
+						vm.empresa.cuAlum = vm.alumno.cu
+						req.push(vm.empresa)
+
+						
+						
+						return Promise.all(req.map(function(json){
+							return vm.enviaJson(vm.$store.state.api, json)
+						}))
+
+					})
+					.catch(function (error) {
+						console.log('Desde catch de promises')
+						console.log(error);
+					});
 					
 				}else{
 					alert('Correct them errors!');
@@ -613,40 +809,33 @@ export default {
       	});
 	 	},
 	 	clear(){
-			this.cu = '';
-			this.nombre = '';
-			this.beca = '';
-			this.apellidoP = '';
-			this.apellidoM = '';
-			this.programa = '';
-			this.email = '';
-			this.telefono = '';
-			this.estado = '';
-			this.calle = '';
-			this.colonia = '';
-			this.delegacion = '';
-			this.cp = '';
-			this.numExt = '';
-			this.numInt = '';
-			this.comentarios = '';
-			//Variables let actExtra = {};
-			this.tipoAct = '';
-			this.nomAct = '';
-			//Variables let sanciones = {};
-			this.descSancion = '',
-			this.areaSancion = '',
-			this.problemasReg = '',
-			//Variables let estancias = {};
-			this.nomUni = '',
-			this.nomPais = '',
-			//Variables let prepa = {};
-			this.nomPrepa = '',
-			this.promPrepa = '',
-			this.habloConAna = '',
-			//Variables let escuelaAlterna = {};
-			this.nomEsc = ''
+			 for(var it in this.alumno)
+				this.alumno[it] = ''
+				
+			for(var it in this.prepa)
+				this.prepa[it] = ''
+			
+			for(var it in this.actExtra)
+				this.actExtra[it] = ''
+			for(var it in this.sanciones)
+				this.sanciones[it] = ''
+			for(var it in this.universidad)
+				this.universidad[it] = ''
+			for(var it in this.coment)
+				this.coment[it] = ''
+			for(var it in this.escuelaAlterna)
+				this.escuelaAlterna[it] = ''
 	 	}
-  	}
+	  },
+	  created(){
+		  	var vm = this
+			  this.$store.dispatch('fetchPreparatorias')
+			  this.$store.dispatch('fetchUniversidades')
+			  this.$store.dispatch('fetchEscuelasAlt')
+			  this.$store.dispatch('fetchEmpresas')
+			  
+	  }
+	 
 }
 </script>
 

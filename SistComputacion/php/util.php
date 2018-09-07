@@ -5,6 +5,11 @@ function json($arr){
 	return json_encode($arr, JSON_FORCE_OBJECT);
 }
 
+function jsonArr($arr){
+	header('Content-Type: application/json');
+	return json_encode($arr);
+}
+
 function limpia($data){
   	$data = trim($data);
   	$data = stripslashes($data);

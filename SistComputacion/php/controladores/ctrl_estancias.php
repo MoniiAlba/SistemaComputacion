@@ -1,11 +1,11 @@
 <?php 
 
 
-//func  = insertaUniversidad ; params = nomUni, nomPais;
+//func  = insertaUniversidad ; params = nomUni, nomPais, nomCiudad;
 function insertaUniversidad(){
 	global $msql;
 	$conn = $msql->conn;
-	$params = array("nomUni", "nomPais");
+	$params = array("nomUni", "nomPais","nomCiudad");
 	try{
 		if( issetArrPost( $params ) ){
 
@@ -16,8 +16,8 @@ function insertaUniversidad(){
 
 			if($stmt->rowCount() == 0){
 
-				$stmt = $msql->sqlPrepPost("INSERT INTO estancias(universidad, pais)
-						VALUES (:nomUni, :nomPais)", $params);
+				$stmt = $msql->sqlPrepPost("INSERT INTO estancias(universidad, pais,ciudad)
+						VALUES (:nomUni, :nomPais,:nomCiudad)", $params);
 
 				$stmt->execute();
 				$idUni = $conn->lastInsertId();
@@ -36,13 +36,13 @@ function insertaUniversidad(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
 function universidades(){
 	global $msql;
 	$res = $msql->cons("select * from estancias");
-	echo json($res);
+	return jsonArr($res);
 }
 
 function estancias(){
@@ -50,7 +50,7 @@ function estancias(){
 	$res = $msql->cons("select cu, anio, semestre, universidad from 
 		alumnos a, alumnos_estancias b, estancias e where a.idAlum = b.idAlum
 		and b.idEst = e.idEst");
-	echo json($res);
+	return json($res);
 }
 
 
@@ -82,7 +82,7 @@ function materiasDeAlum_cu(){
 		$res = jsonErr($e->getMessage());
 	}
 
-	echo $res;
+	return $res;
 }
 
 
@@ -132,7 +132,7 @@ function registraEstanciaAlumno(){
 		$res = jsonErr($e);
 	}
 
-	echo $res;
+	return $res;
 }
 
 //func = registraMateriaRev_cu; params = cuAlum, universidad, anio(int), semestre(string), materiaRev, 
@@ -185,7 +185,39 @@ function registraMateriaRev_cu(){
 		$res = jsonErr($e->getMessage());
 	}
 
-	echo $res;
+	return $res;
+
+	
+}
+
+// borraUniversidad; params = nomUni
+function borraUniversidad(){
+
+
+	global $msql;
+	$conn = $msql->conn;
+	$params = array("nomUni");
+	try{
+		if( issetArrPost( $params ) ){
+
+				$stmt = $msql->sqlPrepPost("DELETE FROM estancias 
+											where universidad=:nomUni", $params);
+
+				$stmt->execute();
+				$res = jsonOk("Operacion exitosa");
+
+		}
+		else 
+			$res = jsonErr("Error en parametros");
+	}
+	catch(PDOException $e){
+		$res = jsonErr($e);
+		//$res = $e;
+	}
+
+	return $res;
+
+
 }
 
 

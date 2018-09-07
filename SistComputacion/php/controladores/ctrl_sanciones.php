@@ -38,7 +38,7 @@ function insertaSancion(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 
 
 }
@@ -46,7 +46,7 @@ function insertaSancion(){
 function sanciones(){
 	global $msql;
 	$res = $msql->cons("select * from sanciones");
-	echo json($res);
+	return json($res);
 }
 
 

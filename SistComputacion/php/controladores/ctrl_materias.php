@@ -36,14 +36,14 @@ function insertaMateria(){
 		$res = $e;
 	}
 
-	echo $res;
+	return $res;
 }
 
 function materias(){
 
 	global $msql;
 	$res = $msql->cons("select * from materias");
-	echo json($res);
+	return json($res);
 }
 
 //func = registraMatAlum; params = cuAlum, cMateria, estatusFin, calificacion;
@@ -94,7 +94,7 @@ function registraMatAlum(){
 		$res = jsonErr($e);
 	}
 
-	echo $res;
+	return $res;
 }
 
  ?>

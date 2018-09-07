@@ -1,45 +1,33 @@
 <template>
-  <v-container class="text-xs-center">
-    <p class="text-xs-center display-1">Consulta o agrega comentarios</p>
-    <v-container fluid grid-list>
-      <v-layout row wrap>
-        <v-flex xs4 offset-xs4>
-          <v-text-field
-          label="Clave Única"
-          type="number"
-          v-model="cu"
-          prepend-icon=""
-          required
-          :counter="6"
-          :error-messages="errors.collect('CU')"
-          v-validate="'required|max:6'"
-          data-vv-name="CU"
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-btn color="success" @click="getStudent">Get student</v-btn>
-      <p>
-        <ul>
-          <li v-for="item in arr" :key="item">
-            <ul>
-              <li v-for="(value, key) in item" :key="key">
-                {{ key }}: {{ value }}
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </p>
-    </v-container>
+  <v-container fluid grid-list class="contenedor" >
+    <v-layout row wrap style="height:100%;max-height:100%">
+      <v-flex d-flex xs12 sm6 md3>
+       <busqueda> </busqueda>  
+      </v-flex>
+      <v-flex d-flex xs12 sm6 md9 >
+        <resultados></resultados>
+      </v-flex>
+
+
+    </v-layout>
+
 
   </v-container>
 </template>
 
 <script>
+import Busqueda from './Consulta/Busqueda.vue'
+import Resultados from './Consulta/Resultados.vue'
 export default {
+  components:{
+    Busqueda,
+    Resultados
+  },
   data(){
     return{
       cu: '',
-      arr:''  
+      arr:''  ,
+      lorem: 'Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.'
     }
   },
   methods:{
@@ -73,7 +61,7 @@ export default {
 </script>
 
 <style scoped>
-li{
-
+.contenedor{
+  height: 650px;
 }
 </style>

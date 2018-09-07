@@ -13,3 +13,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.swp
+
+#DevAndres
+noSubir.txt
