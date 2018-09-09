@@ -10,7 +10,7 @@
             Numero de respuestas : {{numRespuestas}}
         </h1>
         <v-btn @click="empiezaEncuesta()">Empezar encuesta</v-btn>
-        <v-btn @click="encuestaActiva=false">Acabar encuesta</v-btn>
+        <v-btn @click="terminaEncuesta()">Acabar encuesta</v-btn>
         <v-btn @click="getRespuestas()">Respuestas</v-btn>
         </div>
 </template>
@@ -30,7 +30,7 @@ export default {
     methods:{
         empiezaEncuesta(){
             var vm = this
-            axios.get('https://script.google.com/macros/s/AKfycbxyyRQ4jxSxA37X1edyp4xBISuv5NmST17eRmXUJaQHKtJpPZA/exec')
+            axios.get('https://script.google.com/macros/s/AKfycbxBPvMwwPgZTDOeqFYJHuw7aEJFIKQTyKLO2_EySYe6CKClMcw/exec')
 			.then(function(response){
                 console.log(response.data)
                 vm.encuestaActiva = true
@@ -48,7 +48,7 @@ export default {
         getNumRespuestas(){
             var vm = this
             if(this.encuestaActiva)
-            axios.get('https://script.google.com/macros/s/AKfycbzlp5XfzVeJnMjDwvVUbeyt4fEkQHTHJj0Ib82Lj3DG3wTtF-_e/exec',
+            axios.get('https://script.google.com/macros/s/AKfycbxCQpMI7_CRBR_FLadr-0KSmfWXX9PflYvc4NhRUqS5dRIP5l5l/exec',
                 {
                 params: {
                     id: vm.idForm
@@ -84,6 +84,29 @@ export default {
             .catch(function (error) {
                     console.log(error);
                 })
+        },
+
+        terminaEncuesta(){
+            this.encuestaActiva = false;
+            var vm = this
+            axios.post(vm.$store.state.api, {
+                dominio:'encuestas',
+                func:'insertarEncuestas',
+                id: vm.idForm
+              },
+                {
+                    withCredentials:true
+
+            })
+              .then(function (response) {
+                alert('Carga exitosa de datos')
+                console.log(response.data)
+                
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
         }
     }
 

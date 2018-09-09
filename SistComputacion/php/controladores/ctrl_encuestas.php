@@ -1,5 +1,7 @@
 <?php
 require_once 'ctrl_alumnos.php';
+require_once 'ctrl_telefonos.php';
+require_once 'ctrl_preparatorias.php';
 
 function insertarEncuestas(){
 	global $msql;
@@ -7,7 +9,7 @@ function insertarEncuestas(){
 	$params = array("id");
 	try{
 		if( issetArrPost( $params ) ){
-            $datos = file_get_contents('https://script.google.com/macros/s/AKfycbxY96kmv9rHGLenpunJUXvphGGPRjN3fY-_HChz_zXBEQHIhXAr/exec?id='
+            $datos = file_get_contents('https://script.google.com/macros/s/AKfycbzJ0H7RAEgtFc71VqwNh87hlEXgo54uUpjOo0RD9tmklX8OjL23/exec?id='
                         .$_POST["id"]);
 
             if($datos === FALSE) { 
@@ -21,12 +23,12 @@ function insertarEncuestas(){
                 foreach($datos as $dato){
                     $obj = array(
                     "cu"=>$dato["Clave unica"],
-                    "beca" => "",
+                    "beca" => $dato["Porcentaje de ayuda financiera"],
                     "nombre"=>$dato["Nombre"],
                     "apellidoP"=>$dato["Apellido Paterno"],
                     "apellidoM"=>$dato["Apellido Materno"],
-                    "programa"=>"",
-                    "email"=>"",
+                    "programa"=>$dato["Programa inscrito"],
+                    "email"=>$dato["Email"],
                     "estado"=>"",
                     "calle"=>"",
                     "colonia"=>"",
@@ -37,7 +39,27 @@ function insertarEncuestas(){
                     "pais"=>"",
                     "ciudad"=>"");
                     $_POST = $obj;
-                    $id = insertaAlumno();
+                    $id = json_decode(insertaAlumno(), true);
+                    if(array_key_exists("idAlum", $id)){
+                        $obj = array(
+                            "cuAlum"=>$dato["Clave unica"],
+                            "descripcion"=>"Telefono domicilio",
+                            "telefono"=>$dato["Telefono domicilio"]);
+                        $_POST = $obj;
+                        insertaTelefono();
+                        $_POST["descripcion"] = "Telefono movil";
+                        $_POST["telefono"] = $dato["Telefono movil"];
+                        insertaTelefono();
+                        $obj= array(
+                            "cuAlum"=>$dato["Clave unica"],
+                            "nombrePrep"=>$dato["Preparatoria de procedencia"],
+                            "promedio"=>"",
+                            "comoConocioItam"=>"",
+                            "tomoTutoria"=>"");
+                        $_POST = $obj;
+                        insertaPrepAlum_cu();
+
+                    }
                     $res[] = $id;
                 }
             
