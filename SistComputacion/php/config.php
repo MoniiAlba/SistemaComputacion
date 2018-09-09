@@ -20,7 +20,8 @@ $funcionesRegistradas = array(
 					"escuelasAlt" => array("insertaEscuelaAlt", "escuelasAlt","registraAlumEscAlt",
 						"escuelaDeAlum_cu"),
 						"telefonos" => array("insertaTelefono", "telefonos","borraTelefono", 
-						"telefonos_cu")
+						"telefonos_cu"),
+						"encuestas" => array("insertarEncuestas")
 				);
 
 $rutasRegistradas = array("alumnos" => "controladores/ctrl_alumnos.php",
@@ -34,7 +35,8 @@ $rutasRegistradas = array("alumnos" => "controladores/ctrl_alumnos.php",
 							"preparatorias" => "controladores/ctrl_preparatorias.php",
 							"empresas" => "controladores/ctrl_empresas.php",
 							"escuelasAlt" => "controladores/ctrl_escuelasAlternas.php",
-							"telefonos" => "controladores/ctrl_telefonos.php");
+							"telefonos" => "controladores/ctrl_telefonos.php",
+							"encuestas" => "controladores/ctrl_encuestas.php");
 
 $bdConfig = array( "servername" => "localhost",
 					"username" => "root",
