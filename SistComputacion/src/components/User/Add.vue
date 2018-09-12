@@ -182,11 +182,10 @@
                      <v-container xs12 sm6>
                         <v-layout row wrap>
 									<v-flex xs12 sm3>
-										<v-select
-										:items = 'preparatorias'
+										<v-text-field
 										label = "Preparatoria"
 										v-model="prepa.nombrePrep"
-										></v-select>
+										></v-text-field>
 									</v-flex>
 									<v-flex xs12 sm6>
 										<v-text-field
@@ -492,9 +491,9 @@ export default {
 			//Falta actualizar vista
 			otroActExtra :false,
 			alumno:{
-					cu:'666',
-					beca:'Sin',
-					nombre:'Prueba Vue',
+					cu:'',
+					beca:'',
+					nombre:'',
 					apellidoP:'',
 					apellidoM:'',
 					programa:'',
@@ -518,26 +517,26 @@ export default {
 						dominio : 'preparatorias',
 						func : 'insertaPrepAlum_cu',
 						cuAlum : '',
-						nombrePrep : 'Prepa vue',
+						nombrePrep : '',
 						promedio : '',
-						comoConocioItam: 'En vue',
+						comoConocioItam: '',
 						tomoTutoria: false
 					},
 			actExtra : {
 						dominio: 'actExtra',
 						func : 'insertaActividad',
 						cuAlum :'' ,
-						nombre: 'ActVue',
-						tipo: 'Guitarra'
+						nombre: '',
+						tipo: ''
 					},
 			//Falta actualizar vista
 			sanciones : {
 						dominio: 'sanciones',
 						func: 'insertaSancion',
 						cuAlum: '',
-						descripcion: 'Aprender vue',
+						descripcion: '',
 						area: '',
-						problemasReglamento: 'Vue'
+						problemasReglamento: ''
 					},
 
 			//Debe ir en modal
@@ -552,8 +551,8 @@ export default {
 			coment : {
 						dominio: 'comentarios',
 						func: 'insertaComentCu',
-						comentario: 'Coment vue',
-						asunto: 'ESTE DEBE DESPLEGARSE',
+						comentario: '',
+						asunto: '',
 						cuAlum : ''
 					},
 
@@ -573,14 +572,9 @@ export default {
 			array : [],
 
 			actividadesExtras:[
-				{text: 'Guitarra', value:'Guitarra'},
-				{text: 'Piano', value:'Piano'},
-				{text: 'Teatro', value:'Teatro'},
-				{text: 'Porras', value:'Porras'},
-				{text: 'Laboratorio de desarrollo web', value:'Laboratorio de desarrollo web'},
-				{text: 'Laboratorio de videojuegos', value:'Laboratorio de videojuegos'},
-				{text: 'Salsa con colmillo', value:'Salsa con colmillo'},
-				{text: 'Otro', value: 'Otro'}
+				{text: 'Musica', value:'Musica'},
+				{text: 'Deporte', value:'Deporte'},
+				{text: 'Arte', value:'Arte'}
 			],
 
 			percentage: [
@@ -616,6 +610,7 @@ export default {
 				{ text: 'Baja California', value: 'Baja California'},
 				{ text: 'Baja California Sur', value: 'Baja California Sur'},
 				{ text: 'Campeche', value: 'Campeche'},
+				{ text: 'CDMX', value: 'CDMX'},
 				{ text: 'Coahuila de Zaragoza', value: 'Coahuila de Zaragoza'},
 				{ text: 'Colima', value: 'Colima'},
 				{ text: 'Chiapas', value: 'Chiapas'},
