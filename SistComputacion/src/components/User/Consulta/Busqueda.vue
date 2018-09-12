@@ -207,6 +207,8 @@ export default {
 <style scoped>
 .tabla{
     overflow:scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
     height: 218px;
     max-height: 218px;
 }
