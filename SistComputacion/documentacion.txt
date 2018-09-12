@@ -174,3 +174,9 @@ func = telefonos // regresa todos los telefonos
 func = borraTelefono; param = cuAlum, telefono // borra
 
 func = telefonos_cu ;params= cuAlum; regresa telefonos de alumno
+
+===============================================================
+Encuestas
+===============================================================
+dominio = encuestas
+func = insertarEncuestas; param = id

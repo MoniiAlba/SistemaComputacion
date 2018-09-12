@@ -5,6 +5,7 @@ import Login from '@/components/Login/Login'
 import Add from '@/components/User/Add'
 import Delete from '@/components/User/Delete'
 import Modify from '@/components/User/Modify'
+import Encuestas from '@/components/User/Encuestas'
 import store from '@/store/index'
 Vue.use(Router)
 
@@ -44,6 +45,15 @@ let router = new Router({
           meta: {
             requiresAuth: true,
             name: 'mod'
+          }
+        },
+        {
+          path: '/home/encuestas',
+          name: 'encuestas',
+          component: Encuestas,
+          meta: {
+            requiresAuth: true,
+            name: 'enc'
           }
         }   
       ]
