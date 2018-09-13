@@ -89,6 +89,7 @@
 </template>
 
 <script>
+import Resultados from './Resultados.vue'
 export default {
     data(){
         return{
@@ -176,6 +177,8 @@ export default {
         setSeleccion(cu){
             //console.log(cu)
             this.$store.dispatch('actualizaSeleccion', cu)
+            this.$store.commit('seleccionn')
+            console.log("watcheando busqueda: ", this.$store.getters.getSelec)
         },
         getAlumnos(){
             var req = {dominio:'alumnos'}
@@ -211,8 +214,6 @@ export default {
     overflow-y: auto;
     height: 218px;
     max-height: 218px;
-}
-.sec{
 }
 .boton{
     height: 30px;

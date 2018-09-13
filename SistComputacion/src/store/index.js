@@ -213,6 +213,10 @@ export default new Vuex.Store({
         },
         setEmpresas(state, empresas){
             state.empresas = empresas
+        },
+        seleccionn(state){
+            consulta.state.consulta = 0;    
+            console.log("seleccion: "+consulta.state.consulta)
         }
     }
 })

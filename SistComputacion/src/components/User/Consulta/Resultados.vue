@@ -7,7 +7,7 @@
                 <v-select
                 name="consulta"
                 v-model="consulta"
-                label="Consulta"
+                label="Consultas"
                 :items = "consultas"
                 autocomplete
                 >
@@ -222,7 +222,7 @@
 export default {
     data(){
         return{
-            consulta:0,
+            consulta: null,
             seleccion:null,
             consultas:[
                 {text:"Información personal", value:0},
@@ -245,6 +245,18 @@ export default {
         },
         infoAlumno(){
             return this.$store.getters.infoAlumno
+        },
+        select(){
+            this.consulta = this.$store.getters.getCons
+            console.log("watcheando: ", this.$store.getters.getCons)
+        }
+        
+        
+    },
+    watch:{
+        select(){
+            console.log("watcheando: "+this.$store.consulta.state.seleccion)
+            return this.$store.consulta.state.seleccion
         }
     }
 

@@ -3,7 +3,8 @@ import axios from 'axios'
 export default{
     state:{
         tabla:[],
-        seleccion:0,
+        seleccion: 0,
+        consulta: null,
         infoAlumno:{
                     actExtra:{
                         Actividad: "",
@@ -83,8 +84,10 @@ export default{
             })
         },
         infoAlumno(state){
-
             return state.infoAlumno
+        },
+        getCons(state){
+            return state.consulta
         }
 
     },
@@ -114,6 +117,7 @@ export default{
         },
         actualizaSeleccion(context, cu){
             context.commit('setSeleccion', cu)
+            context.commit('setCons')
             context.dispatch('fetchInfoAlumnoSeleccionado', cu)
         },
         fetchInfoAlumnoSeleccionado(context, cuAlum){
@@ -166,6 +170,10 @@ export default{
         },
         setInfoAlumno(state,infoAlumno){
             state.infoAlumno = infoAlumno;
+        },
+        setCons(state){
+            if(state.consulta!=null)
+                state.consulta = null;
         }
 
     }
