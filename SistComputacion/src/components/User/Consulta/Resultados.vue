@@ -14,7 +14,13 @@
                 </v-select>
                 </v-flex>
                 </v-layout>
+                <div class="btnEdita">
+                    <router-link :to="{name: 'modifica'}">
+                        <v-btn v-if="bandDatos" class="edit" color="info" href="/home/modifica"><v-icon>edit</v-icon></v-btn>
+                    </router-link>                  
+                </div>
                 </v-container>
+                
                 
             </v-card-title>
 
@@ -224,6 +230,7 @@ export default {
         return{
             consulta: null,
             seleccion:null,
+            bandDatos: false,
             consultas:[
                 {text:"Información personal", value:0},
                 {text:"Preparatoria", value:1},
@@ -248,14 +255,15 @@ export default {
         },
         select(){
             this.consulta = this.$store.getters.getCons
-            console.log("watcheando: ", this.$store.getters.getCons)
+            this.bandDatos = this.$store.getters.getBand
+            console.log("computeando: ", this.$store.getters.getCons)
         }
-        
         
     },
     watch:{
         select(){
             console.log("watcheando: "+this.$store.consulta.state.seleccion)
+            this.bandDatos = true;
             return this.$store.consulta.state.seleccion
         }
     }
@@ -268,6 +276,13 @@ export default {
     overflow:scroll;
     overflow-x: hidden;
     overflow-y: auto;
+}
+.btnEdita{
+    height: 13px;
+}
+.edit{
+    position: absolute;
+    right: 60px;
 }
 
 

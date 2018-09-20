@@ -7,6 +7,7 @@ import Delete from '@/components/User/Delete'
 import Modify from '@/components/User/Modify'
 import Encuestas from '@/components/User/Encuestas'
 import store from '@/store/index'
+import Modifica from '@/components/User/Modifica'
 Vue.use(Router)
 
 let router = new Router({
@@ -54,6 +55,15 @@ let router = new Router({
           meta: {
             requiresAuth: true,
             name: 'enc'
+          }
+        },
+        {
+          path: '/home/modifica',
+          name: 'modifica',
+          component: Modifica,
+          meta: {
+            requiresAuth: true,
+            name: 'edit'
           }
         }   
       ]

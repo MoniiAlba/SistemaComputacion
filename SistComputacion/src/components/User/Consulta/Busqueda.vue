@@ -89,7 +89,6 @@
 </template>
 
 <script>
-import Resultados from './Resultados.vue'
 export default {
     data(){
         return{
@@ -178,6 +177,7 @@ export default {
             //console.log(cu)
             this.$store.dispatch('actualizaSeleccion', cu)
             this.$store.commit('seleccionn')
+            this.$store.commit('setBand')
             console.log("watcheando busqueda: ", this.$store.getters.getSelec)
         },
         getAlumnos(){

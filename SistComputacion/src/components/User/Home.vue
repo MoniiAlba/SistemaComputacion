@@ -71,9 +71,9 @@
         menuItems: [
           { icon: 'add_circle', title: 'Agrega', link: '/home/add'},
           { icon: 'live_help', title: 'Consulta', link: '/home/modify'},
-          { icon: 'delete', title: 'Elimina', link: '/home/delete'},
-          { icon: 'exit_to_app', title: 'Cerrar sesión', link: '/'},
-          { icon: 'live_help', title: 'Encuestas', link: '/home/encuestas'}
+          { icon: 'delete', title: 'Elimina', link: '/home/delete'},          
+          { icon: 'live_help', title: 'Encuestas', link: '/home/encuestas'},
+          { icon: 'exit_to_app', title: 'Cerrar sesión', link: '/'}
           
         ]
       }

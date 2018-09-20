@@ -216,7 +216,10 @@ export default new Vuex.Store({
         },
         seleccionn(state){
             consulta.state.consulta = 0;    
-            console.log("seleccion: "+consulta.state.consulta)
+            // console.log("seleccion: "+consulta.state.consulta)
+        },
+        setBand(state){
+            consulta.state.bandDatos = true;
         }
     }
 })

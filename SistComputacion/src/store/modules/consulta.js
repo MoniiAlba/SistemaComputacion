@@ -5,6 +5,7 @@ export default{
         tabla:[],
         seleccion: 0,
         consulta: null,
+        bandDatos: false,
         infoAlumno:{
                     actExtra:{
                         Actividad: "",
@@ -88,6 +89,9 @@ export default{
         },
         getCons(state){
             return state.consulta
+        },
+        getBand(state){
+            return state.bandDatos
         }
 
     },
@@ -117,7 +121,7 @@ export default{
         },
         actualizaSeleccion(context, cu){
             context.commit('setSeleccion', cu)
-            context.commit('setCons')
+            //context.commit('setCons')
             context.dispatch('fetchInfoAlumnoSeleccionado', cu)
         },
         fetchInfoAlumnoSeleccionado(context, cuAlum){
@@ -174,6 +178,7 @@ export default{
         setCons(state){
             if(state.consulta!=null)
                 state.consulta = null;
+                //state.infoAlumno = null;
         }
 
     }
