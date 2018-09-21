@@ -458,8 +458,8 @@
 					</v-flex>
 
 					<v-container xs12 sm6 class="text-xs-center mt-3">
-						<v-btn large color="green" dark @click="submit">submit</v-btn>
-						<v-btn large color="red" dark @click="clear">clear</v-btn>
+						<v-btn large color="green" dark @click="submit">guardar cambios</v-btn>
+						<v-btn large color="red" dark @click="clear">cancelar</v-btn>
 					</v-container>
 
 				</v-layout>
@@ -637,7 +637,12 @@ export default {
     	}
       },
       beforeMount: function(){
-              console.log('before mounted :D ')
+			  console.log('before mounted :D ')
+			  console.log(this.$store.getters.empresasDropDown); 
+			  var univ = this.$store.getters.universidadesDropDown;
+			  var esc = this.$store.getters.escuelasDropDown;
+			  var emp = this.$store.getters.empresasDropDown;
+			  console.log('before mounted :D ')
               var info1 = this.$store.getters.infoAlumno;
               var info2 = this.$store.getters.alumnoSeleccionado;
               this.alumno.cu = info2.cu;
@@ -676,13 +681,29 @@ export default {
               this.sanciones.area = info1.sancion.Area;
               this.sanciones.descripcion = info1.sancion.Descripcion;
               this.sanciones.problemasReglamento = info1.sancion.Reglamento;
-              this.universidad.anio = info1.estancia.Fecha;
-              this.universidad.idEst = info1.estancia.Universidad;
-
-              
-
-
-          
+			  this.universidad.anio = info1.estancia.Fecha;
+			  for(var i = 0; i < univ.length; i++){
+				  console.log('en universidad')
+				  if(univ[i].text == info1.estancia.Universidad){
+					  this.universidad.idEst = univ[i].value;
+				  }
+			  }
+			  this.escuelaAlterna.carrera = info1.escuelaAlt.Carrera;
+			  for(var i = 0; i < esc.length; i++){
+				  if(esc[i].text == info1.escuelaAlt.Universidad){
+					  this.escuelaAlterna.idEsc = esc[i].value;
+				  }
+			  }
+			  this.empresa.puesto = info1.empresa.Puesto;
+			  this.empresa.fechaIni = info1.empresa.FechaDeInicio;
+			  for(var i = 0; i < emp.length; i++){
+				  if(emp[i].text == info1.empresa.Nombre){
+					 console.log(this.empresa.rfc = emp[i].value); 
+					  this.empresa.rfc = emp[i].value;
+				  }
+			  }
+			  this.coment.comentario = info1.comentarios[0].Comentario;
+			  this.coment.asunto = info1.comentarios[0].Asunto;
       },
 	  computed:{
 		  preparatorias(){
@@ -698,6 +719,7 @@ export default {
 		  todasUniversidades(){
 			  //console.log('Desde computed')
 			  //console.log(this.$store.getters.universidadesDropDown)
+			  console.log('ya pifé')
 			  return this.$store.getters.universidadesDropDown
 		  },
 
