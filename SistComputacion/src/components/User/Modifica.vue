@@ -62,20 +62,16 @@
 									></v-text-field>
 								</v-flex>
 
-								<v-flex xs12 sm3>
-									<v-text-field
-										label="Teléfono"
-										type = "number"
-										v-model="alumno.telefono"
-									></v-text-field>
-								</v-flex>
-								<v-flex xs12 sm3>
-									<v-text-field
-										label= "Celular"
-										type = "number"
-										v-model="alumno.celular"
-									></v-text-field>
-								</v-flex>
+								<v-flex xs12 sm3
+                                    v-for="t in alumno.telefonos"
+                                    :key="t.Descripcion+t.Telefono"
+                                    px-2>
+                                    <v-text-field
+                                        :label="t.Descripcion"
+                                        :value="t.Telefono"
+                                        readonly
+                                    ></v-text-field>
+                                </v-flex>
 
 								<v-flex xs12 sm3>
 									<v-text-field
@@ -498,8 +494,7 @@ export default {
 					apellidoM:'',
 					programa:'',
 					email:'',
-					telefono:'',
-					celular: '',
+					telefono: [],
 					estado:'',
 					calle:'',
 					colonia:'',
@@ -640,7 +635,55 @@ export default {
 				{ text: 'Zacatecas', value: 'Zacatecas'}
 			]
     	}
-	  },
+      },
+      beforeMount: function(){
+              console.log('before mounted :D ')
+              var info1 = this.$store.getters.infoAlumno;
+              var info2 = this.$store.getters.alumnoSeleccionado;
+              this.alumno.cu = info2.cu;
+              this.alumno.nombre = info2.nombre;
+              this.alumno.apellidoP = info2.apellidoP;
+              this.alumno.apellidoM = info2.apellidoM;
+              this.alumno.telefonos = info1.telefonos;
+              this.alumno.email = info2.email;
+              this.alumno.calle = info2.calle;
+              this.alumno.numExt = info2.numExt;
+              this.alumno.numInt = info2.numInt;
+              this.alumno.pais = info2.pais;
+              this.alumno.colonia = info2.colonia;
+              this.alumno.delegacion = info2.delegacion;
+              this.alumno.cp = info2.cp;
+              this.alumno.estado = info2.estado;
+              this.alumno.ciudad = info2.ciudad;
+              this.prepa.cuAlum = this.alumno.cu;
+              this.prepa.nombrePrep = info1.preparatoria.Preparatoria;
+              this.prepa.promedio = info1.preparatoria.Promedio;
+              this.prepa.comoConocioItam = info1.preparatoria.ComoConocioItam;
+              this.prepa.tomoTutoria = info1.preparatoria.TomoTutoria;
+              this.alumno.beca = parseInt(info2.beca);
+              this.alumno.programa = info2.programa;
+              this.actExtra.cuAlum = this.alumno.cu;
+              this.actExtra.nombre = info1.actExtra.Actividad;
+              var actExt = info1.actExtra.Tipo;
+              this.actividadesExtras.forEach(act => {
+                  if (actExt == act.value)
+                    this.otroActExtra = false;
+                  else
+                        this.otroActExtra = true;
+              });
+              this.actExtra.tipo = info1.actExtra.Tipo;
+              this.sanciones.cuAlum = this.alumno.cu;
+              this.sanciones.area = info1.sancion.Area;
+              this.sanciones.descripcion = info1.sancion.Descripcion;
+              this.sanciones.problemasReglamento = info1.sancion.Reglamento;
+              this.universidad.anio = info1.estancia.Fecha;
+              this.universidad.idEst = info1.estancia.Universidad;
+
+              
+
+
+          
+      },
 	  computed:{
 		  preparatorias(){
 			  var aux = []
@@ -667,8 +710,8 @@ export default {
 			  //console.log('Desde computed')
 			  //console.log(this.$store.getters.universidadesDropDown)
 			  return this.$store.getters.empresasDropDown
-		  }
-
+          }
+        
 	  },
   	methods:{
 

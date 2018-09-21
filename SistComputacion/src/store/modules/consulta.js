@@ -92,6 +92,9 @@ export default{
         },
         getBand(state){
             return state.bandDatos
+        },
+        getSeleccion(state){
+            return state.seleccion
         }
 
     },
