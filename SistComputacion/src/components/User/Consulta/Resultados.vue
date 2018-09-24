@@ -16,7 +16,7 @@
                 </v-layout>
                 <div class="btnEdita">
                     <router-link :to="{name: 'modifica'}">
-                        <v-btn v-if="bandDatos" class="edit" color="info" href="/home/modifica"><v-icon>edit</v-icon></v-btn>
+                        <v-btn v-if="bandDatos" class="edit" color="info" href="/home/modifica" title="Editar"><v-icon>edit</v-icon></v-btn>
                     </router-link>                  
                 </div>
                 </v-container>

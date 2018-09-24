@@ -1,7 +1,14 @@
 <template>
   <v-container>
-	  	<p class="text-xs-center display-1">Edición de datos de </p>
+	  <div class="head">
 
+		  <router-link :to="{name: 'modify'}" style="text-decoration:none;">
+			<v-btn class="back" color="info" href="/home/modify" title="Regresar"><v-icon>arrow_back</v-icon></v-btn>
+		</router-link>  
+	  	<p class="text-xs-center display-1">Edición de datos de {{regresaNom()}} </p>
+		
+                                    
+      </div>
     	<form>
 			<v-container grid-list-sm>
 				<v-layout row wrap>
@@ -736,6 +743,9 @@ export default {
         
 	  },
   	methods:{
+		  regresaNom(){
+			  return this.alumno.nombre +" "+ this.alumno.apellidoP;
+		  },
 
 		enviaJson(api,json){
 			console.log('Enviando: ')
@@ -900,5 +910,12 @@ export default {
 </script>
 
 <style scoped>
+
+.back{
+	position: relative;
+    background: #6496e8;
+    color: white;
+	height: 30px;
+}
 
 </style>
