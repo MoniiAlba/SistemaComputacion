@@ -16,7 +16,6 @@
               :key="item.title"
               router
               :to="item.link"
-              
               >
             <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -46,6 +45,7 @@
             class="hidden-sm-and-down"
             router
             :to="item.link"
+            focus=menuItems[0]
             >
             <v-icon left> {{ item.icon }} </v-icon>
               {{ item.title }}

@@ -103,9 +103,9 @@ export default{
         fetchAlumnos(context,  reqBody){
             return axios.post(context.rootState.api, reqBody,{ withCredentials:true})
               .then(function (response) {
-                //console.log('Desde vuex')
-                //console.log(response);
-                //console.log(response.data)
+                console.log('Desde vuex')
+                console.log(response);
+                console.log(response.data)
                 //console.log(response.data)
                 if(!response.data.hasOwnProperty('error')){
                     console.log(response.data)

@@ -5,7 +5,7 @@
 		  <router-link :to="{name: 'modify'}" style="text-decoration:none;">
 			<v-btn class="back" color="info" href="/home/modify" title="Regresar"><v-icon>arrow_back</v-icon></v-btn>
 		</router-link>  
-	  	<p class="text-xs-center display-1">Edición de datos de {{regresaNom()}} </p>
+	  	<p v-once class="text-xs-center display-1">Edición de datos de {{regresaNom()}} </p>
 		
                                     
       </div>
@@ -645,6 +645,11 @@ export default {
       },
       beforeMount: function(){
 			  console.log('before mounted :D ')
+			  var vm = this
+			  this.$store.dispatch('fetchPreparatorias')
+			  this.$store.dispatch('fetchUniversidades')
+			  this.$store.dispatch('fetchEscuelasAlt')
+			  this.$store.dispatch('fetchEmpresas')
 			  console.log(this.$store.getters.empresasDropDown); 
 			  var univ = this.$store.getters.universidadesDropDown;
 			  var esc = this.$store.getters.escuelasDropDown;
@@ -727,7 +732,7 @@ export default {
 			  //console.log('Desde computed')
 			  //console.log(this.$store.getters.universidadesDropDown)
 			  console.log('ya pifé')
-			  return this.$store.getters.universidadesDropDown
+			  return this.$store.getters.universidadesDropDown 
 		  },
 
 		  escuelasAltDropDown(){
@@ -770,26 +775,6 @@ export default {
        	var vm = this;
       	this.$validator.validateAll().then((result) => {
 				if (result||!result) {
-					//not yet
-					/*let materias = {
-						'dominio' : 'materias',
-						'func' : 'insertaMateria',
-						'cMateria' : vm.cMateria,
-						'folio' : vm.folioMat,
-						'numCreditos' : vm.numCreds,
-						'nombre' : vm.nomMat,
-						'semestre' : vm.semestre
-					};
-					let registraMatAlum = {
-						'dominio' : 'materias',
-						'func' : 'registraMatAlum',
-						'cuAlum' : vm.cu,
-						'cMateria' : vm.cMat,
-						'estatusFin' : vm.etatusFin,
-						'calificacion' : vm.calif
-					};*/
-
-					//vm.sendData(alum);
 					vm.alumno.dominio='alumnos'
 					vm.alumno.func = 'insertaAlumno'
 					vm.enviaJson(vm.$store.state.api, vm.alumno)
@@ -897,14 +882,14 @@ export default {
 				this.escuelaAlterna[it] = ''
 	 	}
 	  },
-	  created(){
-		  	var vm = this
-			  this.$store.dispatch('fetchPreparatorias')
-			  this.$store.dispatch('fetchUniversidades')
-			  this.$store.dispatch('fetchEscuelasAlt')
-			  this.$store.dispatch('fetchEmpresas')
-			  
-	  }
+	created(){
+		var vm = this
+			this.$store.dispatch('fetchPreparatorias')
+			this.$store.dispatch('fetchUniversidades')
+			this.$store.dispatch('fetchEscuelasAlt')
+			this.$store.dispatch('fetchEmpresas')
+			
+	}
 	 
 }
 </script>
